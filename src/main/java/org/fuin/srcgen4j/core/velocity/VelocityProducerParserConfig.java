@@ -30,10 +30,10 @@ import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
 
 /**
- * Configuration for the velocity generator.
+ * Configuration for a {@link VelocityProducerParser}.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "velocity-producer-parser-config")
+@XmlRootElement(name = "velocity-producer-parser")
 public class VelocityProducerParserConfig extends AbstractElement implements
         InitializableElement<VelocityProducerParserConfig, GeneratorConfig> {
 
