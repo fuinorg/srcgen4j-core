@@ -27,39 +27,25 @@ import org.apache.commons.io.FileUtils;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.SrcGen4J;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF
 public class ParameterizedTemplateGeneratorTest {
 
-    private static final String TEMPLATE_DIR = "src/test/resources";
+    private static final String TEST_RES_DIR = "src/test/resources";
 
     private static final String TARGET_DIR = "target/test-data";
-
-    private ParameterizedTemplateGenerator testee;
-
-    @Before
-    public void before() {
-        testee = new ParameterizedTemplateGenerator();
-    }
-
-    @After
-    public void after() {
-        testee = null;
-    }
 
     @Test
     public void testIntegration() throws Exception {
 
         // PREPARE
-        final File expectedA = new File("src/test/resources/A.java");
-        final File expectedB = new File("src/test/resources/B.java");
-        final File expectedA2 = new File("src/test/resources/A2.java");
-        final File expectedB2 = new File("src/test/resources/B2.java");
+        final File expectedA = new File(TEST_RES_DIR + "/A.java");
+        final File expectedB = new File(TEST_RES_DIR + "/B.java");
+        final File expectedA2 = new File(TEST_RES_DIR + "/A2.java");
+        final File expectedB2 = new File(TEST_RES_DIR + "/B2.java");
 
-        final File configFile = new File("src/test/resources/velocity-test-config.xml");
+        final File configFile = new File(TEST_RES_DIR + "/velocity-test-config.xml");
         final JaxbHelper helper = new JaxbHelper();
         final SrcGen4JConfig config = helper.create(configFile, JAXBContext
                 .newInstance(SrcGen4JConfig.class, VelocityGeneratorConfig.class,
@@ -90,5 +76,6 @@ public class ParameterizedTemplateGeneratorTest {
         assertThat(FileUtils.contentEquals(fileB2, expectedB2)).isTrue();
 
     }
+
 }
 // CHECKSTYLE:ON
