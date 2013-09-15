@@ -26,16 +26,17 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.srcgen4j.commons.AbstractElement;
+import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
 
 /**
- * Configuration for a {@link VelocityProducerParser}.
+ * Configuration for a {@link ParameterizedTemplateParser}.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "velocity-producer-parser")
-public class VelocityProducerParserConfig extends AbstractElement implements
-        InitializableElement<VelocityProducerParserConfig, GeneratorConfig> {
+@XmlRootElement(name = "parameterized-template-parser")
+public class ParameterizedTemplateParserConfig extends AbstractElement implements
+        InitializableElement<ParameterizedTemplateParserConfig, Config<GeneratorConfig>> {
 
     @XmlAttribute(name = "modelPath")
     private String modelPath;
@@ -43,7 +44,7 @@ public class VelocityProducerParserConfig extends AbstractElement implements
     /**
      * Default constructor.
      */
-    public VelocityProducerParserConfig() {
+    public ParameterizedTemplateParserConfig() {
         super();
     }
 
@@ -53,7 +54,7 @@ public class VelocityProducerParserConfig extends AbstractElement implements
      * @param modelPath
      *            Model path.
      */
-    public VelocityProducerParserConfig(final String modelPath) {
+    public ParameterizedTemplateParserConfig(final String modelPath) {
         super();
         this.modelPath = modelPath;
     }
@@ -90,7 +91,7 @@ public class VelocityProducerParserConfig extends AbstractElement implements
     }
 
     @Override
-    public final VelocityProducerParserConfig init(final GeneratorConfig parent,
+    public final ParameterizedTemplateParserConfig init(final Config<GeneratorConfig> parent,
             final Map<String, String> vars) {
         setModelPath(replaceVars(getModelPath(), vars));
         return this;

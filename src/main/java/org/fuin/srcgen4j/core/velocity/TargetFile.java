@@ -21,6 +21,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -28,6 +29,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.vo.TrimmedNotEmpty;
 
 /**
  * File to produce.
@@ -38,12 +40,15 @@ public final class TargetFile implements Serializable, Comparable<TargetFile> {
 
     private static final long serialVersionUID = 1L;
 
+    @TrimmedNotEmpty
     @XmlAttribute
     private String path;
 
+    @TrimmedNotEmpty
     @XmlAttribute
     private String name;
 
+    @Valid
     @XmlElement(name = "argument")
     private List<Argument> arguments;
 

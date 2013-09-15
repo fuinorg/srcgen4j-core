@@ -23,9 +23,9 @@ import org.apache.velocity.VelocityContext;
 import org.fuin.srcgen4j.commons.GenerateException;
 
 /**
- * Generates files for the given {@link VelocityProducersConfig} model.
+ * Generates files for a given {@link ParameterizedTemplates} model.
  */
-public final class VelocityProducerGenerator extends VelocityGenerator<VelocityProducersConfig> {
+public final class ParameterizedTemplateGenerator extends VelocityGenerator<ParameterizedTemplates> {
 
     /** Unique name of the only artifact type the generator produces. */
     public static final String ARTIFACT_NAME = "file";
@@ -33,19 +33,29 @@ public final class VelocityProducerGenerator extends VelocityGenerator<VelocityP
     @Override
     protected final void generateIntern() throws GenerateException {
 
-        final List<VelocityProducerConfig> producerConfigList = getModel().getProducerConfigs();
-        for (final VelocityProducerConfig producerConfig : producerConfigList) {
+        final List<ParameterizedTemplate> templateList = getModel().getParamTemplates();
+        for (final ParameterizedTemplate template : templateList) {
 
-            final List<TargetFile> targetFiles = producerConfig.createTargetFileList();
+            final List<TargetFile> targetFiles = template.createTargetFileList();
             for (final TargetFile targetFile : targetFiles) {
+
+                // Populate default values
                 final VelocityContext context = new VelocityContext();
+                if (template.getArguments() != null) {
+                    for (final Argument arg : template.getArguments()) {
+                        context.put(arg.getKey(), arg.getValue());
+                    }
+                }
+
+                // Set specific values for the target file
                 if (targetFile.getArguments() != null) {
                     for (final Argument arg : targetFile.getArguments()) {
                         context.put(arg.getKey(), arg.getValue());
                     }
                 }
-                merge(context, ARTIFACT_NAME, producerConfig.getTemplate(),
-                        targetFile.getPathAndName());
+
+                merge(context, ARTIFACT_NAME, template.getTemplate(), targetFile.getPathAndName());
+
             }
 
         }

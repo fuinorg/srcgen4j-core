@@ -24,12 +24,15 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -43,33 +46,43 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Generates files using velocity.
+ * Velocity template that has a number of parameters. Every target file defines
+ * concrete values for those parameters. The list of target files is statically
+ * defined or dynamically created by another class that generates the list.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "velocity-producer")
-@XmlType(propOrder = { "targetFileListProducer", "targetFiles", "template" })
+@XmlRootElement(name = "parameterized-template")
+@XmlType(propOrder = { "template", "arguments", "targetFiles", "tflProducerConfig" })
+@TargetArgsMatchTemplateArgs
 @TargetFilesMustBeAvailable
-public class VelocityProducerConfig implements Serializable, Comparable<VelocityProducerConfig>,
+public class ParameterizedTemplate implements Serializable, Comparable<ParameterizedTemplate>,
         Producer {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOG = LoggerFactory.getLogger(VelocityProducerConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplate.class);
 
     @XmlAttribute
     @TrimmedNotEmpty
     private String template;
 
+    @Valid
+    @XmlElementWrapper(name = "arguments")
+    @XmlElement(name = "argument")
+    private List<Argument> arguments;
+
+    @Valid
     @XmlElement(name = "target-file")
     private List<TargetFile> targetFiles;
 
+    @Valid
     @XmlElement(name = "target-file-list-producer")
     private TargetFileListProducerConfig tflProducerConfig;
 
     /**
      * Default constructor.
      */
-    public VelocityProducerConfig() {
+    public ParameterizedTemplate() {
         super();
     }
 
@@ -82,7 +95,7 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
      *            Array of target files - Cannot be NULL and should have at
      *            least one entry.
      */
-    public VelocityProducerConfig(final String template, final TargetFile... targetFiles) {
+    public ParameterizedTemplate(final String template, final TargetFile... targetFiles) {
         super();
 
         this.template = template;
@@ -95,18 +108,17 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
             }
         }
 
-        Contract.requireValid(this);
     }
 
     /**
-     * Constructor with producer.
+     * Constructor with target file list producer.
      * 
      * @param template
      *            Relative path and name of the template - Cannot be NULL.
      * @param tflProducerConfig
      *            Configuration - Cannot be NULL.
      */
-    public VelocityProducerConfig(final String template,
+    public ParameterizedTemplate(final String template,
             final TargetFileListProducerConfig tflProducerConfig) {
         super();
 
@@ -114,30 +126,85 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
         this.targetFiles = null;
         this.tflProducerConfig = tflProducerConfig;
 
-        Contract.requireValid(this);
     }
 
     /**
      * Returns the path and name of the template.
      * 
-     * @return Relative path and name - Never NULL.
+     * @return Relative path and name.
      */
     public final String getTemplate() {
         return template;
     }
 
     /**
+     * Sets the path and name of the template.
+     * 
+     * @param template
+     *            Relative path and name.
+     */
+    public final void setTemplate(final String template) {
+        this.template = template;
+    }
+
+    /**
+     * Returns the list of arguments defined by the template. All values serve
+     * as default for the parameters defined in a target file.
+     * 
+     * @return Arguments and their default values defined for the template.
+     */
+    public final List<Argument> getArguments() {
+        return arguments;
+    }
+
+    /**
+     * Sets the list of arguments defined by the template. All values serve as
+     * default for the parameters defined in a target file.
+     * 
+     * @param arguments
+     *            Arguments and their default values defined for the template or
+     *            NULL.
+     */
+    public final void setArguments(final List<Argument> arguments) {
+        this.arguments = arguments;
+    }
+
+    /**
+     * Adds an argument to the template. If the list of arguments does not
+     * exist, it will be created.
+     * 
+     * @param argument
+     *            Arguments to add.
+     */
+    public final void addArgument(@NotNull final Argument argument) {
+        if (arguments == null) {
+            arguments = new ArrayList<Argument>();
+        }
+        arguments.add(argument);
+    }
+
+    /**
      * Returns the list of target files to produce.
      * 
-     * @return Target files - Never NULL and has at least one entry.
+     * @return Target files.
      */
     public final List<TargetFile> getTargetFiles() {
         return targetFiles;
     }
 
     /**
-     * Returns the list of target files to produce. Either by using the producer
-     * or by simply returning the internal list.
+     * Sets the list of target files to produce.
+     * 
+     * @param targetFiles
+     *            Target file list to set or NULL.
+     */
+    public final void setTargetFiles(final List<TargetFile> targetFiles) {
+        this.targetFiles = targetFiles;
+    }
+
+    /**
+     * Returns the list of target files. Either by using the producer or by
+     * simply returning the internal list.
      * 
      * @return Target files - Never NULL and has at least one entry.
      */
@@ -180,7 +247,7 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final VelocityProducerConfig other = (VelocityProducerConfig) obj;
+        final ParameterizedTemplate other = (ParameterizedTemplate) obj;
         if (template == null) {
             if (other.template != null) {
                 return false;
@@ -194,13 +261,13 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
     // CHECKSTYLE:ON
 
     @Override
-    public final int compareTo(final VelocityProducerConfig other) {
+    public final int compareTo(final ParameterizedTemplate other) {
         return template.compareTo(other.template);
     }
 
     private static JAXBContext createJaxbContext() {
         try {
-            return JAXBContext.newInstance(VelocityProducerConfig.class, TargetFile.class,
+            return JAXBContext.newInstance(ParameterizedTemplate.class, TargetFile.class,
                     Argument.class);
         } catch (final JAXBException ex) {
             throw new RuntimeException(ex);
@@ -208,20 +275,20 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
     }
 
     /**
-     * Checks if the given file contains a serialized velocity producer.
+     * Checks if the given file contains a serialized template.
      * 
      * @param file
      *            File to check.
      * 
-     * @return If the file seems to contain velocity producer XML content TRUE
-     *         else FALSE.
+     * @return If the file contains XML content of the correct type TRUE else
+     *         FALSE.
      */
-    public static boolean isVelocityProducerFile(final File file) {
+    public static boolean isParameterizedTemplateFile(final File file) {
         if (!file.getName().endsWith(".xml")) {
             return false;
         }
         final JaxbHelper helper = new JaxbHelper();
-        return helper.containsStartTag(file, "velocity-producer");
+        return helper.containsStartTag(file, "parameterized-template");
     }
 
     /**
@@ -232,10 +299,10 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
      * 
      * @return New instance.
      */
-    public static VelocityProducerConfig create(final Reader reader) {
+    public static ParameterizedTemplate create(final Reader reader) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final VelocityProducerConfig pc = helper.create(reader, createJaxbContext());
+            final ParameterizedTemplate pc = helper.create(reader, createJaxbContext());
             Contract.requireValid(pc);
             return pc;
         } catch (final UnmarshalObjectException ex) {
@@ -251,10 +318,10 @@ public class VelocityProducerConfig implements Serializable, Comparable<Velocity
      * 
      * @return New instance.
      */
-    public static VelocityProducerConfig create(final File file) {
+    public static ParameterizedTemplate create(final File file) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final VelocityProducerConfig pc = helper.create(file, createJaxbContext());
+            final ParameterizedTemplate pc = helper.create(file, createJaxbContext());
             Contract.requireValid(pc);
             return pc;
         } catch (final UnmarshalObjectException ex) {

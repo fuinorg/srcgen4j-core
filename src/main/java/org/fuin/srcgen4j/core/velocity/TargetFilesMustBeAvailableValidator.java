@@ -29,11 +29,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Validates if at least one of
- * {@link VelocityProducerConfig#getTargetFileListProducer()} and
- * {@link VelocityProducerConfig#getTargetFiles()} is available.
+ * {@link ParameterizedTemplate#getTargetFileListProducer()} and
+ * {@link ParameterizedTemplate#getTargetFiles()} is available.
  */
 public final class TargetFilesMustBeAvailableValidator implements
-        ConstraintValidator<TargetFilesMustBeAvailable, VelocityProducerConfig> {
+        ConstraintValidator<TargetFilesMustBeAvailable, ParameterizedTemplate> {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(TargetFilesMustBeAvailableValidator.class);
@@ -44,7 +44,7 @@ public final class TargetFilesMustBeAvailableValidator implements
     }
 
     @Override
-    public final boolean isValid(final VelocityProducerConfig value,
+    public final boolean isValid(final ParameterizedTemplate value,
             final ConstraintValidatorContext context) {
 
         if (value.getTargetFileListProducerConfig() == null) {

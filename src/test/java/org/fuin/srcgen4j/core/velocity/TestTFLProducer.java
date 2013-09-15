@@ -17,31 +17,21 @@
  */
 package org.fuin.srcgen4j.core.velocity;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
-import javax.validation.Constraint;
-import javax.validation.Payload;
+import java.util.ArrayList;
+import java.util.List;
 
 //CHECKSTYLE:OFF
-/**
- * Validates if {@link ParameterizedTemplate#getTargetFileListProducer()} or
- * {@link ParameterizedTemplate#getTargetFiles()} is set.
- */
-@Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
-@Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { TargetFilesMustBeAvailableValidator.class })
-@Documented
-public @interface TargetFilesMustBeAvailable {
+public final class TestTFLProducer implements TargetFileListProducer {
 
-    String message() default "{org.fuin.srcgen4j.core.velocity.TargetFilesMustBeAvailable.message}";
-
-    Class<?>[] groups() default {};
-
-    Class<? extends Payload>[] payload() default {};
+    @Override
+    public final List<TargetFile> createTargetFiles() {
+        final List<TargetFile> files = new ArrayList<TargetFile>();
+        files.add(new TargetFile("a", "A2.java", new Argument("name", "A2"), new Argument("pkg",
+                "a")));
+        files.add(new TargetFile("b", "B2.java", new Argument("name", "B2"), new Argument("pkg",
+                "b")));
+        return files;
+    }
 
 }
 // CHECKSTYLE:ON

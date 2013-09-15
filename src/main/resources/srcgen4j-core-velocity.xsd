@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://www.fuin.org/srcgen4j/core/velocity">
+	
+	<!-- Configuration for the parser -->
+	
+	<xs:element name="parameterized-template-parser" type="velo:parameterized-template-parserType"
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+	
+	<xs:complexType name="parameterized-template-parserType">
+		<xs:attribute type="xs:string" name="modelPath" use="required" />
+	</xs:complexType>
+	
+	<!-- Configuration for the generator -->
+	
+	<xs:element name="parameterized-template-generator" type="velo:parameterized-template-generatorType"
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+		
+	<xs:complexType name="parameterized-template-generatorType">
+		<xs:attribute type="xs:string" name="templatePath" use="required" />
+	</xs:complexType>
+
+	<!-- Templates -->
+	
+	<xs:element name="parameterized-template" type="velo:parameterized-templateType"
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />	
+	
+	<xs:complexType name="argumentType">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				<xs:attribute type="xs:string" name="key" use="required" />
+				<xs:attribute type="xs:string" name="value" />
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	
+	<xs:complexType name="argumentsType">
+		<xs:sequence>
+			<xs:element type="velo:argumentType" name="argument" minOccurs="0" maxOccurs="unbounded" xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="target-fileType">
+		<xs:sequence>
+			<xs:element type="velo:argumentType" name="argument" minOccurs="0" maxOccurs="unbounded" xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="path" use="required" />
+		<xs:attribute type="xs:string" name="name" use="required" />
+	</xs:complexType>
+
+	<xs:complexType name="target-file-list-producerType">
+		<xs:attribute type="xs:string" name="class" use="required" />
+	</xs:complexType>
+	
+	<xs:complexType name="parameterized-templateType">
+		<xs:sequence>
+			<xs:element type="velo:argumentsType" name="arguments" xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+			<xs:element type="velo:target-fileType" name="target-file" minOccurs="0" maxOccurs="unbounded" xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+			<xs:element type="velo:target-file-list-producerType" name="target-file-list-producer" minOccurs="0" maxOccurs="1" xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity" />
+		</xs:sequence>
+		<xs:attribute type="xs:string" name="template" />
+	</xs:complexType>
+	
+</xs:schema>

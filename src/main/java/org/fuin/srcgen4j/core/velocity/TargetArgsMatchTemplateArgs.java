@@ -28,16 +28,16 @@ import javax.validation.Payload;
 
 //CHECKSTYLE:OFF
 /**
- * Validates if {@link ParameterizedTemplate#getTargetFileListProducer()} or
- * {@link ParameterizedTemplate#getTargetFiles()} is set.
+ * Validates if no target file has unknown parameters that are not defined in
+ * the template's parameter list.
  */
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-@Constraint(validatedBy = { TargetFilesMustBeAvailableValidator.class })
+@Constraint(validatedBy = { TargetArgsMatchTemplateArgsValidator.class })
 @Documented
-public @interface TargetFilesMustBeAvailable {
+public @interface TargetArgsMatchTemplateArgs {
 
-    String message() default "{org.fuin.srcgen4j.core.velocity.TargetFilesMustBeAvailable.message}";
+    String message() default "{org.fuin.srcgen4j.core.velocity.TargetArgsMatchTemplateArgs.message}";
 
     Class<?>[] groups() default {};
 

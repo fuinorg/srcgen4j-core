@@ -23,28 +23,32 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
-import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.vo.TrimmedNotEmpty;
 
 /**
  * Container for a key and a value combination.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(propOrder = { "value", "key" })
 @XmlRootElement(name = "argument")
 public final class Argument implements Serializable, Comparable<Argument> {
 
     private static final long serialVersionUID = 1L;
 
+    @TrimmedNotEmpty
     @XmlAttribute
     private String key;
 
+    @TrimmedNotEmpty
     @XmlAttribute
     private String value;
 
     /**
-     * Default constructor for deserialization.
+     * Default constructor.
      */
-    Argument() {
+    public Argument() {
         super();
     }
 
@@ -58,8 +62,6 @@ public final class Argument implements Serializable, Comparable<Argument> {
      */
     public Argument(final String key, final String value) {
         super();
-        Contract.requireArgNotNull("key", key);
-        Contract.requireArgNotNull("value", value);
         this.key = key;
         this.value = value;
     }
@@ -105,6 +107,11 @@ public final class Argument implements Serializable, Comparable<Argument> {
     @Override
     public final int compareTo(final Argument other) {
         return key.compareTo(other.key);
+    }
+
+    @Override
+    public final String toString() {
+        return key + "='" + value + "'";
     }
 
 }

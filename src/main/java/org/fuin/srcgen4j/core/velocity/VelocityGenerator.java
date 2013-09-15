@@ -28,6 +28,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.Folder;
 import org.fuin.srcgen4j.commons.GenerateException;
 import org.fuin.srcgen4j.commons.Generator;
@@ -164,13 +165,24 @@ public abstract class VelocityGenerator<MODEL> implements Generator<MODEL> {
     @Override
     public final void generate(final GeneratorConfig config, final MODEL model)
             throws GenerateException {
+
+        Contract.requireArgNotNull("config", config);
+        Contract.requireArgNotNull("model", model);
+        Contract.requireValid(config);
+        Contract.requireValid(model);
+
         this.config = config;
         this.model = model;
-        final Object obj = config.getConfig();
+        final Object obj = config.getConfig().getConfig();
         if (!(obj instanceof VelocityGeneratorConfig)) {
+            final String name;
+            if (obj == null) {
+                name = "null";
+            } else {
+                name = obj.getClass().getName();
+            }
             throw new IllegalStateException("The configuration is expected to be of type '"
-                    + VelocityGeneratorConfig.class.getName() + "', but was: "
-                    + obj.getClass().getName());
+                    + VelocityGeneratorConfig.class.getName() + "', but was: " + name);
         }
         final VelocityGeneratorConfig cfg = (VelocityGeneratorConfig) obj;
         this.templateDir = cfg.getTemplateDir();

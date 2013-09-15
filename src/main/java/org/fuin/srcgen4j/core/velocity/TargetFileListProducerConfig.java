@@ -19,6 +19,7 @@ package org.fuin.srcgen4j.core.velocity;
 
 import java.util.Map;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.utils4j.Utils4J;
@@ -37,17 +39,19 @@ import org.fuin.utils4j.Utils4J;
 @XmlRootElement(name = "target-file-list-producer")
 @XmlType(propOrder = { "config", "className" })
 public class TargetFileListProducerConfig extends AbstractElement implements
-        InitializableElement<TargetFileListProducerConfig, VelocityProducerConfig> {
+        InitializableElement<TargetFileListProducerConfig, ParameterizedTemplate> {
 
+    @TrimmedNotEmpty
     @XmlAttribute(name = "class")
     private String className;
 
+    @Valid
     @XmlAnyElement(lax = true)
     private Object config;
 
     private transient TargetFileListProducer tflProducer;
 
-    private transient VelocityProducerConfig parent;
+    private transient ParameterizedTemplate parent;
 
     /**
      * Default constructor.
@@ -101,7 +105,7 @@ public class TargetFileListProducerConfig extends AbstractElement implements
      * 
      * @return Parent.
      */
-    public final VelocityProducerConfig getParent() {
+    public final ParameterizedTemplate getParent() {
         return parent;
     }
 
@@ -111,13 +115,13 @@ public class TargetFileListProducerConfig extends AbstractElement implements
      * @param parent
      *            Parent.
      */
-    public final void setParent(final VelocityProducerConfig parent) {
+    public final void setParent(final ParameterizedTemplate parent) {
         this.parent = parent;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public final TargetFileListProducerConfig init(final VelocityProducerConfig parent,
+    public final TargetFileListProducerConfig init(final ParameterizedTemplate parent,
             final Map<String, String> vars) {
         setParent(parent);
         setClassName(replaceVars(getClassName(), vars));

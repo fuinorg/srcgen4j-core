@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,101 +33,104 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.fuin.objects4j.common.Contract;
+import org.fuin.objects4j.common.NotEmpty;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.MarshalObjectException;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
 
 /**
- * Configuration for several velocity producers.
+ * A collection of multiple {@link ParameterizedTemplate} objects.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "velocity-producers")
-@XmlType(propOrder = { "producerConfigs" })
-public class VelocityProducersConfig {
+@XmlRootElement(name = "parameterized-templates")
+@XmlType(propOrder = { "paramTemplates" })
+public class ParameterizedTemplates {
 
-    @XmlElement(name = "velocity-producer")
-    private List<VelocityProducerConfig> producerConfigs;
+    @Valid
+    @NotEmpty
+    @XmlElement(name = "parameterized-template")
+    private List<ParameterizedTemplate> paramTemplates;
 
     /**
      * Default constructor.
      */
-    public VelocityProducersConfig() {
+    public ParameterizedTemplates() {
         super();
     }
 
     /**
-     * Returns the list of producer configurations.
+     * Returns the list of templates.
      * 
-     * @return Configuration list.
+     * @return Template list.
      */
-    public final List<VelocityProducerConfig> getProducerConfigs() {
-        return producerConfigs;
+    public final List<ParameterizedTemplate> getParamTemplates() {
+        return paramTemplates;
     }
 
     /**
-     * Sets the list of producer configurations to a new value.
+     * Sets the list of templates to a new value.
      * 
-     * @param producerConfigs
-     *            Configuration list to set.
+     * @param paramTemplates
+     *            Template list to set.
      */
-    public final void setProducerConfigs(final List<VelocityProducerConfig> producerConfigs) {
-        this.producerConfigs = producerConfigs;
+    public final void setParamTemplates(final List<ParameterizedTemplate> paramTemplates) {
+        this.paramTemplates = paramTemplates;
     }
 
     /**
-     * Adds another producer configuration to the list. If the list does not
-     * exist,it will be created.
+     * Adds another template to the list. If the list does not exist,it will be
+     * created.
      * 
-     * @param producerConfig
-     *            Configuration to add - Cannot be NULL.
+     * @param paramTemplate
+     *            Template to add - Cannot be NULL.
      */
-    public final void addProducerConfig(final VelocityProducerConfig producerConfig) {
-        if (producerConfigs == null) {
-            producerConfigs = new ArrayList<VelocityProducerConfig>();
+    public final void addParamTemplate(final ParameterizedTemplate paramTemplate) {
+        if (paramTemplates == null) {
+            paramTemplates = new ArrayList<ParameterizedTemplate>();
         }
-        producerConfigs.add(producerConfig);
+        paramTemplates.add(paramTemplate);
     }
 
     /**
-     * Adds all configurations from another producers configuration to the list.
-     * If the list does not exist,it will be created.
+     * Adds all templates from another configuration to the list. If the list
+     * does not exist,it will be created.
      * 
-     * @param producersConfig
-     *            Configuration to add - Cannot be NULL.
+     * @param paramTemplates
+     *            Container with templates to add - Cannot be NULL.
      */
-    public final void addProducersConfig(final VelocityProducersConfig producersConfig) {
-        final List<VelocityProducerConfig> list = producersConfig.getProducerConfigs();
+    public final void addParamTemplates(final ParameterizedTemplates paramTemplates) {
+        final List<ParameterizedTemplate> list = paramTemplates.getParamTemplates();
         if (list != null) {
-            for (final VelocityProducerConfig cfg : list) {
-                addProducerConfig(cfg);
+            for (final ParameterizedTemplate template : list) {
+                addParamTemplate(template);
             }
         }
     }
 
     private static JAXBContext createJaxbContext() {
         try {
-            return JAXBContext.newInstance(VelocityProducersConfig.class,
-                    VelocityProducerConfig.class, TargetFile.class, Argument.class);
+            return JAXBContext.newInstance(ParameterizedTemplates.class,
+                    ParameterizedTemplate.class, TargetFile.class, Argument.class);
         } catch (final JAXBException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     /**
-     * Checks if the given file contains a serialized velocity producers object.
+     * Checks if the given file contains a serialized object of this type.
      * 
      * @param file
      *            File to check.
      * 
-     * @return If the file seems to contain velocity producer XML content TRUE
-     *         else FALSE.
+     * @return If the file contains XML content of the correct type TRUE else
+     *         FALSE.
      */
-    public static boolean isVelocityProducersFile(final File file) {
+    public static boolean isParameterizedTemplatesFile(final File file) {
         if (!file.getName().endsWith(".xml")) {
             return false;
         }
         final JaxbHelper helper = new JaxbHelper();
-        return helper.containsStartTag(file, "velocity-producers");
+        return helper.containsStartTag(file, "parameterized-templates");
     }
 
     /**
@@ -137,10 +141,10 @@ public class VelocityProducersConfig {
      * 
      * @return New instance.
      */
-    public static VelocityProducersConfig create(final Reader reader) {
+    public static ParameterizedTemplates create(final Reader reader) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final VelocityProducersConfig pcs = helper.create(reader, createJaxbContext());
+            final ParameterizedTemplates pcs = helper.create(reader, createJaxbContext());
             Contract.requireValid(pcs);
             return pcs;
         } catch (final UnmarshalObjectException ex) {
@@ -156,10 +160,10 @@ public class VelocityProducersConfig {
      * 
      * @return New instance.
      */
-    public static VelocityProducersConfig create(final File file) {
+    public static ParameterizedTemplates create(final File file) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final VelocityProducersConfig pcs = helper.create(file, createJaxbContext());
+            final ParameterizedTemplates pcs = helper.create(file, createJaxbContext());
             Contract.requireValid(pcs);
             return pcs;
         } catch (final UnmarshalObjectException ex) {

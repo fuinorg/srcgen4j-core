@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameterized-template template="parameterized-template-2.java" xmlns="http://www.fuin.org/srcgen4j/core/velocity">
+	
+	<arguments>
+		<argument key="name" value="-" />
+		<argument key="pkg" value="-" />
+	</arguments>
+
+	<target-file-list-producer class="org.fuin.srcgen4j.core.velocity.TestTFLProducer" />
+	
+</parameterized-template>

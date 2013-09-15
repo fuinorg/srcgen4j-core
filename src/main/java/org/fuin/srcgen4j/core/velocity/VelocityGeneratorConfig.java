@@ -23,20 +23,21 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
 
+import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.AbstractElement;
+import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
 
 /**
- * Configuration for the velocity generator.
+ * Minimal configuration for the velocity based generators.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "velocity-generator-config")
-public class VelocityGeneratorConfig extends AbstractElement implements
-        InitializableElement<VelocityGeneratorConfig, GeneratorConfig> {
+public abstract class VelocityGeneratorConfig extends AbstractElement implements
+        InitializableElement<VelocityGeneratorConfig, Config<GeneratorConfig>> {
 
+    @TrimmedNotEmpty
     @XmlAttribute(name = "templatePath")
     private String templatePath;
 
@@ -90,10 +91,21 @@ public class VelocityGeneratorConfig extends AbstractElement implements
     }
 
     @Override
-    public final VelocityGeneratorConfig init(final GeneratorConfig parent,
+    public final VelocityGeneratorConfig init(final Config<GeneratorConfig> parent,
             final Map<String, String> vars) {
         setTemplatePath(replaceVars(getTemplatePath(), vars));
+        init(vars);
         return this;
+    }
+
+    /**
+     * Initialize child objects.
+     * 
+     * @param vars
+     *            Variable context.
+     */
+    protected void init(final Map<String, String> vars) {
+        // Empty default implementation
     }
 
 }

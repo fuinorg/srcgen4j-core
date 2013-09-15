@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameterized-template template="parameterized-template-1.java" xmlns="http://www.fuin.org/srcgen4j/core/velocity">
+	
+	<arguments>
+		<argument key="name" value="-" />
+		<argument key="pkg" value="-" />
+	</arguments>
+	
+	<target-file path="a" name="A.java">
+		<argument key="name" value="A" />
+		<argument key="pkg" value="a" />
+	</target-file>
+	
+	<target-file path="b" name="B.java">
+		<argument key="name" value="B" />
+		<argument key="pkg" value="b" />
+	</target-file>
+	
+</parameterized-template>
