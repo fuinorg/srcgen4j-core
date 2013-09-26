@@ -28,7 +28,6 @@ import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.fuin.srcgen4j.commons.GenerateException;
-import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.core.base.AbstractGenerator;
 import org.fuin.srcgen4j.core.base.GeneratedFile;
 import org.slf4j.Logger;
@@ -56,7 +55,8 @@ public abstract class VelocityGenerator<MODEL> extends
      * Returns an initialized velocity engine.
      * 
      * @return Engine - Never NULL after
-     *         {@link #generate(GeneratorConfig, MODEL)} was called.
+     *         {@link #generate(org.fuin.srcgen4j.commons.GeneratorConfig, MODEL)}
+     *         was called.
      */
     protected final VelocityEngine getVE() {
         return ve;
