@@ -17,8 +17,7 @@
  */
 package org.fuin.srcgen4j.core.jamopp;
 
-import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +31,7 @@ import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
+import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 
 /**
  * Configuration for a {@link JaMoPPParser}.
@@ -42,20 +42,16 @@ public class JaMoPPParserConfig extends AbstractElement implements
         InitializableElement<JaMoPPParserConfig, Config<GeneratorConfig>> {
 
     @XmlElementWrapper(name = "jar-files")
-    @XmlElement(name = "jar-file")
-    private List<String> jarFileNames;
+    @XmlElement(name = "file", namespace = "http://www.fuin.org/srcgen4j/core/base")
+    private List<SrcGen4JFile> jarFiles;
 
     @XmlElementWrapper(name = "bin-dirs")
-    @XmlElement(name = "bin-dir")
-    private List<String> binDirNames;
+    @XmlElement(name = "file", namespace = "http://www.fuin.org/srcgen4j/core/base")
+    private List<SrcGen4JFile> binDirs;
 
     @XmlElementWrapper(name = "src-dirs")
-    @XmlElement(name = "src-dir")
-    private List<String> srcDirNames;
-
-    private transient List<File> jarFiles;
-    private transient List<File> binDirs;
-    private transient List<File> srcDirs;
+    @XmlElement(name = "file", namespace = "http://www.fuin.org/srcgen4j/core/base")
+    private List<SrcGen4JFile> srcDirs;
 
     /**
      * Default constructor.
@@ -74,101 +70,65 @@ public class JaMoPPParserConfig extends AbstractElement implements
      * @param srcDirs
      *            List of source directories to parse or NULL.
      */
-    public JaMoPPParserConfig(final List<String> jarFiles, final List<String> binDirs,
-            final List<String> srcDirs) {
+    public JaMoPPParserConfig(final List<SrcGen4JFile> jarFiles, final List<SrcGen4JFile> binDirs,
+            final List<SrcGen4JFile> srcDirs) {
         super();
-        this.jarFileNames = jarFiles;
-        this.binDirNames = binDirs;
-        this.srcDirNames = srcDirs;
+        this.jarFiles = jarFiles;
+        this.binDirs = binDirs;
+        this.srcDirs = srcDirs;
     }
 
     @Override
     public final JaMoPPParserConfig init(final Config<GeneratorConfig> parent,
             final Map<String, String> vars) {
 
-        for (final String jarFile : jarFileNames) {
-            replaceVars(jarFile, vars);
+        for (final SrcGen4JFile jarFile : jarFiles) {
+            jarFile.replaceVars(vars);
         }
-        for (final String binDir : binDirNames) {
-            replaceVars(binDir, vars);
+        for (final SrcGen4JFile binDir : binDirs) {
+            binDir.replaceVars(vars);
         }
-        for (final String srcDir : srcDirNames) {
-            replaceVars(srcDir, vars);
+        for (final SrcGen4JFile srcDir : srcDirs) {
+            srcDir.replaceVars(vars);
         }
 
         return this;
     }
 
     /**
-     * Returns the list of JAR file names.
+     * Returns an unmodifiable list of JAR files.
      * 
      * @return JAR files to parse or NULL.
      */
-    public final List<String> getJarFileNames() {
-        return jarFileNames;
-    }
-
-    /**
-     * Returns the list of binary directory names to parse.
-     * 
-     * @return Directories with '.class' files or NULL.
-     */
-    public final List<String> getBinDirNames() {
-        return binDirNames;
-    }
-
-    /**
-     * Returns the list of source folder names to parse.
-     * 
-     * @return Directories with '*.java' files or NULL.
-     */
-    public final List<String> getSrcDirNames() {
-        return srcDirNames;
-    }
-
-    /**
-     * Returns the list of JAR files.
-     * 
-     * @return JAR files to parse or NULL.
-     */
-    public final List<File> getJarFiles() {
+    public final List<SrcGen4JFile> getJarFiles() {
         if (jarFiles == null) {
-            jarFiles = new ArrayList<File>();
-            for (final String name : jarFileNames) {
-                jarFiles.add(new File(name));
-            }
+            return null;
         }
-        return jarFiles;
+        return Collections.unmodifiableList(jarFiles);
     }
 
     /**
-     * Returns the list of binary directories to parse.
+     * Returns an unmodifiable list of binary directories to parse.
      * 
      * @return Directories with '.class' files or NULL.
      */
-    public final List<File> getBinDirs() {
+    public final List<SrcGen4JFile> getBinDirs() {
         if (binDirs == null) {
-            binDirs = new ArrayList<File>();
-            for (final String name : binDirNames) {
-                binDirs.add(new File(name));
-            }
+            return null;
         }
-        return binDirs;
+        return Collections.unmodifiableList(binDirs);
     }
 
     /**
-     * Returns the list of source folders to parse.
+     * Returns an unmodifiable list of source folders to parse.
      * 
      * @return Directories with '*.java' files or NULL.
      */
-    public final List<File> getSrcDirs() {
+    public final List<SrcGen4JFile> getSrcDirs() {
         if (srcDirs == null) {
-            srcDirs = new ArrayList<File>();
-            for (final String name : srcDirNames) {
-                srcDirs.add(new File(name));
-            }
+            return null;
         }
-        return srcDirs;
+        return Collections.unmodifiableList(srcDirs);
     }
 
 }

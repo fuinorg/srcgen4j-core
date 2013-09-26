@@ -17,8 +17,6 @@
  */
 package org.fuin.srcgen4j.core.jamopp;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
@@ -33,6 +31,7 @@ import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
+import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.fuin.srcgen4j.core.emf.EMFParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,9 +45,9 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
 
     private final ResourceSet resourceSet = new ResourceSetImpl();
 
-    private List<File> jarFiles;
+    private List<SrcGen4JFile> jarFiles;
 
-    private List<File> binDirs;
+    private List<SrcGen4JFile> binDirs;
 
     /**
      * Default constructor.
@@ -63,7 +62,7 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
      * @param srcDirs
      *            Directories with the Java source (*.java/*.class) files.
      */
-    public JaMoPPParser(final List<File> srcDirs) {
+    public JaMoPPParser(final List<SrcGen4JFile> srcDirs) {
         this(srcDirs, null, null);
     }
 
@@ -77,72 +76,83 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
      * @param binDirs
      *            Directories to add to class path.
      */
-    public JaMoPPParser(final List<File> srcDirs, final List<File> jarFiles,
-            final List<File> binDirs) {
+    public JaMoPPParser(final List<SrcGen4JFile> srcDirs, final List<SrcGen4JFile> jarFiles,
+            final List<SrcGen4JFile> binDirs) {
         super(srcDirs, ".java", ".class");
         this.jarFiles = jarFiles;
         this.binDirs = binDirs;
     }
 
+    private JaMoPPParserConfig getJaMoPPParserConfig(final ParserConfig config) {
+        final Config<ParserConfig> cfg = config.getConfig();
+        if (cfg == null) {
+            throw new IllegalStateException("The configuration is expected to be of type '"
+                    + JaMoPPParserConfig.class.getName() + "', but was: null");
+        } else {
+            if (!(cfg.getConfig() instanceof JaMoPPParserConfig)) {
+                throw new IllegalStateException("The configuration is expected to be of type '"
+                        + JaMoPPParserConfig.class.getName() + "', but was: "
+                        + cfg.getConfig().getClass().getName());
+            }
+        }
+        return (JaMoPPParserConfig) cfg.getConfig();
+    }
+
     @Override
     public final ResourceSet parse(final ParserConfig config) throws ParseException {
 
-        final Config<ParserConfig> cfg = config.getConfig();
-        if (!(cfg.getConfig() instanceof JaMoPPParserConfig)) {
-            throw new IllegalStateException("The configuration is expected to be of type '"
-                    + JaMoPPParserConfig.class.getName() + "', but was: "
-                    + cfg.getConfig().getClass().getName());
-        }
-        final JaMoPPParserConfig parserConfig = (JaMoPPParserConfig) cfg.getConfig();
+        final JaMoPPParserConfig parserConfig = getJaMoPPParserConfig(config);
 
         jarFiles = parserConfig.getJarFiles();
         binDirs = parserConfig.getBinDirs();
         setModelDirs(parserConfig.getSrcDirs());
 
-        try {
+        LOG.debug("Initialize JaMoPP");
 
-            LOG.debug("Initialize JaMoPP");
+        // Initialize JaMoPP
+        EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
+                new JavaSourceOrClassFileResourceFactoryImpl());
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
+                new JavaSourceOrClassFileResourceFactoryImpl());
+        final JavaClasspath cp = JavaClasspath.get(resourceSet);
 
-            // Initialize JaMoPP
-            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
-            final JavaClasspath cp = JavaClasspath.get(resourceSet);
-
-            // Add JARs to class path
-            if (jarFiles == null) {
-                LOG.debug("No JAR files to parse");
-            } else {
-                for (final File jarFile : jarFiles) {
+        // Add JARs to class path
+        if ((jarFiles == null) || (jarFiles.size() == 0)) {
+            LOG.debug("No JAR files to parse");
+        } else {
+            for (final SrcGen4JFile jarFile : jarFiles) {
+                if (jarFile.exists()) {
                     final URI uri = URI.createFileURI(jarFile.getCanonicalPath());
                     LOG.debug("Register classifier JAR: " + uri);
                     cp.registerClassifierJar(uri);
+                } else {
+                    LOG.error("Configured JAR file does not exist: " + jarFile);
                 }
             }
+        }
 
-            // Add directories to class path
-            if (binDirs == null) {
-                LOG.debug("No binary directories to parse");
-            } else {
-                for (final File binDir : binDirs) {
+        // Add directories to class path
+        if ((binDirs == null) || (binDirs.size() == 0)) {
+            LOG.debug("No binary directories to parse");
+        } else {
+            for (final SrcGen4JFile binDir : binDirs) {
+                if (binDir.exists()) {
                     final URI uri = URI.createFileURI(binDir.getCanonicalPath());
                     LOG.debug("Register source or class file folder: " + uri);
                     cp.registerSourceOrClassFileFolder(uri);
+                } else {
+                    LOG.error("Configured binary directory does not exist: " + binDir);
                 }
             }
-
-            parseModelFiles();
-
-            // Resolve all proxies
-            resolveProxies();
-
-            return getResourceSet();
-
-        } catch (final IOException ex) {
-            throw new ParseException("Error parsing the model", ex);
         }
+
+        parseModelFiles();
+
+        // Resolve all proxies
+        resolveProxies();
+
+        return getResourceSet();
 
     }
 

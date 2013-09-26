@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://www.fuin.org/srcgen4j/core/base">
+	
+	<xs:complexType name="fileType">
+		<xs:attribute type="xs:string" name="path" use="required" />
+		<xs:attribute type="xs:string" name="name" use="optional" />
+	</xs:complexType>
+	
+	<xs:complexType name="fileTypes">
+		<xs:sequence>
+			<xs:element type="base:fileType" name="file" minOccurs="0" maxOccurs="unbounded" xmlns:base="http://www.fuin.org/srcgen4j/core/base" />
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>

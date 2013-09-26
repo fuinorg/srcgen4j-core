@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<srcgen4j-config
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xmlns="http://www.fuin.org/srcgen4j/commons"
+   xmlns:base="http://www.fuin.org/srcgen4j/core/base"
+   xmlns:jamopp="http://www.fuin.org/srcgen4j/core/jamopp">
+
+	<variables>
+		<variable name="root" value="src/test/jamopp" />
+	</variables>
+	
+	<projects>
+		<project name="prj1" path="./target/test-jamopp" maven="true" />
+	</projects>
+	
+	<parsers>
+		<parser name="parser1" class="org.fuin.srcgen4j.core.jamopp.JaMoPPParser">
+			<config>
+				<jamopp:jamopp-parser>
+					<jamopp:jar-files>
+						<base:file path="${root}/jar" name="test.jar"/>
+					</jamopp:jar-files>					
+					<jamopp:bin-dirs>
+						<base:file path="${root}/bin" />
+					</jamopp:bin-dirs>					 
+					<jamopp:src-dirs>
+						<base:file path="${root}/src" />
+					</jamopp:src-dirs>					 
+				</jamopp:jamopp-parser>
+			</config>
+		</parser>
+	</parsers>
+	
+	<generators>
+		<generator name="gen1" class="org.fuin.srcgen4j.core.jamopp.TestGenerator" parser="parser1">
+			<artifact name="one" project="prj1" folder="genMainJava" />
+		</generator>
+	</generators>
+	
+</srcgen4j-config>

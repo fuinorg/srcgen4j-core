@@ -35,6 +35,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +48,7 @@ public abstract class EMFParser {
 
     private final ResourceSet resourceSet = new ResourceSetImpl();
 
-    private List<File> modelDirs;
+    private List<SrcGen4JFile> modelDirs;
 
     private List<String> fileExtensions;
 
@@ -67,7 +68,7 @@ public abstract class EMFParser {
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final List<File> modelDirs, final String... fileExtensions) {
+    public EMFParser(final List<SrcGen4JFile> modelDirs, final String... fileExtensions) {
         this(modelDirs, Arrays.asList(fileExtensions));
     }
 
@@ -80,26 +81,23 @@ public abstract class EMFParser {
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final List<File> modelDirs, final List<String> fileExtensions) {
+    public EMFParser(final List<SrcGen4JFile> modelDirs, final List<String> fileExtensions) {
         super();
         this.modelDirs = modelDirs;
         this.fileExtensions = fileExtensions;
     }
 
     /**
-     * Parses all model file in the directory.
-     * 
-     * @throws IOException
-     *             Error resolving the proxies.
+     * Parses all model file in the directory. y
      */
-    protected final void parseModelFiles() throws IOException {
+    protected final void parseModelFiles() {
 
         // Start parsing recursively
-        if (modelDirs == null) {
+        if ((modelDirs == null) || (modelDirs.size() == 0)) {
             LOG.debug("No model directories to parse");
         } else {
-            for (final File modelDir : modelDirs) {
-                parseDir(modelDir);
+            for (final SrcGen4JFile modelDir : modelDirs) {
+                parseDir(modelDir.toFile());
             }
         }
 
@@ -158,21 +156,30 @@ public abstract class EMFParser {
      * 
      * @param dir
      *            Directory to parse.
-     * 
-     * @throws IOException
-     *             Error reading from the directory.
      */
-    private void parseDir(final File dir) throws IOException {
+    private void parseDir(final File dir) {
         LOG.debug("Parse: " + dir);
         final File[] files = getFiles(dir);
-        for (final File file : files) {
-            if (file.isFile()) {
-                final Resource resource = resourceSet.getResource(
-                        URI.createFileURI(file.getCanonicalPath()), true);
-                LOG.debug("Parsed: " + resource.getURI());
-            } else {
-                parseDir(file);
+        if (files == null) {
+            LOG.debug("No files found: " + dir);
+        } else {
+            for (final File file : files) {
+                if (file.isFile()) {
+                    final Resource resource = resourceSet.getResource(
+                            URI.createFileURI(getCanonicalPath(file)), true);
+                    LOG.debug("Parsed: " + resource.getURI());
+                } else {
+                    parseDir(file);
+                }
             }
+        }
+    }
+
+    private String getCanonicalPath(final File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (final IOException ex) {
+            throw new RuntimeException("Error getting canonical path: " + file, ex);
         }
     }
 
@@ -250,7 +257,7 @@ public abstract class EMFParser {
      * 
      * @return List of directories.
      */
-    protected final List<File> getModelDirs() {
+    protected final List<SrcGen4JFile> getModelDirs() {
         return modelDirs;
     }
 
@@ -279,7 +286,7 @@ public abstract class EMFParser {
      * @param modelDirs
      *            List of model directories or NULL.
      */
-    protected final void setModelDirs(final List<File> modelDirs) {
+    protected final void setModelDirs(final List<SrcGen4JFile> modelDirs) {
         this.modelDirs = modelDirs;
     }
 
