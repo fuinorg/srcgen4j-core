@@ -10,7 +10,7 @@
 	</variables>
 	
 	<projects>
-		<project name="prj1" path="./target/test-jamopp" maven="true" />
+		<project name="prj1" path="target/test-jamopp" maven="true" />
 	</projects>
 	
 	<parsers>

@@ -78,7 +78,7 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
      */
     public JaMoPPParser(final List<SrcGen4JFile> srcDirs, final List<SrcGen4JFile> jarFiles,
             final List<SrcGen4JFile> binDirs) {
-        super(srcDirs, ".java", ".class");
+        super(srcDirs, "java", "class");
         this.jarFiles = jarFiles;
         this.binDirs = binDirs;
     }

@@ -160,8 +160,8 @@ public abstract class EMFParser {
     private void parseDir(final File dir) {
         LOG.debug("Parse: " + dir);
         final File[] files = getFiles(dir);
-        if (files == null) {
-            LOG.debug("No files found: " + dir);
+        if ((files == null) || (files.length == 0)) {
+            LOG.debug("No files found in directory: " + dir);
         } else {
             for (final File file : files) {
                 if (file.isFile()) {

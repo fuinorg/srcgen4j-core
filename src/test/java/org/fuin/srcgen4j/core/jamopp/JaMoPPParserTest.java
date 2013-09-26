@@ -24,7 +24,11 @@ import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 
+import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.emftext.language.java.classifiers.ConcreteClassifier;
+import org.emftext.language.java.containers.CompilationUnit;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
@@ -62,7 +66,36 @@ public class JaMoPPParserTest {
 
         // VERIFY
         assertThat(resourceSet).isNotNull();
+        final ConcreteClassifier myClass = find(resourceSet, "a.b.c.MyClass");
+        assertThat(myClass).isNotNull();
+    }
 
+    /**
+     * Tries to find a concrete classifier in a resource set.
+     * 
+     * @param resourceSet
+     *            Resource set to use.
+     * @param fullQualifiedName
+     *            Full qualified name of the class.
+     * 
+     * @return Concrete classifier or NULL if no concrete classifier with that
+     *         name was found.
+     */
+    public static ConcreteClassifier find(final ResourceSet resourceSet,
+            final String fullQualifiedName) {
+        final TreeIterator<Notifier> it = resourceSet.getAllContents();
+        while (it.hasNext()) {
+            final Notifier notifier = it.next();
+            if (notifier instanceof CompilationUnit) {
+                final CompilationUnit compilationUnit = (CompilationUnit) notifier;
+                final ConcreteClassifier cc = compilationUnit
+                        .getConcreteClassifier(fullQualifiedName);
+                if (cc != null) {
+                    return cc;
+                }
+            }
+        }
+        return null;
     }
 
 }
