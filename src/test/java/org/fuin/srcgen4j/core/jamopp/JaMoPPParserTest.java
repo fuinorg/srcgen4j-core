@@ -66,8 +66,14 @@ public class JaMoPPParserTest {
 
         // VERIFY
         assertThat(resourceSet).isNotNull();
+
+        // src/test/jamopp/src/MyClass.java
         final ConcreteClassifier myClass = find(resourceSet, "a.b.c.MyClass");
         assertThat(myClass).isNotNull();
+
+        // src/test/jamopp/bin/a/b/c/MyClass2.class
+        final ConcreteClassifier myClass2 = find(resourceSet, "a.b.c.MyClass2");
+        assertThat(myClass2).isNotNull();
     }
 
     /**
