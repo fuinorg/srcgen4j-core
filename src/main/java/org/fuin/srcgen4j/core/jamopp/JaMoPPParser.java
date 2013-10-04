@@ -110,11 +110,13 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
         LOG.debug("Initialize JaMoPP");
 
         // Initialize JaMoPP
-        EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
-                new JavaSourceOrClassFileResourceFactoryImpl());
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
-                new JavaSourceOrClassFileResourceFactoryImpl());
+        if (!EPackage.Registry.INSTANCE.containsKey("http://www.emftext.org/java")) {
+            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
+                    new JavaSourceOrClassFileResourceFactoryImpl());
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
+                    new JavaSourceOrClassFileResourceFactoryImpl());
+        }
         final JavaClasspath cp = JavaClasspath.get(resourceSet);
 
         // Add JARs to class path
