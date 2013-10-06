@@ -18,7 +18,7 @@ Export-Package: org.fuin.srcgen4j.core.base;uses:="javax.xml.bind.annota
  cgen4j.core.velocity;uses:="javax.validation,javax.validation.constrain
  ts,javax.xml.bind.annotation,org.apache.velocity,org.apache.velocity.ap
  p,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.core.base";version="0.3.0
- .SNAPSHOT",org.fuin.srcgen4j.core.xtext;version="0.3.0.SNAPSHOT"
+ .SNAPSHOT"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
  org.apache.velocity;resolution:=optional,org.apache.velocity.app;resolu
@@ -33,7 +33,7 @@ Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  ers;resolution:=optional,org.emftext.language.java.resource;resolution:
  =optional,org.fuin.objects4j.common;version="[0.4,1)",org.fuin.objects4
  j.vo;version="[0.4,1)",org.fuin.srcgen4j.commons,org.fuin.utils4j;versi
- on="[0.8,1)",org.fuin.xsample,org.slf4j;version="[1.6,2)"
+ on="[0.8,1)",org.slf4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
  e-base.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-ja
  mopp.xsd,srcgen4j-core-velocity.xsd=src/main/resources/srcgen4j-core-ve
