@@ -52,16 +52,12 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
     }
 
     @Override
-    public final void generate(final GeneratorConfig config, final MODEL model)
-            throws GenerateException {
+    public final void initialize(final GeneratorConfig config) {
 
         Contract.requireArgNotNull("config", config);
-        Contract.requireArgNotNull("model", model);
         Contract.requireValid(config);
-        Contract.requireValid(model);
 
         this.config = config;
-        this.model = model;
 
         final Object obj = config.getConfig().getConfig();
         if (getSpecificConfigClass() == null) {
@@ -81,10 +77,18 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
             }
         }
 
+    }
+
+    @Override
+    public final void generate(final MODEL model) throws GenerateException {
+
+        Contract.requireArgNotNull("model", model);
+        Contract.requireValid(model);
+
+        this.model = model;
+
         LOG.info("Starting generation");
-
         generate();
-
         LOG.info("Generation finished");
 
     }

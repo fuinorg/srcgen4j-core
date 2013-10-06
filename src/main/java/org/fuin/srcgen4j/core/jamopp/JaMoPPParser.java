@@ -43,11 +43,13 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
 
     private static final Logger LOG = LoggerFactory.getLogger(JaMoPPParser.class);
 
-    private final ResourceSet resourceSet = new ResourceSetImpl();
+    private ResourceSet resourceSet;
 
     private List<SrcGen4JFile> jarFiles;
 
     private List<SrcGen4JFile> binDirs;
+
+    private JaMoPPParserConfig parserConfig;
 
     /**
      * Default constructor.
@@ -56,31 +58,24 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
         super();
     }
 
-    /**
-     * Constructor only with source directories.
-     * 
-     * @param srcDirs
-     *            Directories with the Java source (*.java/*.class) files.
-     */
-    public JaMoPPParser(final List<SrcGen4JFile> srcDirs) {
-        this(srcDirs, null, null);
-    }
+    @Override
+    public final void initialize(final ParserConfig config) {
+        this.parserConfig = getJaMoPPParserConfig(config);
 
-    /**
-     * Constructor with all options.
-     * 
-     * @param srcDirs
-     *            Directory with the Java source (*.java/*.class) files.
-     * @param jarFiles
-     *            JAR files to add to class path.
-     * @param binDirs
-     *            Directories to add to class path.
-     */
-    public JaMoPPParser(final List<SrcGen4JFile> srcDirs, final List<SrcGen4JFile> jarFiles,
-            final List<SrcGen4JFile> binDirs) {
-        super(srcDirs, "java", "class");
-        this.jarFiles = jarFiles;
-        this.binDirs = binDirs;
+        jarFiles = parserConfig.getJarFiles();
+        binDirs = parserConfig.getBinDirs();
+        setModelDirs(parserConfig.getSrcDirs());
+        setFileExtensions("java", "class");
+
+        // Initialize JaMoPP
+        if (!EPackage.Registry.INSTANCE.containsKey("http://www.emftext.org/java")) {
+            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
+                    new JavaSourceOrClassFileResourceFactoryImpl());
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
+                    new JavaSourceOrClassFileResourceFactoryImpl());
+        }
+
     }
 
     private JaMoPPParserConfig getJaMoPPParserConfig(final ParserConfig config) {
@@ -99,24 +94,12 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
     }
 
     @Override
-    public final ResourceSet parse(final ParserConfig config) throws ParseException {
-
-        final JaMoPPParserConfig parserConfig = getJaMoPPParserConfig(config);
-
-        jarFiles = parserConfig.getJarFiles();
-        binDirs = parserConfig.getBinDirs();
-        setModelDirs(parserConfig.getSrcDirs());
+    public final ResourceSet parse() throws ParseException {
 
         LOG.debug("Initialize JaMoPP");
 
-        // Initialize JaMoPP
-        if (!EPackage.Registry.INSTANCE.containsKey("http://www.emftext.org/java")) {
-            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
-        }
+        resourceSet = new ResourceSetImpl();
+
         final JavaClasspath cp = JavaClasspath.get(resourceSet);
 
         // Add JARs to class path

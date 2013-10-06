@@ -6,14 +6,14 @@
 		<argument key="pkg" value="-" />
 	</arguments>
 	
-	<target-file path="a" name="A.java">
-		<argument key="name" value="A" />
-		<argument key="pkg" value="a" />
+	<target-file path="org/fuin/ptgen/example" name="MyClassA.java">
+		<argument key="name" value="MyClassA" />
+		<argument key="pkg" value="org.fuin.ptgen.example" />
 	</target-file>
 	
-	<target-file path="b" name="B.java">
-		<argument key="name" value="B" />
-		<argument key="pkg" value="b" />
+	<target-file path="org/fuin/ptgen/example" name="MyClassB.java">
+		<argument key="name" value="MyClassB" />
+		<argument key="pkg" value="org.fuin.ptgen.example" />
 	</target-file>
 	
 </parameterized-template>

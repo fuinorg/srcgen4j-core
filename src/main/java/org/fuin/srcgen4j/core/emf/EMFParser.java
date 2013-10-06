@@ -92,6 +92,10 @@ public abstract class EMFParser {
      */
     protected final void parseModelFiles() {
 
+        if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
+            throw new IllegalStateException("No file extensions for EMF model files set!");
+        }
+
         // Start parsing recursively
         if ((modelDirs == null) || (modelDirs.size() == 0)) {
             LOG.debug("No model directories to parse");
@@ -288,6 +292,34 @@ public abstract class EMFParser {
      */
     protected final void setModelDirs(final List<SrcGen4JFile> modelDirs) {
         this.modelDirs = modelDirs;
+    }
+
+    /**
+     * Sets the list of file extensions.
+     * 
+     * @param fileExtensions
+     *            List of extensions for files to find ("mymodel", "java",
+     *            "class", ...)
+     */
+    protected final void setFileExtensions(final List<String> fileExtensions) {
+        this.fileExtensions = fileExtensions;
+    }
+
+    /**
+     * Sets the list of file extensions. If no list exists internally, it will
+     * be created if necessary.
+     * 
+     * @param fileExtensions
+     *            Array of extensions for files to find ("mymodel", "java",
+     *            "class", ...)
+     */
+    protected final void setFileExtensions(final String... fileExtensions) {
+        if (fileExtensions == null) {
+            this.fileExtensions = null;
+        } else {
+            this.fileExtensions = new ArrayList<String>();
+            this.fileExtensions.addAll(Arrays.asList(fileExtensions));
+        }
     }
 
 }

@@ -59,10 +59,12 @@ public class JaMoPPParserTest {
 
         final List<SrcGen4JFile> srcDirs = new ArrayList<SrcGen4JFile>();
         srcDirs.add(dir);
-        final JaMoPPParser testee = new JaMoPPParser(srcDirs);
+
+        final JaMoPPParser testee = new JaMoPPParser();
+        testee.initialize(config);
 
         // TEST
-        final ResourceSet resourceSet = testee.parse(config);
+        final ResourceSet resourceSet = testee.parse();
 
         // VERIFY
         assertThat(resourceSet).isNotNull();

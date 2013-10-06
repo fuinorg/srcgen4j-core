@@ -30,6 +30,26 @@ import org.fuin.srcgen4j.commons.ParserConfig;
  */
 public final class ParameterizedTemplateParser implements Parser<ParameterizedTemplates> {
 
+    private ParameterizedTemplateParserConfig parserConfig;
+
+    @Override
+    public void initialize(final ParserConfig config) {
+        final Config<ParserConfig> cfg = config.getConfig();
+        if (!(cfg.getConfig() instanceof ParameterizedTemplateParserConfig)) {
+            throw new IllegalStateException("The configuration is expected to be of type '"
+                    + ParameterizedTemplateParserConfig.class.getName() + "', but was: "
+                    + cfg.getConfig().getClass().getName());
+        }
+        parserConfig = (ParameterizedTemplateParserConfig) cfg.getConfig();
+    }
+
+    @Override
+    public final ParameterizedTemplates parse() throws ParseException {
+        final ParameterizedTemplates templates = new ParameterizedTemplates();
+        populate(templates, parserConfig.getModelDir());
+        return templates;
+    }
+
     private void populate(final ParameterizedTemplates templates, final File dir) {
 
         final File[] files = dir.listFiles();
@@ -49,18 +69,4 @@ public final class ParameterizedTemplateParser implements Parser<ParameterizedTe
 
     }
 
-    @Override
-    public final ParameterizedTemplates parse(final ParserConfig config) throws ParseException {
-        final Config<ParserConfig> cfg = config.getConfig();
-        if (!(cfg.getConfig() instanceof ParameterizedTemplateParserConfig)) {
-            throw new IllegalStateException("The configuration is expected to be of type '"
-                    + ParameterizedTemplateParserConfig.class.getName() + "', but was: "
-                    + cfg.getConfig().getClass().getName());
-        }
-        final ParameterizedTemplateParserConfig parserConfig = (ParameterizedTemplateParserConfig) cfg
-                .getConfig();
-        final ParameterizedTemplates templates = new ParameterizedTemplates();
-        populate(templates, parserConfig.getModelDir());
-        return templates;
-    }
 }
