@@ -40,6 +40,8 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractGenerator.class);
 
+    private String name;
+
     private GeneratorConfig config;
 
     private MODEL model;
@@ -58,6 +60,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         Contract.requireValid(config);
 
         this.config = config;
+        name = config.getName();
+
+        LOG.debug("Initialize generator: " + name);
 
         final Object obj = config.getConfig().getConfig();
         if (getSpecificConfigClass() == null) {
@@ -87,9 +92,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
         this.model = model;
 
-        LOG.info("Starting generation");
+        LOG.info("Starting generation: " + name);
         generate();
-        LOG.info("Generation finished");
+        LOG.info("Generation finished: " + name);
 
     }
 

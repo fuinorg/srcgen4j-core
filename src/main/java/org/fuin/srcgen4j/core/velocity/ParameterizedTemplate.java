@@ -79,6 +79,8 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
     @XmlElement(name = "target-file-list-producer")
     private TargetFileListProducerConfig tflProducerConfig;
 
+    private transient File file;
+
     /**
      * Default constructor.
      */
@@ -322,6 +324,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
         try {
             final JaxbHelper helper = new JaxbHelper();
             final ParameterizedTemplate pc = helper.create(file, createJaxbContext());
+            pc.setFile(file);
             Contract.requireValid(pc);
             return pc;
         } catch (final UnmarshalObjectException ex) {
@@ -371,6 +374,25 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
         } catch (final MarshalObjectException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    /**
+     * Returns the file the template was parsed from.
+     * 
+     * @return Template file or NULL.
+     */
+    public final File getFile() {
+        return file;
+    }
+
+    /**
+     * Sets the file the template was parsed from.
+     * 
+     * @param file
+     *            Template file or NULL.
+     */
+    public final void setFile(final File file) {
+        this.file = file;
     }
 
 }

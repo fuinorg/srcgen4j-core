@@ -18,22 +18,34 @@
 package org.fuin.srcgen4j.core.velocity;
 
 import java.io.File;
+import java.util.Set;
 
 import org.fuin.srcgen4j.commons.Config;
+import org.fuin.srcgen4j.commons.IncrementalParser;
 import org.fuin.srcgen4j.commons.ParseException;
-import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Parses a given directory for XML files of type {@link ParameterizedTemplate}
  * or {@link ParameterizedTemplates} and combines all files into one model.
  */
-public final class ParameterizedTemplateParser implements Parser<ParameterizedTemplates> {
+public final class ParameterizedTemplateParser implements IncrementalParser<ParameterizedTemplates> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateParser.class);
 
     private ParameterizedTemplateParserConfig parserConfig;
 
+    private String name;
+
     @Override
     public void initialize(final ParserConfig config) {
+
+        name = config.getName();
+
+        LOG.debug("Initialize parser: " + name);
+
         final Config<ParserConfig> cfg = config.getConfig();
         if (!(cfg.getConfig() instanceof ParameterizedTemplateParserConfig)) {
             throw new IllegalStateException("The configuration is expected to be of type '"
@@ -45,28 +57,45 @@ public final class ParameterizedTemplateParser implements Parser<ParameterizedTe
 
     @Override
     public final ParameterizedTemplates parse() throws ParseException {
+        LOG.info("Full parse: " + name);
         final ParameterizedTemplates templates = new ParameterizedTemplates();
-        populate(templates, parserConfig.getModelDir());
+        populateDir(templates, parserConfig.getModelDir());
         return templates;
     }
 
-    private void populate(final ParameterizedTemplates templates, final File dir) {
+    @Override
+    public final ParameterizedTemplates parse(final Set<File> files) throws ParseException {
+        LOG.info("Incremental parse");
+        final ParameterizedTemplates templates = new ParameterizedTemplates();
+        for (final File file : files) {
+            populateFile(templates, file);
+        }
+        return templates;
+    }
+
+    private void populateDir(final ParameterizedTemplates templates, final File dir) {
 
         final File[] files = dir.listFiles();
         if (files != null) {
             for (final File file : files) {
                 if (file.isDirectory()) {
-                    populate(templates, file);
+                    populateDir(templates, file);
                 } else {
-                    if (ParameterizedTemplates.isParameterizedTemplatesFile(file)) {
-                        templates.addParamTemplates(ParameterizedTemplates.create(file));
-                    } else if (ParameterizedTemplate.isParameterizedTemplateFile(file)) {
-                        templates.addParamTemplate(ParameterizedTemplate.create(file));
-                    }
+                    populateFile(templates, file);
                 }
             }
         }
 
+    }
+
+    private void populateFile(final ParameterizedTemplates templates, final File file) {
+        if (ParameterizedTemplates.isParameterizedTemplatesFile(file)) {
+            LOG.info("Adding templates file: " + file.getName());
+            templates.addParamTemplates(ParameterizedTemplates.create(file));
+        } else if (ParameterizedTemplate.isParameterizedTemplateFile(file)) {
+            LOG.info("Adding template file: " + file.getName());
+            templates.addParamTemplate(ParameterizedTemplate.create(file));
+        }
     }
 
 }

@@ -78,7 +78,7 @@ public abstract class VelocityGenerator<MODEL> extends
         } else {
             ve.addProperty("resource.loader", "file, class");
             ve.addProperty("file.resource.loader.class", FileResourceLoader.class.getName());
-            ve.addProperty("file.resource.loader.path", templateDir.toString());
+            ve.addProperty("file.resource.loader.path", getCanonicalPath(templateDir));
         }
         ve.addProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
@@ -108,7 +108,7 @@ public abstract class VelocityGenerator<MODEL> extends
         if (genFile.isSkip()) {
             LOG.debug("Omitted already existing file: " + genFile + " [" + templateName + "]");
         } else {
-            LOG.debug("Start merging velocity template: " + templateName);
+            LOG.debug("Start merging velocity template: " + genFile + " [" + templateName + "]");
             // Merge content
             try {
                 final Writer writer = new FileWriter(genFile.getFile());
@@ -137,7 +137,18 @@ public abstract class VelocityGenerator<MODEL> extends
     public final void generate() throws GenerateException {
         this.templateDir = getSpecificConfig().getTemplateDir();
         this.ve = createVelocityEngine(templateDir);
+
+        LOG.debug("Template directory: " + getCanonicalPath(templateDir));
+
         generateIntern();
+    }
+
+    private static String getCanonicalPath(final File file) {
+        try {
+            return file.getCanonicalPath();
+        } catch (final IOException ex) {
+            throw new RuntimeException("Cannot get canonical path: " + file, ex);
+        }
     }
 
     /**

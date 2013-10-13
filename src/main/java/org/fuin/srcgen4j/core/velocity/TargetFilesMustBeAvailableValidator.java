@@ -17,13 +17,9 @@
  */
 package org.fuin.srcgen4j.core.velocity;
 
-import java.util.Set;
-
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import javax.validation.ConstraintViolation;
 
-import org.fuin.objects4j.common.Contract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,15 +50,16 @@ public final class TargetFilesMustBeAvailableValidator implements
                 return false;
             }
         } else {
-            final Set<ConstraintViolation<TargetFileListProducerConfig>> violations = Contract
-                    .validate(value.getTargetFileListProducerConfig());
-            if (!violations.isEmpty()) {
-                LOG.debug("Element 'target-file-list-producer' is invalid:");
-                for (final ConstraintViolation<TargetFileListProducerConfig> violation : violations) {
-                    LOG.error(violation.getMessage());
-                }
-                return false;
-            }
+            /*
+             * TODO OSGI/Validator final
+             * Set<ConstraintViolation<TargetFileListProducerConfig>> violations
+             * = Contract .validate(value.getTargetFileListProducerConfig()); if
+             * (!violations.isEmpty()) {
+             * LOG.debug("Element 'target-file-list-producer' is invalid:"); for
+             * (final ConstraintViolation<TargetFileListProducerConfig>
+             * violation : violations) { LOG.error(violation.getMessage()); }
+             * return false; }
+             */
             if (value.getTargetFiles() != null) {
                 LOG.debug("Element 'target-files' cannot exist if element "
                         + "'target-file-list-producer' is defined");

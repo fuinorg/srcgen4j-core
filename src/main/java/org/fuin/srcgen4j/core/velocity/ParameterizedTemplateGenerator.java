@@ -21,11 +21,15 @@ import java.util.List;
 
 import org.apache.velocity.VelocityContext;
 import org.fuin.srcgen4j.commons.GenerateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generates files for a given {@link ParameterizedTemplates} model.
  */
 public final class ParameterizedTemplateGenerator extends VelocityGenerator<ParameterizedTemplates> {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateGenerator.class);
 
     /** Unique name of the only artifact type the generator produces. */
     public static final String ARTIFACT_NAME = "file";
@@ -34,32 +38,49 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
     protected final void generateIntern() throws GenerateException {
 
         final List<ParameterizedTemplate> templateList = getModel().getParamTemplates();
-        for (final ParameterizedTemplate template : templateList) {
+        if (templateList == null || templateList.size() == 0) {
+            LOG.warn("No templates found: " + getModel().getFile());
+        } else {
 
-            final List<TargetFile> targetFiles = template.createTargetFileList();
-            for (final TargetFile targetFile : targetFiles) {
+            for (final ParameterizedTemplate template : templateList) {
 
-                // Populate default values
-                final VelocityContext context = new VelocityContext();
-                if (template.getArguments() != null) {
-                    for (final Argument arg : template.getArguments()) {
-                        context.put(arg.getKey(), arg.getValue());
+                final List<TargetFile> targetFiles = template.createTargetFileList();
+                if (targetFiles == null || targetFiles.size() == 0) {
+                    LOG.warn("No target files found: " + template.getTemplate() + " [templates="
+                            + getModel().getFile() + "]");
+                } else {
+                    for (final TargetFile targetFile : targetFiles) {
+
+                        // Populate default values
+                        final VelocityContext context = new VelocityContext();
+                        if (template.getArguments() == null) {
+                            LOG.debug("No default arguments");
+                        } else {
+                            for (final Argument arg : template.getArguments()) {
+                                context.put(arg.getKey(), arg.getValue());
+                                LOG.debug("Default argument: " + arg);
+                            }
+                        }
+
+                        // Set specific values for the target file
+                        if (targetFile.getArguments() == null) {
+                            LOG.debug("No specific arguments");
+                        } else {
+                            for (final Argument arg : targetFile.getArguments()) {
+                                context.put(arg.getKey(), arg.getValue());
+                                LOG.debug("Specific argument: " + arg);
+                            }
+                        }
+
+                        merge(context, ARTIFACT_NAME, template.getTemplate(),
+                                targetFile.getPathAndName());
+
                     }
                 }
-
-                // Set specific values for the target file
-                if (targetFile.getArguments() != null) {
-                    for (final Argument arg : targetFile.getArguments()) {
-                        context.put(arg.getKey(), arg.getValue());
-                    }
-                }
-
-                merge(context, ARTIFACT_NAME, template.getTemplate(), targetFile.getPathAndName());
 
             }
 
         }
 
     }
-
 }
