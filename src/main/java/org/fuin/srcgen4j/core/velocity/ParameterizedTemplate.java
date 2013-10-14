@@ -290,7 +290,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
             return false;
         }
         final JaxbHelper helper = new JaxbHelper();
-        return helper.containsStartTag(file, "parameterized-template");
+        return helper.containsStartTag(file, "parameterized-template ");
     }
 
     /**

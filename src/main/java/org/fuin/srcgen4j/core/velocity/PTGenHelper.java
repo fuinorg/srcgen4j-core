@@ -18,6 +18,7 @@
 package org.fuin.srcgen4j.core.velocity;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -57,8 +58,11 @@ public final class PTGenHelper {
                     SrcGen4JConfig.class, VelocityGeneratorConfig.class,
                     ParameterizedTemplateParserConfig.class,
                     ParameterizedTemplateGeneratorConfig.class));
-            config.init();
+            config.init(configFile.getParentFile().getCanonicalFile());
             return config;
+        } catch (final IOException ex) {
+            throw new UnmarshalObjectException("Error getting canonical path: "
+                    + configFile.getParentFile(), ex);
         } catch (final JAXBException ex) {
             throw new UnmarshalObjectException("Error reading the configuration: " + configFile, ex);
         }

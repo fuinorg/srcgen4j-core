@@ -19,6 +19,7 @@ package org.fuin.srcgen4j.core.jamopp;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class JaMoPPParserTest {
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
                 JaMoPPParserConfig.class, SrcGen4JFile.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
-        srcGen4JConfig.init();
+        srcGen4JConfig.init(new File("."));
         final ParserConfig config = srcGen4JConfig.getParsers().get(0);
         assertThat(config.getConfig()).isNotNull();
         assertThat(config.getConfig().getConfig()).isNotNull();

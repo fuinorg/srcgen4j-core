@@ -132,7 +132,7 @@ public class ParameterizedTemplates {
             return false;
         }
         final JaxbHelper helper = new JaxbHelper();
-        return helper.containsStartTag(file, "parameterized-templates");
+        return helper.containsStartTag(file, "parameterized-templates ");
     }
 
     /**

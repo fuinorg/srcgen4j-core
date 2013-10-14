@@ -21,19 +21,18 @@ Export-Package: org.fuin.srcgen4j.core.base;uses:="javax.xml.bind.annota
  .SNAPSHOT"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
- org.apache.velocity;resolution:=optional,org.apache.velocity.app;resolu
- tion:=optional,org.apache.velocity.context;resolution:=optional,org.apa
- che.velocity.runtime.resource.loader;resolution:=optional,org.eclipse.e
- mf.common.notify;resolution:=optional,org.eclipse.emf.common.util;resol
- ution:=optional,org.eclipse.emf.ecore;resolution:=optional,org.eclipse.
- emf.ecore.resource;resolution:=optional,org.eclipse.emf.ecore.resource.
- impl;resolution:=optional,org.eclipse.emf.ecore.util;resolution:=option
- al,org.emftext.language.java;resolution:=optional,org.emftext.language.
- java.classifiers;resolution:=optional,org.emftext.language.java.contain
- ers;resolution:=optional,org.emftext.language.java.resource;resolution:
- =optional,org.fuin.objects4j.common;version="[0.4,1)",org.fuin.objects4
- j.vo;version="[0.4,1)",org.fuin.srcgen4j.commons,org.fuin.utils4j;versi
- on="[0.8,1)",org.slf4j;version="[1.6,2)"
+ org.apache.velocity,org.apache.velocity.app,org.apache.velocity.context
+ ,org.apache.velocity.runtime.resource.loader,org.eclipse.emf.common.not
+ ify;resolution:=optional,org.eclipse.emf.common.util;resolution:=option
+ al,org.eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.res
+ ource;resolution:=optional,org.eclipse.emf.ecore.resource.impl;resoluti
+ on:=optional,org.eclipse.emf.ecore.util;resolution:=optional,org.emftex
+ t.language.java;resolution:=optional,org.emftext.language.java.classifi
+ ers;resolution:=optional,org.emftext.language.java.containers;resolutio
+ n:=optional,org.emftext.language.java.resource;resolution:=optional,org
+ .fuin.objects4j.common;version="[0.4,1)",org.fuin.objects4j.vo;version=
+ "[0.4,1)",org.fuin.srcgen4j.commons,org.fuin.utils4j;version="[0.8,1)",
+ org.slf4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
  e-base.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-ja
  mopp.xsd,srcgen4j-core-velocity.xsd=src/main/resources/srcgen4j-core-ve
