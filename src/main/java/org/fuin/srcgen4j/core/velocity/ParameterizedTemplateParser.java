@@ -18,20 +18,28 @@
 package org.fuin.srcgen4j.core.velocity;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.io.filefilter.IOFileFilter;
+import org.apache.commons.io.filefilter.OrFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.IncrementalParser;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
+import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Parses a given directory for XML files of type {@link ParameterizedTemplate}
- * or {@link ParameterizedTemplates} and combines all files into one model.
+ * Parses a given directory for XML files of type
+ * {@link ParameterizedTemplateModel} or {@link ParameterizedTemplateModels} and
+ * combines all files into one model.
  */
-public final class ParameterizedTemplateParser implements IncrementalParser<ParameterizedTemplates> {
+public final class ParameterizedTemplateParser implements
+        IncrementalParser<ParameterizedTemplateModels> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateParser.class);
 
@@ -39,10 +47,23 @@ public final class ParameterizedTemplateParser implements IncrementalParser<Para
 
     private String name;
 
+    private Map<String, String> varMap;
+
+    private IOFileFilter fileFilter;
+
+    private IncrementalFileHandler incrementalHandler;
+
+    private FullFileHandler fullHandler;
+
+    private IOFileFilter modelFilter;
+
+    private IOFileFilter templateFilter;
+
     @Override
     public void initialize(final ParserConfig config) {
 
         name = config.getName();
+        varMap = config.getParent().getVarMap();
 
         LOG.debug("Initialize parser: " + name);
 
@@ -53,49 +74,80 @@ public final class ParameterizedTemplateParser implements IncrementalParser<Para
                     + cfg.getConfig().getClass().getName());
         }
         parserConfig = (ParameterizedTemplateParserConfig) cfg.getConfig();
+
+        modelFilter = new RegexFileFilter(parserConfig.getModelFilter());
+        templateFilter = new RegexFileFilter(parserConfig.getTemplateFilter());
+        fileFilter = new OrFileFilter(modelFilter, templateFilter);
+
     }
 
     @Override
-    public final ParameterizedTemplates parse() throws ParseException {
+    public final ParameterizedTemplateModels parse() throws ParseException {
         LOG.info("Full parse: " + name);
-        final ParameterizedTemplates templates = new ParameterizedTemplates();
-        populateDir(templates, parserConfig.getModelDir());
-        return templates;
+        if (fullHandler == null) {
+            fullHandler = new FullFileHandler(this);
+            final FileProcessor processor = new FileProcessor(fullHandler);
+            processor.process(parserConfig.getModelDir());
+            final ParameterizedTemplateModels models = fullHandler.getTemplates();
+            models.init(varMap);
+        }
+        return fullHandler.getTemplates();
     }
 
     @Override
-    public final ParameterizedTemplates parse(final Set<File> files) throws ParseException {
+    public final ParameterizedTemplateModels parse(final Set<File> files) throws ParseException {
         LOG.info("Incremental parse");
-        final ParameterizedTemplates templates = new ParameterizedTemplates();
+        if (incrementalHandler == null) {
+            incrementalHandler = new IncrementalFileHandler(this);
+        }
+        incrementalHandler.clear();
         for (final File file : files) {
-            populateFile(templates, file);
+            incrementalHandler.handleFile(file);
         }
-        return templates;
+        final ParameterizedTemplateModels models = incrementalHandler.getTemplates();
+        models.init(varMap);
+        return models;
     }
 
-    private void populateDir(final ParameterizedTemplates templates, final File dir) {
-
-        final File[] files = dir.listFiles();
-        if (files != null) {
-            for (final File file : files) {
-                if (file.isDirectory()) {
-                    populateDir(templates, file);
-                } else {
-                    populateFile(templates, file);
-                }
-            }
-        }
-
+    @Override
+    public final IOFileFilter getFileFilter() {
+        return fileFilter;
     }
 
-    private void populateFile(final ParameterizedTemplates templates, final File file) {
-        if (ParameterizedTemplates.isParameterizedTemplatesFile(file)) {
-            LOG.info("Adding templates file: " + file.getName());
-            templates.addParamTemplates(ParameterizedTemplates.create(file));
-        } else if (ParameterizedTemplate.isParameterizedTemplateFile(file)) {
-            LOG.info("Adding template file: " + file.getName());
-            templates.addParamTemplate(ParameterizedTemplate.create(file));
-        }
+    /**
+     * Returns the variable map used by the parser.
+     * 
+     * @return Key-Value map.
+     */
+    public final Map<String, String> getVarMap() {
+        return varMap;
+    }
+
+    /**
+     * Returns the filter for model files.
+     * 
+     * @return File filter.
+     */
+    public final FileFilter getModelFilter() {
+        return modelFilter;
+    }
+
+    /**
+     * Returns the filter for template files.
+     * 
+     * @return File filter.
+     */
+    public final FileFilter getTemplateFilter() {
+        return templateFilter;
+    }
+
+    /**
+     * Returns the template directory.
+     * 
+     * @return Canonical template directory.
+     */
+    public final File getTemplateDir() {
+        return parserConfig.getTemplateDir();
     }
 
 }

@@ -19,7 +19,6 @@ package org.fuin.srcgen4j.core.emf;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -36,6 +35,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
+import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -170,20 +170,12 @@ public abstract class EMFParser {
             for (final File file : files) {
                 if (file.isFile()) {
                     final Resource resource = resourceSet.getResource(
-                            URI.createFileURI(getCanonicalPath(file)), true);
+                            URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
                     LOG.debug("Parsed: " + resource.getURI());
                 } else {
                     parseDir(file);
                 }
             }
-        }
-    }
-
-    private String getCanonicalPath(final File file) {
-        try {
-            return file.getCanonicalPath();
-        } catch (final IOException ex) {
-            throw new RuntimeException("Error getting canonical path: " + file, ex);
         }
     }
 

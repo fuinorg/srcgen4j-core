@@ -44,7 +44,7 @@ public class ParameterizedTemplateGeneratorTest {
 
         final File configFile = new File(TEST_RES_DIR + "/velocity-test-config.xml");
         final SrcGen4JConfig config = PTGenHelper.createAndInit(configFile);
-        final SrcGen4J testee = new SrcGen4J(config);
+        final SrcGen4J testee = new SrcGen4J(config, this.getClass().getClassLoader());
 
         // EXECUTE
         testee.execute();

@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -41,7 +42,9 @@ import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.MarshalObjectException;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
+import org.fuin.srcgen4j.commons.VariableResolver;
 import org.fuin.srcgen4j.core.base.Producer;
+import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,12 +58,12 @@ import org.slf4j.LoggerFactory;
 @XmlType(propOrder = { "template", "arguments", "targetFiles", "tflProducerConfig" })
 @TargetArgsMatchTemplateArgs
 @TargetFilesMustBeAvailable
-public class ParameterizedTemplate implements Serializable, Comparable<ParameterizedTemplate>,
-        Producer {
+public class ParameterizedTemplateModel implements Serializable,
+        Comparable<ParameterizedTemplateModel>, Producer {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplate.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateModel.class);
 
     @XmlAttribute
     @TrimmedNotEmpty
@@ -84,7 +87,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
     /**
      * Default constructor.
      */
-    public ParameterizedTemplate() {
+    public ParameterizedTemplateModel() {
         super();
     }
 
@@ -97,7 +100,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
      *            Array of target files - Cannot be NULL and should have at
      *            least one entry.
      */
-    public ParameterizedTemplate(final String template, final TargetFile... targetFiles) {
+    public ParameterizedTemplateModel(final String template, final TargetFile... targetFiles) {
         super();
 
         this.template = template;
@@ -120,7 +123,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
      * @param tflProducerConfig
      *            Configuration - Cannot be NULL.
      */
-    public ParameterizedTemplate(final String template,
+    public ParameterizedTemplateModel(final String template,
             final TargetFileListProducerConfig tflProducerConfig) {
         super();
 
@@ -249,7 +252,7 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ParameterizedTemplate other = (ParameterizedTemplate) obj;
+        final ParameterizedTemplateModel other = (ParameterizedTemplateModel) obj;
         if (template == null) {
             if (other.template != null) {
                 return false;
@@ -263,73 +266,8 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
     // CHECKSTYLE:ON
 
     @Override
-    public final int compareTo(final ParameterizedTemplate other) {
+    public final int compareTo(final ParameterizedTemplateModel other) {
         return template.compareTo(other.template);
-    }
-
-    private static JAXBContext createJaxbContext() {
-        try {
-            return JAXBContext.newInstance(ParameterizedTemplate.class, TargetFile.class,
-                    Argument.class);
-        } catch (final JAXBException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    /**
-     * Checks if the given file contains a serialized template.
-     * 
-     * @param file
-     *            File to check.
-     * 
-     * @return If the file contains XML content of the correct type TRUE else
-     *         FALSE.
-     */
-    public static boolean isParameterizedTemplateFile(final File file) {
-        if (!file.getName().endsWith(".xml")) {
-            return false;
-        }
-        final JaxbHelper helper = new JaxbHelper();
-        return helper.containsStartTag(file, "parameterized-template ");
-    }
-
-    /**
-     * Creates an instance by reading the XML from a reader.
-     * 
-     * @param reader
-     *            Reader to use.
-     * 
-     * @return New instance.
-     */
-    public static ParameterizedTemplate create(final Reader reader) {
-        try {
-            final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplate pc = helper.create(reader, createJaxbContext());
-            Contract.requireValid(pc);
-            return pc;
-        } catch (final UnmarshalObjectException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
-    /**
-     * Creates an instance by reading the XML from a file.
-     * 
-     * @param file
-     *            File to read.
-     * 
-     * @return New instance.
-     */
-    public static ParameterizedTemplate create(final File file) {
-        try {
-            final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplate pc = helper.create(file, createJaxbContext());
-            pc.setFile(file);
-            Contract.requireValid(pc);
-            return pc;
-        } catch (final UnmarshalObjectException ex) {
-            throw new RuntimeException(ex);
-        }
     }
 
     /**
@@ -393,6 +331,97 @@ public class ParameterizedTemplate implements Serializable, Comparable<Parameter
      */
     public final void setFile(final File file) {
         this.file = file;
+    }
+
+    /**
+     * Initializes the model.
+     * 
+     * @param vars
+     *            Variables to use.
+     */
+    public final void init(final Map<String, String> vars) {
+
+        if (template != null) {
+            template = VariableResolver.replaceVars(template, vars);
+        }
+        if (arguments != null) {
+            for (final Argument argument : arguments) {
+                argument.init(vars);
+            }
+        }
+        if (targetFiles != null) {
+            for (final TargetFile targetFile : targetFiles) {
+                targetFile.init(vars);
+            }
+        }
+        if (tflProducerConfig != null) {
+            tflProducerConfig.init(this, vars);
+        }
+    }
+
+    /**
+     * Checks if this model has a reference to the given template file.
+     * 
+     * @param templateDir
+     *            Directory where all template files are located - Cannot be
+     *            NULL.
+     * @param templateFile
+     *            Template file to check - Cannot be NULL.
+     * 
+     * @return If the template is referenced TRUE else FALSE.
+     */
+    public final boolean hasReferenceTo(final File templateDir, final File templateFile) {
+        final String p1 = Utils4J.getCanonicalPath(new File(templateDir, template));
+        final String p2 = Utils4J.getCanonicalPath(templateFile);
+        return p1.equals(p2);
+    }
+
+    private static JAXBContext createJaxbContext() {
+        try {
+            return JAXBContext.newInstance(ParameterizedTemplateModel.class, TargetFile.class,
+                    Argument.class);
+        } catch (final JAXBException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Creates an instance by reading the XML from a reader.
+     * 
+     * @param reader
+     *            Reader to use.
+     * 
+     * @return New instance.
+     */
+    public static ParameterizedTemplateModel create(final Reader reader) {
+        try {
+            final JaxbHelper helper = new JaxbHelper();
+            final ParameterizedTemplateModel pc = helper.create(reader, createJaxbContext());
+            Contract.requireValid(pc);
+            return pc;
+        } catch (final UnmarshalObjectException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    /**
+     * Creates an instance by reading the XML from a file.
+     * 
+     * @param file
+     *            File to read.
+     * 
+     * @return New instance.
+     */
+    public static ParameterizedTemplateModel create(final File file) {
+        try {
+            final JaxbHelper helper = new JaxbHelper();
+            final ParameterizedTemplateModel pc = helper.create(file, createJaxbContext());
+            pc.setFile(file);
+            Contract.requireValid(pc);
+            return pc;
+        } catch (final UnmarshalObjectException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }

@@ -30,6 +30,7 @@ import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.fuin.srcgen4j.commons.GenerateException;
 import org.fuin.srcgen4j.core.base.AbstractGenerator;
 import org.fuin.srcgen4j.core.base.GeneratedFile;
+import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -78,7 +79,7 @@ public abstract class VelocityGenerator<MODEL> extends
         } else {
             ve.addProperty("resource.loader", "file, class");
             ve.addProperty("file.resource.loader.class", FileResourceLoader.class.getName());
-            ve.addProperty("file.resource.loader.path", getCanonicalPath(templateDir));
+            ve.addProperty("file.resource.loader.path", templateDir.toString());
         }
         ve.addProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
         ve.init();
@@ -135,20 +136,12 @@ public abstract class VelocityGenerator<MODEL> extends
 
     @Override
     public final void generate() throws GenerateException {
-        this.templateDir = getSpecificConfig().getTemplateDir();
+        this.templateDir = Utils4J.getCanonicalFile(getSpecificConfig().getTemplateDir());
         this.ve = createVelocityEngine(templateDir);
 
-        LOG.debug("Template directory: " + getCanonicalPath(templateDir));
+        LOG.debug("Template directory: " + templateDir);
 
         generateIntern();
-    }
-
-    private static String getCanonicalPath(final File file) {
-        try {
-            return file.getCanonicalPath();
-        } catch (final IOException ex) {
-            throw new RuntimeException("Cannot get canonical path: " + file, ex);
-        }
     }
 
     /**

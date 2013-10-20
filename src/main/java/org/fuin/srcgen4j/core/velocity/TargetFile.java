@@ -20,6 +20,7 @@ package org.fuin.srcgen4j.core.velocity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -30,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
+import org.fuin.srcgen4j.commons.VariableResolver;
 
 /**
  * File to produce.
@@ -167,6 +169,22 @@ public final class TargetFile implements Serializable, Comparable<TargetFile> {
     @Override
     public final int compareTo(final TargetFile other) {
         return getPathAndName().compareTo(other.getPathAndName());
+    }
+
+    /**
+     * Replaces variables (if defined) in the path, name and arguments.
+     * 
+     * @param vars
+     *            Variables to use.
+     */
+    public final void init(final Map<String, String> vars) {
+        path = VariableResolver.replaceVars(path, vars);
+        name = VariableResolver.replaceVars(name, vars);
+        if (arguments != null) {
+            for (final Argument argument : arguments) {
+                argument.init(vars);
+            }
+        }
     }
 
 }

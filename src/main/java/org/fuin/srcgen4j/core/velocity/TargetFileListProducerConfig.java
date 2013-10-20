@@ -39,7 +39,7 @@ import org.fuin.utils4j.Utils4J;
 @XmlRootElement(name = "target-file-list-producer")
 @XmlType(propOrder = { "config", "className" })
 public class TargetFileListProducerConfig extends AbstractElement implements
-        InitializableElement<TargetFileListProducerConfig, ParameterizedTemplate> {
+        InitializableElement<TargetFileListProducerConfig, ParameterizedTemplateModel> {
 
     @TrimmedNotEmpty
     @XmlAttribute(name = "class")
@@ -51,7 +51,7 @@ public class TargetFileListProducerConfig extends AbstractElement implements
 
     private transient TargetFileListProducer tflProducer;
 
-    private transient ParameterizedTemplate parent;
+    private transient ParameterizedTemplateModel parent;
 
     /**
      * Default constructor.
@@ -105,7 +105,7 @@ public class TargetFileListProducerConfig extends AbstractElement implements
      * 
      * @return Parent.
      */
-    public final ParameterizedTemplate getParent() {
+    public final ParameterizedTemplateModel getParent() {
         return parent;
     }
 
@@ -115,13 +115,13 @@ public class TargetFileListProducerConfig extends AbstractElement implements
      * @param parent
      *            Parent.
      */
-    public final void setParent(final ParameterizedTemplate parent) {
+    public final void setParent(final ParameterizedTemplateModel parent) {
         this.parent = parent;
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public final TargetFileListProducerConfig init(final ParameterizedTemplate parent,
+    public final TargetFileListProducerConfig init(final ParameterizedTemplateModel parent,
             final Map<String, String> vars) {
         setParent(parent);
         setClassName(replaceVars(getClassName(), vars));

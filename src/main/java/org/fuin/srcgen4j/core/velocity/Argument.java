@@ -18,6 +18,7 @@
 package org.fuin.srcgen4j.core.velocity;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
+import org.fuin.srcgen4j.commons.VariableResolver;
 
 /**
  * Container for a key and a value combination.
@@ -112,6 +114,16 @@ public final class Argument implements Serializable, Comparable<Argument> {
     @Override
     public final String toString() {
         return key + "='" + value + "'";
+    }
+
+    /**
+     * Replaces variables (if defined) in the value.
+     * 
+     * @param vars
+     *            Variables to use.
+     */
+    public final void init(final Map<String, String> vars) {
+        value = VariableResolver.replaceVars(getValue(), vars);
     }
 
 }

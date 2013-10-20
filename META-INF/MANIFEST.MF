@@ -3,7 +3,7 @@ Bundle-Description: Source code generation for Java (Core)
 Bundle-DocURL: http://www.fuin.org/
 Bundle-License: http://www.fsf.org/licensing/licenses/lgpl.html
 Bundle-ManifestVersion: 2
-Bundle-Name: SrcGen4j Commons
+Bundle-Name: SrcGen4j Core
 Bundle-SymbolicName: org.fuin.srcgen4j.core
 Bundle-Vendor: Future Invent Informationsmanagement GmbH, Hamburg (Germa
  ny)
@@ -16,23 +16,25 @@ Export-Package: org.fuin.srcgen4j.core.base;uses:="javax.xml.bind.annota
  nguage.java.classifiers,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.cor
  e.base,org.fuin.srcgen4j.core.emf";version="0.3.0.SNAPSHOT",org.fuin.sr
  cgen4j.core.velocity;uses:="javax.validation,javax.validation.constrain
- ts,javax.xml.bind.annotation,org.apache.velocity,org.apache.velocity.ap
- p,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.core.base";version="0.3.0
- .SNAPSHOT"
+ ts,javax.xml.bind.annotation,org.apache.commons.io.filefilter,org.apach
+ e.velocity,org.apache.velocity.app,org.fuin.srcgen4j.commons,org.fuin.s
+ rcgen4j.core.base,org.fuin.utils4j.fileprocessor";version="0.3.0.SNAPSH
+ OT"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
- org.apache.velocity,org.apache.velocity.app,org.apache.velocity.context
- ,org.apache.velocity.runtime.resource.loader,org.eclipse.emf.common.not
- ify;resolution:=optional,org.eclipse.emf.common.util;resolution:=option
- al,org.eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.res
- ource;resolution:=optional,org.eclipse.emf.ecore.resource.impl;resoluti
- on:=optional,org.eclipse.emf.ecore.util;resolution:=optional,org.emftex
- t.language.java;resolution:=optional,org.emftext.language.java.classifi
- ers;resolution:=optional,org.emftext.language.java.containers;resolutio
- n:=optional,org.emftext.language.java.resource;resolution:=optional,org
- .fuin.objects4j.common;version="[0.4,1)",org.fuin.objects4j.vo;version=
- "[0.4,1)",org.fuin.srcgen4j.commons,org.fuin.utils4j;version="[0.8,1)",
- org.slf4j;version="[1.6,2)"
+ org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity,
+ org.apache.velocity.app,org.apache.velocity.context,org.apache.velocity
+ .runtime.resource.loader,org.eclipse.emf.common.notify;resolution:=opti
+ onal,org.eclipse.emf.common.util;resolution:=optional,org.eclipse.emf.e
+ core;resolution:=optional,org.eclipse.emf.ecore.resource;resolution:=op
+ tional,org.eclipse.emf.ecore.resource.impl;resolution:=optional,org.ecl
+ ipse.emf.ecore.util;resolution:=optional,org.emftext.language.java;reso
+ lution:=optional,org.emftext.language.java.classifiers;resolution:=opti
+ onal,org.emftext.language.java.containers;resolution:=optional,org.emft
+ ext.language.java.resource;resolution:=optional,org.fuin.objects4j.comm
+ on;version="[0.4,1)",org.fuin.objects4j.vo;version="[0.4,1)",org.fuin.s
+ rcgen4j.commons,org.fuin.utils4j,org.fuin.utils4j.fileprocessor,org.slf
+ 4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
  e-base.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-ja
  mopp.xsd,srcgen4j-core-velocity.xsd=src/main/resources/srcgen4j-core-ve

@@ -18,7 +18,6 @@
 package org.fuin.srcgen4j.core.base;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,6 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.fuin.srcgen4j.commons.VariableResolver;
+import org.fuin.utils4j.Utils4J;
 
 /**
  * Represents a file.
@@ -182,11 +182,7 @@ public final class SrcGen4JFile {
      * @return Canonical path.
      */
     public final String getCanonicalPath() {
-        try {
-            return toFile().getCanonicalPath();
-        } catch (final IOException ex) {
-            throw new RuntimeException("Error getting canonical path: " + toFile(), ex);
-        }
+        return Utils4J.getCanonicalPath(toFile());
     }
 
 }

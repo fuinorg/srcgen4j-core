@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  * also defined in {@link ParameterizedTemplate#getArguments()()}.
  */
 public final class TargetArgsMatchTemplateArgsValidator implements
-        ConstraintValidator<TargetArgsMatchTemplateArgs, ParameterizedTemplate> {
+        ConstraintValidator<TargetArgsMatchTemplateArgs, ParameterizedTemplateModel> {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(TargetArgsMatchTemplateArgsValidator.class);
@@ -42,7 +42,7 @@ public final class TargetArgsMatchTemplateArgsValidator implements
     }
 
     @Override
-    public final boolean isValid(final ParameterizedTemplate value,
+    public final boolean isValid(final ParameterizedTemplateModel value,
             final ConstraintValidatorContext context) {
 
         LOG.debug("Validate: " + value.getTemplate());

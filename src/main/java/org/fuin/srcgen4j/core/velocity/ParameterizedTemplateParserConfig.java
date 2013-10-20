@@ -18,6 +18,7 @@
 package org.fuin.srcgen4j.core.velocity;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -29,6 +30,7 @@ import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
+import org.fuin.utils4j.Utils4J;
 
 /**
  * Configuration for a {@link ParameterizedTemplateParser}.
@@ -40,6 +42,19 @@ public class ParameterizedTemplateParserConfig extends AbstractElement implement
 
     @XmlAttribute(name = "modelPath")
     private String modelPath;
+
+    @XmlAttribute(name = "modelFilter")
+    private String modelFilter;
+
+    @XmlAttribute(name = "templatePath")
+    private String templatePath;
+
+    @XmlAttribute(name = "templateFilter")
+    private String templateFilter;
+
+    private transient File modelDir;
+
+    private transient File templateDir;
 
     /**
      * Default constructor.
@@ -53,10 +68,13 @@ public class ParameterizedTemplateParserConfig extends AbstractElement implement
      * 
      * @param modelPath
      *            Model path.
+     * @param modelFilter
+     *            Regular expression for selecting model files.
      */
-    public ParameterizedTemplateParserConfig(final String modelPath) {
+    public ParameterizedTemplateParserConfig(final String modelPath, final String modelFilter) {
         super();
         this.modelPath = modelPath;
+        this.modelFilter = modelFilter;
     }
 
     /**
@@ -74,10 +92,10 @@ public class ParameterizedTemplateParserConfig extends AbstractElement implement
      * @return Model directory or NULL.
      */
     public final File getModelDir() {
-        if (modelPath == null) {
-            return null;
+        if ((modelDir == null) && (modelPath != null)) {
+            modelDir = Utils4J.getCanonicalFile(new File(modelPath));
         }
-        return new File(modelPath);
+        return modelDir;
     }
 
     /**
@@ -90,10 +108,85 @@ public class ParameterizedTemplateParserConfig extends AbstractElement implement
         this.modelPath = modelPath;
     }
 
+    /**
+     * Returns the regular expression for selecting model files.
+     * 
+     * @return Model file filter expression.
+     */
+    public final String getModelFilter() {
+        return modelFilter;
+    }
+
+    /**
+     * Sets the regular expression for selecting model files.
+     * 
+     * @param modelFilter
+     *            Model file filter expression.
+     */
+    public final void setModelFilter(final String modelFilter) {
+        this.modelFilter = modelFilter;
+    }
+
+    /**
+     * Returns the template path.
+     * 
+     * @return Template path.
+     */
+    public final String getTemplatePath() {
+        return templatePath;
+    }
+
+    /**
+     * Returns the template directory.
+     * 
+     * @return Template directory or NULL.
+     */
+    public final File getTemplateDir() {
+        if ((templateDir == null) && (templatePath != null)) {
+            try {
+                templateDir = new File(templatePath).getCanonicalFile();
+            } catch (final IOException ex) {
+                throw new RuntimeException("Couldn't determine canonical template file: "
+                        + templatePath, ex);
+            }
+        }
+        return templateDir;
+    }
+
+    /**
+     * Sets the template path to a new value.
+     * 
+     * @param templatePath
+     *            Template path to set.
+     */
+    public final void setTemplatePath(final String templatePath) {
+        this.templatePath = templatePath;
+    }
+
+    /**
+     * Returns the regular expression for selecting template files.
+     * 
+     * @return Template file filter expression.
+     */
+    public final String getTemplateFilter() {
+        return templateFilter;
+    }
+
+    /**
+     * Sets the regular expression for selecting template files.
+     * 
+     * @param templateFilter
+     *            Template file filter expression.
+     */
+    public final void setTemplateFilter(final String templateFilter) {
+        this.templateFilter = templateFilter;
+    }
+
     @Override
     public final ParameterizedTemplateParserConfig init(final Config<GeneratorConfig> parent,
             final Map<String, String> vars) {
         setModelPath(replaceVars(getModelPath(), vars));
+        setTemplatePath(replaceVars(getTemplatePath(), vars));
         return this;
     }
 

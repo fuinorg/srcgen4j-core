@@ -4,6 +4,10 @@
    xmlns="http://www.fuin.org/srcgen4j/commons"
    xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity">
 	
+	<variables>
+		<variable name="testRes" value="src/test/resources" />
+	</variables>
+	
 	<projects>
 		<project name="current" path="." maven="false">
 			<folder name="testJava" path="target/test-data" create="true" override="true" clean="false" />
@@ -13,7 +17,10 @@
 	<parsers>
 		<parser name="ptp" class="org.fuin.srcgen4j.core.velocity.ParameterizedTemplateParser">
 			<config>
-				<velo:parameterized-template-parser modelPath="src/test/resources" />
+				<velo:parameterized-template-parser modelPath="${testRes}" 
+				                                    modelFilter=".*\.ptp\.xml"
+				                                    templatePath="${testRes}" 
+				                                    templateFilter=".*\.ptp\.java" />
 			</config>
 		</parser>
 	</parsers>
@@ -22,7 +29,7 @@
 		<generator name="gen1" class="org.fuin.srcgen4j.core.velocity.ParameterizedTemplateGenerator" 
 		           parser="ptp" project="current" folder="testJava">
 		    <config>
-				<velo:parameterized-template-generator templatePath="src/test/resources" />
+				<velo:parameterized-template-generator templatePath="${testRes}" />
 			</config>
 			<artifact name="file" />
 		</generator>

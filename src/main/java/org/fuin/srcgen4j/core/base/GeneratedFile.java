@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -131,12 +132,7 @@ public final class GeneratedFile {
     }
 
     private String getPath() {
-        try {
-            return file.getCanonicalPath();
-        } catch (final IOException ex) {
-            throw new RuntimeException("Error getting canonical path: tmp=" + tmpFile + ", target="
-                    + file + logInfo, ex);
-        }
+        return Utils4J.getCanonicalPath(file);
     }
 
     @Override

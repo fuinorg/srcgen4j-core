@@ -13,7 +13,7 @@
 	<artifactId>srcgen4j-core</artifactId>
 	<packaging>jar</packaging>
 	<version>0.3.0-SNAPSHOT</version>
-	<name>SrcGen4j Commons</name>
+	<name>SrcGen4j Core</name>
 	<description>Source code generation for Java (Core)</description>
 	<url>http://www.fuin.org/srcgen4j/core/</url>
 

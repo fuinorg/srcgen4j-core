@@ -9,7 +9,11 @@
 	
 	<xs:complexType name="parameterized-template-parserType">
 		<xs:attribute type="xs:string" name="modelPath" use="required" />
+		<xs:attribute type="xs:string" name="modelFilter" use="required" />
+		<xs:attribute type="xs:string" name="templatePath" use="required" />
+		<xs:attribute type="xs:string" name="templateFilter" use="required" />
 	</xs:complexType>
+
 	
 	<!-- Configuration for the generator -->
 	

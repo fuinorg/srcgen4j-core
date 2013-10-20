@@ -59,17 +59,17 @@ public class ParameterizedTemplateTest {
 
         // PREPARE
         final String template = "my-template";
-        final ParameterizedTemplate testee = new ParameterizedTemplate(template, targetFile1);
+        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(template, targetFile1);
         testee.addArgument(new Argument(arg1.getKey(), "ALLOWED_1"));
         testee.addArgument(new Argument(arg2.getKey(), "ALLOWED_2"));
-        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplate.class,
+        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplateModel.class,
                 TargetFile.class, Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
         System.out.println(xml);
-        final ParameterizedTemplate copy = helper.create(xml, jaxbContext);
+        final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);
@@ -90,15 +90,15 @@ public class ParameterizedTemplateTest {
         final String template = "my-template";
         final TargetFileListProducerConfig tflProducerCfg = new TargetFileListProducerConfig();
         tflProducerCfg.setClassName(TestTargetFileProducer.class.getName());
-        final ParameterizedTemplate testee = new ParameterizedTemplate(template, tflProducerCfg);
-        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplate.class,
+        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(template, tflProducerCfg);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplateModel.class,
                 TargetFile.class, Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
         System.out.println(xml);
-        final ParameterizedTemplate copy = helper.create(xml, jaxbContext);
+        final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);

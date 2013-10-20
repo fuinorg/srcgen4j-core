@@ -103,7 +103,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      * 
      * @return Configuration.
      */
-    public final GeneratorConfig getConfig() {
+    public final GeneratorConfig getGeneratorConfig() {
         return config;
     }
 
@@ -160,7 +160,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
     protected final GeneratedFile getTargetFile(final String artifactName, final String filename,
             final String logInfo) {
 
-        final Folder folder = getConfig().findTargetFolder(artifactName);
+        final Folder folder = getGeneratorConfig().findTargetFolder(artifactName);
         final File dir = new File(folder.getDirectory());
         final File file = new File(dir, filename);
 
