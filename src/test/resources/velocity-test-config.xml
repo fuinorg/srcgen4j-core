@@ -18,9 +18,9 @@
 		<parser name="ptp" class="org.fuin.srcgen4j.core.velocity.ParameterizedTemplateParser">
 			<config>
 				<velo:parameterized-template-parser modelPath="${testRes}" 
-				                                    modelFilter=".*\.ptp\.xml"
+				                                    modelFilter=".*\.ptg\.xml"
 				                                    templatePath="${testRes}" 
-				                                    templateFilter=".*\.ptp\.java" />
+				                                    templateFilter=".*\.ptg\.java" />
 			</config>
 		</parser>
 	</parsers>
