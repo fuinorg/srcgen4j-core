@@ -24,6 +24,7 @@ import javax.xml.bind.JAXBException;
 
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
 import org.fuin.utils4j.Utils4J;
 
@@ -42,6 +43,8 @@ public final class PTGenHelper {
      * {@link ParameterizedTemplateParser} and
      * {@link ParameterizedTemplateGenerator}.
      * 
+     * @param context
+     *            Current context - Cannot be NULL.
      * @param configFile
      *            XML configuration file to read - Cannot be NULL.
      * 
@@ -50,7 +53,7 @@ public final class PTGenHelper {
      * @throws UnmarshalObjectException
      *             Error reading the configuration.
      */
-    public static SrcGen4JConfig createAndInit(final File configFile)
+    public static SrcGen4JConfig createAndInit(final SrcGen4JContext context, final File configFile)
             throws UnmarshalObjectException {
         try {
             final JaxbHelper helper = new JaxbHelper();
@@ -58,7 +61,7 @@ public final class PTGenHelper {
                     SrcGen4JConfig.class, VelocityGeneratorConfig.class,
                     ParameterizedTemplateParserConfig.class,
                     ParameterizedTemplateGeneratorConfig.class));
-            config.init(Utils4J.getCanonicalFile(configFile.getParentFile()));
+            config.init(context, Utils4J.getCanonicalFile(configFile.getParentFile()));
             return config;
         } catch (final JAXBException ex) {
             throw new UnmarshalObjectException("Error reading the configuration: " + configFile, ex);

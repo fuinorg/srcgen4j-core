@@ -31,6 +31,7 @@ import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.fuin.srcgen4j.core.emf.EMFParser;
 import org.slf4j.Logger;
@@ -59,7 +60,7 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
     }
 
     @Override
-    public final void initialize(final ParserConfig config) {
+    public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
         this.parserConfig = getJaMoPPParserConfig(config);
 
         jarFiles = parserConfig.getJarFiles();

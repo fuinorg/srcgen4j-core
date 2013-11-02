@@ -25,6 +25,7 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.fuin.objects4j.common.NotEmpty;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.utils4j.Utils4J;
 
 /**
@@ -94,13 +95,15 @@ public final class ParameterizedTemplateModels {
     /**
      * Initalizes the object.
      * 
+     * @param context
+     *            Current context.
      * @param vars
      *            Variables to use.
      */
-    public final void init(final Map<String, String> vars) {
+    public final void init(final SrcGen4JContext context, final Map<String, String> vars) {
         if (paramTemplates != null) {
             for (final ParameterizedTemplateModel paramTemplate : paramTemplates) {
-                paramTemplate.init(vars);
+                paramTemplate.init(context, vars);
             }
         }
     }

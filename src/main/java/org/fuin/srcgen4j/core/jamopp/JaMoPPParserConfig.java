@@ -31,6 +31,7 @@ import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 
 /**
@@ -79,8 +80,8 @@ public class JaMoPPParserConfig extends AbstractElement implements
     }
 
     @Override
-    public final JaMoPPParserConfig init(final Config<GeneratorConfig> parent,
-            final Map<String, String> vars) {
+    public final JaMoPPParserConfig init(final SrcGen4JContext context,
+            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
 
         for (final SrcGen4JFile jarFile : jarFiles) {
             jarFile.replaceVars(vars);

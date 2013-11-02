@@ -29,6 +29,7 @@ import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.IncrementalParser;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,8 +60,10 @@ public final class ParameterizedTemplateParser implements
 
     private IOFileFilter templateFilter;
 
+    private SrcGen4JContext context;
+
     @Override
-    public void initialize(final ParserConfig config) {
+    public void initialize(final SrcGen4JContext context, final ParserConfig config) {
 
         name = config.getName();
         varMap = config.getParent().getVarMap();
@@ -79,6 +82,8 @@ public final class ParameterizedTemplateParser implements
         templateFilter = new RegexFileFilter(parserConfig.getTemplateFilter());
         fileFilter = new OrFileFilter(modelFilter, templateFilter);
 
+        this.context = context;
+
     }
 
     @Override
@@ -89,7 +94,7 @@ public final class ParameterizedTemplateParser implements
             final FileProcessor processor = new FileProcessor(fullHandler);
             processor.process(parserConfig.getModelDir());
             final ParameterizedTemplateModels models = fullHandler.getTemplates();
-            models.init(varMap);
+            models.init(context, varMap);
         }
         return fullHandler.getTemplates();
     }
@@ -105,7 +110,7 @@ public final class ParameterizedTemplateParser implements
             incrementalHandler.handleFile(file);
         }
         final ParameterizedTemplateModels models = incrementalHandler.getTemplates();
-        models.init(varMap);
+        models.init(context, varMap);
         return models;
     }
 
@@ -148,6 +153,15 @@ public final class ParameterizedTemplateParser implements
      */
     public final File getTemplateDir() {
         return parserConfig.getTemplateDir();
+    }
+
+    /**
+     * Returns the current context.
+     * 
+     * @return Context.
+     */
+    public final SrcGen4JContext getContext() {
+        return context;
     }
 
 }

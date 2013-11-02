@@ -67,7 +67,7 @@ public final class IncrementalFileHandler implements FileHandler {
             // Changed model file
             LOG.info("Adding model file: " + file.getName());
             final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
-            pt.init(parser.getVarMap());
+            pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);
         }
         return FileHandlerResult.CONTINUE;

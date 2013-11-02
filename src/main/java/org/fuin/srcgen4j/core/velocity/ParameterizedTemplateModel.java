@@ -41,6 +41,7 @@ import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.MarshalObjectException;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
 import org.fuin.srcgen4j.commons.VariableResolver;
 import org.fuin.srcgen4j.core.base.Producer;
@@ -336,10 +337,12 @@ public class ParameterizedTemplateModel implements Serializable,
     /**
      * Initializes the model.
      * 
+     * @param context
+     *            Current context.
      * @param vars
      *            Variables to use.
      */
-    public final void init(final Map<String, String> vars) {
+    public final void init(final SrcGen4JContext context, final Map<String, String> vars) {
 
         if (template != null) {
             template = VariableResolver.replaceVars(template, vars);
@@ -355,7 +358,7 @@ public class ParameterizedTemplateModel implements Serializable,
             }
         }
         if (tflProducerConfig != null) {
-            tflProducerConfig.init(this, vars);
+            tflProducerConfig.init(context, this, vars);
         }
     }
 

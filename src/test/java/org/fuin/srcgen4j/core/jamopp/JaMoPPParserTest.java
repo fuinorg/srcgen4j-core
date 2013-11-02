@@ -30,6 +30,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emftext.language.java.classifiers.ConcreteClassifier;
 import org.emftext.language.java.containers.CompilationUnit;
+import org.fuin.srcgen4j.commons.DefaultContext;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
@@ -43,12 +44,13 @@ public class JaMoPPParserTest {
     public void testParse() throws Exception {
 
         // PREPARE
+        final DefaultContext context = new DefaultContext();
         final SrcGen4JFile dir = new SrcGen4JFile("src/test/jamopp");
         final SrcGen4JFile file = new SrcGen4JFile(dir, "test-config.xml");
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
                 JaMoPPParserConfig.class, SrcGen4JFile.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
-        srcGen4JConfig.init(new File("."));
+        srcGen4JConfig.init(context, new File("."));
         final ParserConfig config = srcGen4JConfig.getParsers().get(0);
         assertThat(config.getConfig()).isNotNull();
         assertThat(config.getConfig().getConfig()).isNotNull();
@@ -62,7 +64,7 @@ public class JaMoPPParserTest {
         srcDirs.add(dir);
 
         final JaMoPPParser testee = new JaMoPPParser();
-        testee.initialize(config);
+        testee.initialize(context, config);
 
         // TEST
         final ResourceSet resourceSet = testee.parse();

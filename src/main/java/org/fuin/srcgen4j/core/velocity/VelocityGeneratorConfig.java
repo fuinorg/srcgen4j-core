@@ -29,6 +29,7 @@ import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
+import org.fuin.srcgen4j.commons.SrcGen4JContext;
 
 /**
  * Minimal configuration for the velocity based generators.
@@ -91,8 +92,8 @@ public abstract class VelocityGeneratorConfig extends AbstractElement implements
     }
 
     @Override
-    public final VelocityGeneratorConfig init(final Config<GeneratorConfig> parent,
-            final Map<String, String> vars) {
+    public final VelocityGeneratorConfig init(final SrcGen4JContext context,
+            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
         setTemplatePath(replaceVars(getTemplatePath(), vars));
         init(vars);
         return this;
