@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   targetNamespace="http://www.fuin.org/srcgen4j/core/xtext">
+	
+	<!-- Configuration for the parser -->
+	
+	<xs:element name="xtext-parser" type="velo:xtext-parserType"
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/xtext" />
+	
+	<xs:complexType name="xtext-parserType">
+		<xs:attribute type="xs:string" name="modelPath" use="required" />
+		<xs:attribute type="xs:string" name="modelExt" use="required" />
+		<xs:attribute type="xs:string" name="setupClass" use="required" />
+	</xs:complexType>
+
+	
+	<!-- Configuration for the generator -->
+	
+	<xs:element name="xtext-generator" type="velo:xtext-generatorType"
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/xtext" />
+		
+	<xs:complexType name="xtext-generatorType">
+		<xs:attribute type="xs:string" name="templatePath" use="required" />
+	</xs:complexType>
+	
+</xs:schema>

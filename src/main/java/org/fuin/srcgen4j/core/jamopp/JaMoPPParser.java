@@ -23,11 +23,9 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.JavaPackage;
 import org.emftext.language.java.resource.JavaSourceOrClassFileResourceFactoryImpl;
-import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
@@ -40,11 +38,10 @@ import org.slf4j.LoggerFactory;
 /**
  * JaMoPP based parser for Java source/class files and JARs.
  */
-public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet> {
+public final class JaMoPPParser extends EMFParser<JaMoPPParserConfig> implements
+        Parser<ResourceSet> {
 
     private static final Logger LOG = LoggerFactory.getLogger(JaMoPPParser.class);
-
-    private ResourceSet resourceSet;
 
     private List<SrcGen4JFile> jarFiles;
 
@@ -56,12 +53,12 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
      * Default constructor.
      */
     public JaMoPPParser() {
-        super();
+        super(JaMoPPParserConfig.class);
     }
 
     @Override
     public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
-        this.parserConfig = getJaMoPPParserConfig(config);
+        this.parserConfig = getConcreteConfig(config);
 
         jarFiles = parserConfig.getJarFiles();
         binDirs = parserConfig.getBinDirs();
@@ -79,29 +76,12 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
 
     }
 
-    private JaMoPPParserConfig getJaMoPPParserConfig(final ParserConfig config) {
-        final Config<ParserConfig> cfg = config.getConfig();
-        if (cfg == null) {
-            throw new IllegalStateException("The configuration is expected to be of type '"
-                    + JaMoPPParserConfig.class.getName() + "', but was: null");
-        } else {
-            if (!(cfg.getConfig() instanceof JaMoPPParserConfig)) {
-                throw new IllegalStateException("The configuration is expected to be of type '"
-                        + JaMoPPParserConfig.class.getName() + "', but was: "
-                        + cfg.getConfig().getClass().getName());
-            }
-        }
-        return (JaMoPPParserConfig) cfg.getConfig();
-    }
-
     @Override
     public final ResourceSet parse() throws ParseException {
 
         LOG.debug("Initialize JaMoPP");
 
-        resourceSet = new ResourceSetImpl();
-
-        final JavaClasspath cp = JavaClasspath.get(resourceSet);
+        final JavaClasspath cp = JavaClasspath.get(getResourceSet());
 
         // Add JARs to class path
         if ((jarFiles == null) || (jarFiles.size() == 0)) {
@@ -135,7 +115,6 @@ public final class JaMoPPParser extends EMFParser implements Parser<ResourceSet>
 
         parseModelFiles();
 
-        // Resolve all proxies
         resolveProxies();
 
         return getResourceSet();

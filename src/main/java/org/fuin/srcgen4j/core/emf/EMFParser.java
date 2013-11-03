@@ -34,6 +34,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.fuin.srcgen4j.core.base.AbstractParser;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
@@ -41,8 +42,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Basic functionality for parsing EMF Ecore models.
+ * 
+ * @param <CONFIG_TYPE>
+ *            Type of the concrete configuration.
  */
-public abstract class EMFParser {
+public abstract class EMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE> {
 
     private static final Logger LOG = LoggerFactory.getLogger(EMFParser.class);
 
@@ -53,36 +57,45 @@ public abstract class EMFParser {
     private List<String> fileExtensions;
 
     /**
-     * Default constructor.
+     * Basic constructor.
+     * 
+     * @param concreteConfigClass
+     *            Type of the configuration.
      */
-    public EMFParser() {
-        super();
+    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass) {
+        super(concreteConfigClass);
     }
 
     /**
      * Constructor with array.
      * 
+     * @param concreteConfigClass
+     *            Type of the configuration.
      * @param modelDirs
      *            Directory with the Ecore model files.
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final List<SrcGen4JFile> modelDirs, final String... fileExtensions) {
-        this(modelDirs, Arrays.asList(fileExtensions));
+    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
+            final List<SrcGen4JFile> modelDirs, final String... fileExtensions) {
+        this(concreteConfigClass, modelDirs, Arrays.asList(fileExtensions));
     }
 
     /**
      * Constructor with list.
      * 
+     * @param concreteConfigClass
+     *            Type of the configuration.
      * @param modelDirs
      *            Directory with the Ecore model files.
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final List<SrcGen4JFile> modelDirs, final List<String> fileExtensions) {
-        super();
+    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
+            final List<SrcGen4JFile> modelDirs, final List<String> fileExtensions) {
+        super(concreteConfigClass);
         this.modelDirs = modelDirs;
         this.fileExtensions = fileExtensions;
     }
@@ -284,6 +297,22 @@ public abstract class EMFParser {
      */
     protected final void setModelDirs(final List<SrcGen4JFile> modelDirs) {
         this.modelDirs = modelDirs;
+    }
+
+    /**
+     * Sets the model directories to parse. If no list exists internally, it
+     * will be created if necessary.
+     * 
+     * @param modelDirs
+     *            Array of model directories or NULL.
+     */
+    protected final void setModelDirs(final SrcGen4JFile... modelDirs) {
+        if (modelDirs == null) {
+            this.modelDirs = null;
+        } else {
+            this.modelDirs = new ArrayList<SrcGen4JFile>();
+            this.modelDirs.addAll(Arrays.asList(modelDirs));
+        }
     }
 
     /**
