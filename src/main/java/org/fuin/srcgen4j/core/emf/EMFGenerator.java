@@ -100,7 +100,8 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
     }
 
     @Override
-    protected final void generate(@NotNull final Notifier notifier) throws GenerateException {
+    protected final void generate(@NotNull final Notifier notifier, final boolean incremental)
+            throws GenerateException {
 
         LOG.debug("Generate from " + Notifier.class.getSimpleName());
 
@@ -112,9 +113,11 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         }
 
         for (final ArtifactFactory<Notifier> factory : factories) {
-            LOG.debug("Generate with factory " + factory.getClass().getSimpleName());
-            final GeneratedArtifact generatedArtifact = factory.create(notifier);
-            write(generatedArtifact);
+            if (!incremental || factory.isIncremental()) {
+                LOG.debug("Generate with factory " + factory.getClass().getSimpleName());
+                final GeneratedArtifact generatedArtifact = factory.create(notifier);
+                write(generatedArtifact);
+            }
         }
 
     }

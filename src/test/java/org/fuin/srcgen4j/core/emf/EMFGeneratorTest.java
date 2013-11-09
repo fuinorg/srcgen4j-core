@@ -63,7 +63,7 @@ public class EMFGeneratorTest {
         testee.initialize(generatorConfig);
 
         // TEST
-        testee.generate(resourceSet);
+        testee.generate(resourceSet, false);
 
         // VERIFY
         assertThat(new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))

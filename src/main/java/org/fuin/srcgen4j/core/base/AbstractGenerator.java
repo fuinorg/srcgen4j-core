@@ -100,7 +100,8 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
     }
 
     @Override
-    public final void generate(final MODEL model) throws GenerateException {
+    public final void generate(final MODEL model, final boolean incremental)
+            throws GenerateException {
 
         Contract.requireArgNotNull("model", model);
         Contract.requireValid(model);
@@ -108,7 +109,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         this.model = model;
 
         LOG.info("Starting generation: " + name);
-        generate();
+        generate(incremental);
         LOG.info("Generation finished: " + name);
 
     }
@@ -234,9 +235,12 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
     /**
      * Generates something using the given configuration and model.
      * 
+     * @param incremental
+     *            If this is an incremental build TRUE, else FALSE (full build).
+     * 
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate() throws GenerateException;
+    protected abstract void generate(boolean incremental) throws GenerateException;
 
 }

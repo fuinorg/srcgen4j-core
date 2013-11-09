@@ -6,6 +6,7 @@ import java.util.Iterator;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
+import org.fuin.srcgen4j.commons.ArtifactFactoryConfig;
 import org.fuin.srcgen4j.commons.GenerateException;
 import org.fuin.srcgen4j.commons.GeneratedArtifact;
 import org.fuin.xsample.xSampleDsl.Greeting;
@@ -14,14 +15,22 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
 
     private String artifact;
 
+    private boolean incremental = true;
+
     @Override
     public final Class<? extends ResourceSet> getModelType() {
         return ResourceSet.class;
     }
 
     @Override
-    public void init(final String artifact) {
-        this.artifact = artifact;
+    public final void init(final ArtifactFactoryConfig config) {
+        this.artifact = config.getArtifact();
+        this.incremental = config.isIncremental();
+    }
+
+    @Override
+    public final boolean isIncremental() {
+        return incremental;
     }
 
     @Override

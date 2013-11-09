@@ -30,7 +30,7 @@
 				<emf:emf-generator-config>
 					<emf:artifact-factory artifact="abstractHello" class="org.fuin.srcgen4j.core.emf.AbstractHelloTstGen" />
 					<emf:artifact-factory artifact="manualHello" class="org.fuin.srcgen4j.core.emf.ManualHelloTstGen" />
-					<emf:artifact-factory artifact="helloProps" class="org.fuin.srcgen4j.core.emf.HelloPropertiesTstGen" />
+					<emf:artifact-factory artifact="helloProps" incremental="false" class="org.fuin.srcgen4j.core.emf.HelloPropertiesTstGen" />
 				</emf:emf-generator-config>
 			</config>
 			<artifact name="abstractHello" folder="testGenMainJava" />

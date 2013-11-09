@@ -135,7 +135,7 @@ public abstract class VelocityGenerator<MODEL> extends
     }
 
     @Override
-    public final void generate() throws GenerateException {
+    public final void generate(final boolean incremental) throws GenerateException {
         this.templateDir = Utils4J.getCanonicalFile(getSpecificConfig().getTemplateDir());
         this.ve = createVelocityEngine(templateDir);
 

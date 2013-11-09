@@ -50,7 +50,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFParser.class);
 
-    private final ResourceSet resourceSet = new ResourceSetImpl();
+    private ResourceSet resourceSet = new ResourceSetImpl();
 
     private List<SrcGen4JFile> modelDirs;
 
@@ -108,6 +108,9 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
             throw new IllegalStateException("No file extensions for EMF model files set!");
         }
+
+        // Drop previous resource set
+        resourceSet = new ResourceSetImpl();
 
         // Start parsing recursively
         if ((modelDirs == null) || (modelDirs.size() == 0)) {

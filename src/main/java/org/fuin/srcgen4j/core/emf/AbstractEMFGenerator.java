@@ -45,7 +45,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
     }
 
     @Override
-    protected final void generate() throws GenerateException {
+    protected final void generate(final boolean incremental) throws GenerateException {
 
         beforeGenerate();
 
@@ -53,7 +53,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
         while (it.hasNext()) {
             final Notifier notifier = it.next();
             if (wants(notifier)) {
-                generate(notifier);
+                generate(notifier, incremental);
             }
         }
 
@@ -100,10 +100,13 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
      * 
      * @param notifier
      *            Notifier to handle.
+     * @param incremental
+     *            If this is an incremental build TRUE, else FALSE (full build).
      * 
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate(@NotNull Notifier notifier) throws GenerateException;
+    protected abstract void generate(@NotNull Notifier notifier, boolean incremental)
+            throws GenerateException;
 
 }

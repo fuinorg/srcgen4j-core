@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
+import org.fuin.srcgen4j.commons.ArtifactFactoryConfig;
 import org.fuin.srcgen4j.commons.GenerateException;
 import org.fuin.srcgen4j.commons.GeneratedArtifact;
 import org.fuin.utils4j.Utils4J;
@@ -17,14 +18,22 @@ public final class ManualHelloTstGen implements ArtifactFactory<Greeting> {
 
     private String artifact;
 
+    private boolean incremental = true;
+
     @Override
     public final Class<? extends Greeting> getModelType() {
         return Greeting.class;
     }
 
     @Override
-    public final void init(final String artifact) {
-        this.artifact = artifact;
+    public final void init(final ArtifactFactoryConfig config) {
+        this.artifact = config.getArtifact();
+        this.incremental = config.isIncremental();
+    }
+
+    @Override
+    public final boolean isIncremental() {
+        return incremental;
     }
 
     @Override
