@@ -27,8 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
-import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
+import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
@@ -38,9 +38,9 @@ import org.slf4j.LoggerFactory;
  * Configuration for a {@link XtextParser}.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "xtext-parser")
+@XmlRootElement(name = "xtext-parser-config")
 public class XtextParserConfig extends AbstractElement implements
-        InitializableElement<XtextParserConfig, Config<GeneratorConfig>> {
+        InitializableElement<XtextParserConfig, Config<ParserConfig>> {
 
     private static final Logger LOG = LoggerFactory.getLogger(XtextParserConfig.class);
 
@@ -151,7 +151,7 @@ public class XtextParserConfig extends AbstractElement implements
 
     @Override
     public final XtextParserConfig init(final SrcGen4JContext context,
-            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
+            final Config<ParserConfig> parent, final Map<String, String> vars) {
         this.context = context;
         setModelPath(replaceVars(getModelPath(), vars));
         return this;

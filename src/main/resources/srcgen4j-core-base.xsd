@@ -12,5 +12,5 @@
 			<xs:element type="base:fileType" name="file" minOccurs="0" maxOccurs="unbounded" xmlns:base="http://www.fuin.org/srcgen4j/core/base" />
 		</xs:sequence>
 	</xs:complexType>
-	
+
 </xs:schema>

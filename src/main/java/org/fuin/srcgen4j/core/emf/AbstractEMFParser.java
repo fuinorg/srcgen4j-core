@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
  * @param <CONFIG_TYPE>
  *            Type of the concrete configuration.
  */
-public abstract class EMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE> {
+public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EMFParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFParser.class);
 
     private final ResourceSet resourceSet = new ResourceSetImpl();
 
@@ -62,7 +62,7 @@ public abstract class EMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE>
      * @param concreteConfigClass
      *            Type of the configuration.
      */
-    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass) {
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass) {
         super(concreteConfigClass);
     }
 
@@ -77,7 +77,7 @@ public abstract class EMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE>
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
             final List<SrcGen4JFile> modelDirs, final String... fileExtensions) {
         this(concreteConfigClass, modelDirs, Arrays.asList(fileExtensions));
     }
@@ -93,7 +93,7 @@ public abstract class EMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE>
      *            List of extensions for files to find ("mymodel", "java",
      *            "class", ...)
      */
-    public EMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
             final List<SrcGen4JFile> modelDirs, final List<String> fileExtensions) {
         super(concreteConfigClass);
         this.modelDirs = modelDirs;

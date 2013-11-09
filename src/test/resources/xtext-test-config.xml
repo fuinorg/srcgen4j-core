@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<srcgen4j-config
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-   xmlns="http://www.fuin.org/srcgen4j/commons"
-   xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext">
+<srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons"
+                 xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext"
+                 xmlns:emf="http://www.fuin.org/srcgen4j/core/emf">
 	
 	<variables>
 		<variable name="testRes" value="src/test/resources" />
@@ -10,26 +9,33 @@
 	
 	<projects>
 		<project name="current" path="." maven="false">
-			<folder name="testJava" path="target/test-data" create="true" override="true" clean="false" />
+			<folder name="testGenMainJava" path="target/xtest-test" create="true" override="true" clean="false" />
+			<folder name="testMainJava" path="target/xtest-test" create="true" override="true" clean="false" />
+			<folder name="testGenMainRes" path="target/xtest-test" create="true" override="true" clean="false" />
 		</project>
 	</projects>
 	
 	<parsers>
 		<parser name="ptp" class="org.fuin.srcgen4j.core.xtext.XtextParser">
 			<config>
-				<xtext:xtext-parser modelPath="${testRes}" modelExt="xsdsl"
+				<xtext:xtext-parser-config modelPath="${testRes}" modelExt="xsdsl"
 				                    setupClass="org.fuin.xsample.XSampleDslStandaloneSetup" />
 			</config>
 		</parser>
 	</parsers>
 	
 	<generators>
-		<generator name="gen1" class="org.fuin.srcgen4j.core.xtext.XtextGenerator" 
-		           parser="ptp" project="current" folder="testJava">
+		<generator name="gen1" class="org.fuin.srcgen4j.core.emf.EMFGenerator" parser="ptp" project="current">
 		    <config>
-				<xtext:xtext-generator templatePath="${testRes}" />
+				<emf:emf-generator-config>
+					<emf:artifact-factory artifact="abstractHello" class="org.fuin.srcgen4j.core.emf.AbstractHelloTstGen" />
+					<emf:artifact-factory artifact="manualHello" class="org.fuin.srcgen4j.core.emf.ManualHelloTstGen" />
+					<emf:artifact-factory artifact="helloProps" class="org.fuin.srcgen4j.core.emf.HelloPropertiesTstGen" />
+				</emf:emf-generator-config>
 			</config>
-			<artifact name="file" />
+			<artifact name="abstractHello" folder="testGenMainJava" />
+			<artifact name="manualHello" folder="testMainJava" />
+			<artifact name="helloProps" folder="testGenMainRes" />
 		</generator>
 	</generators>
 	

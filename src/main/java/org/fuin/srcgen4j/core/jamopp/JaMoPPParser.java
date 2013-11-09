@@ -31,14 +31,14 @@ import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
-import org.fuin.srcgen4j.core.emf.EMFParser;
+import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * JaMoPP based parser for Java source/class files and JARs.
  */
-public final class JaMoPPParser extends EMFParser<JaMoPPParserConfig> implements
+public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> implements
         Parser<ResourceSet> {
 
     private static final Logger LOG = LoggerFactory.getLogger(JaMoPPParser.class);

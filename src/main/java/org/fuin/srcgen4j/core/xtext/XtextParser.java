@@ -26,12 +26,12 @@ import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
-import org.fuin.srcgen4j.core.emf.EMFParser;
+import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
 
 /**
  * Parses Xtext models.
  */
-public final class XtextParser extends EMFParser<XtextParserConfig> implements Parser<ResourceSet> {
+public final class XtextParser extends AbstractEMFParser<XtextParserConfig> implements Parser<ResourceSet> {
 
     private XtextParserConfig parserConfig;
 

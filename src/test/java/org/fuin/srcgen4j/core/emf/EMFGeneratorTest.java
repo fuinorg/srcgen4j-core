@@ -15,35 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this library. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.fuin.srcgen4j.core.xtext;
+package org.fuin.srcgen4j.core.emf;
 
 import static org.fest.assertions.Assertions.assertThat;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.JAXBContext;
 
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.fuin.srcgen4j.commons.DefaultContext;
+import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.core.base.SrcGen4JFile;
-import org.fuin.srcgen4j.core.emf.EMFGeneratorConfig;
-import org.fuin.xsample.xSampleDsl.Greeting;
-import org.fuin.xsample.xSampleDsl.impl.GreetingImpl;
-import org.fuin.xsample.xSampleDsl.impl.ModelImpl;
+import org.fuin.srcgen4j.core.xtext.XtextParser;
+import org.fuin.srcgen4j.core.xtext.XtextParserConfig;
 import org.junit.Test;
 
 /**
  * Test for {@link XtextParser}.
  */
-public class XtextParserTest {
+public class EMFGeneratorTest {
 
     // CHECKSTYLE:OFF
 
@@ -53,33 +47,35 @@ public class XtextParserTest {
         final DefaultContext context = new DefaultContext();
         final SrcGen4JFile dir = new SrcGen4JFile("src/test/resources");
         final SrcGen4JFile file = new SrcGen4JFile(dir, "xtext-test-config.xml");
+
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
                 XtextParserConfig.class, EMFGeneratorConfig.class, SrcGen4JFile.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().get(0);
-        final List<SrcGen4JFile> srcDirs = new ArrayList<SrcGen4JFile>();
-        srcDirs.add(dir);
+        final GeneratorConfig generatorConfig = srcGen4JConfig.getGenerators().findByName("gen1");
+        final ParserConfig parserConfig = srcGen4JConfig.getParsers().get(0);
 
-        final XtextParser testee = new XtextParser();
-        testee.initialize(context, config);
+        final XtextParser parser = new XtextParser();
+        parser.initialize(context, parserConfig);
+        final ResourceSet resourceSet = parser.parse();
+
+        final EMFGenerator testee = new EMFGenerator();
+        testee.initialize(generatorConfig);
 
         // TEST
-        final ResourceSet resourceSet = testee.parse();
+        testee.generate(resourceSet);
 
         // VERIFY
-        assertThat(resourceSet).isNotNull();
-
-        final TreeIterator<Notifier> it = resourceSet.getAllContents();
-        assertThat(it.next()).isInstanceOf(LazyLinkingResource.class);
-        assertThat(it.next()).isInstanceOf(ModelImpl.class);
-        final Notifier notifier = it.next();
-        assertThat(notifier).isInstanceOf(GreetingImpl.class);
-        final Greeting greeting = (Greeting) notifier;
-        assertThat(greeting.getName()).isEqualTo("World");
+        assertThat(new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))
+                .hasSameContentAs(new File("src/test/resources/AbstractHelloUniverse.java"));
+        assertThat(new File("target/xtest-test/a/b/c/AbstractHelloWorld.java")).hasSameContentAs(
+                new File("src/test/resources/AbstractHelloWorld.java"));
+        assertThat(new File("target/xtest-test/a/b/c/HelloUniverse.java")).hasSameContentAs(
+                new File("src/test/resources/HelloUniverse.java"));
+        assertThat(new File("target/xtest-test/a/b/c/HelloWorld.java")).hasSameContentAs(
+                new File("src/test/resources/HelloWorld.java"));
 
     }
-
     // CHECKSTYLE:ON
 
 }

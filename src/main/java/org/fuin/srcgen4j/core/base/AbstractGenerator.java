@@ -18,10 +18,14 @@
 package org.fuin.srcgen4j.core.base;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.Folder;
 import org.fuin.srcgen4j.commons.GenerateException;
+import org.fuin.srcgen4j.commons.GeneratedArtifact;
 import org.fuin.srcgen4j.commons.Generator;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.slf4j.Logger;
@@ -82,6 +86,17 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
             }
         }
 
+        init();
+
+    }
+
+    /**
+     * Extension point for specific initialization. Sub classes can use this to
+     * initialize something after the main initialization process is done. Does
+     * nothing by default.
+     */
+    protected void init() {
+        // May be overwritten by sub classes
     }
 
     @Override
@@ -182,6 +197,38 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
         return new GeneratedFile(file, logInfo);
 
+    }
+
+    /**
+     * Writes a generated artifact to a file.
+     * 
+     * @param artifact
+     *            Artifact to persist.
+     * 
+     * @throws GenerateException
+     *             Error writing the artifact.
+     */
+    protected final void write(final GeneratedArtifact artifact) throws GenerateException {
+
+        final GeneratedFile genFile = getTargetFile(artifact.getName(), artifact.getPathAndName(),
+                null);
+        if (genFile.isSkip()) {
+            LOG.debug("Omitted already existing file: " + genFile + " [" + artifact + "]");
+        } else {
+            LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
+            try {
+                final Writer writer = new FileWriter(genFile.getFile());
+                try {
+                    writer.write(artifact.getSource());
+                } finally {
+                    writer.close();
+                }
+                genFile.persist();
+            } catch (final IOException ex) {
+                throw new GenerateException("Error writing artifact '" + artifact + "' to '"
+                        + artifact.getPathAndName() + "'!", ex);
+            }
+        }
     }
 
     /**

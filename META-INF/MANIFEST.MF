@@ -10,18 +10,20 @@ Bundle-Vendor: Future Invent Informationsmanagement GmbH, Hamburg (Germa
 Bundle-Version: 0.3.0.SNAPSHOT
 Export-Package: org.fuin.srcgen4j.core.base;uses:="javax.xml.bind.annota
  tion,org.fuin.srcgen4j.commons";version="0.3.0.SNAPSHOT",org.fuin.srcge
- n4j.core.emf;uses:="org.eclipse.emf.ecore.resource,org.fuin.srcgen4j.co
- re.base";version="0.3.0.SNAPSHOT",org.fuin.srcgen4j.core.jamopp;uses:="
- javax.xml.bind.annotation,org.eclipse.emf.ecore.resource,org.emftext.la
- nguage.java.classifiers,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.cor
- e.base,org.fuin.srcgen4j.core.emf";version="0.3.0.SNAPSHOT",org.fuin.sr
- cgen4j.core.velocity;uses:="javax.validation,javax.validation.constrain
- ts,javax.xml.bind.annotation,org.apache.commons.io.filefilter,org.apach
- e.velocity,org.apache.velocity.app,org.fuin.srcgen4j.commons,org.fuin.s
- rcgen4j.core.base,org.fuin.utils4j.fileprocessor";version="0.3.0.SNAPSH
- OT",org.fuin.srcgen4j.core.xtext;uses:="javax.xml.bind.annotation,org.e
- clipse.emf.ecore.resource,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.c
- ore.emf";version="0.3.0.SNAPSHOT"
+ n4j.core.emf;uses:="javax.validation.constraints,javax.xml.bind.annotat
+ ion,org.eclipse.emf.common.notify,org.eclipse.emf.ecore.resource,org.fu
+ in.srcgen4j.commons,org.fuin.srcgen4j.core.base";version="0.3.0.SNAPSHO
+ T",org.fuin.srcgen4j.core.jamopp;uses:="javax.xml.bind.annotation,org.e
+ clipse.emf.ecore.resource,org.emftext.language.java.classifiers,org.fui
+ n.srcgen4j.commons,org.fuin.srcgen4j.core.base,org.fuin.srcgen4j.core.e
+ mf";version="0.3.0.SNAPSHOT",org.fuin.srcgen4j.core.velocity;uses:="jav
+ ax.validation,javax.validation.constraints,javax.xml.bind.annotation,or
+ g.apache.commons.io.filefilter,org.apache.velocity,org.apache.velocity.
+ app,org.fuin.srcgen4j.commons,org.fuin.srcgen4j.core.base,org.fuin.util
+ s4j.fileprocessor";version="0.3.0.SNAPSHOT",org.fuin.srcgen4j.core.xtex
+ t;uses:="javax.xml.bind.annotation,org.eclipse.emf.ecore.resource,org.f
+ uin.srcgen4j.commons,org.fuin.srcgen4j.core.emf";version="0.3.0.SNAPSHO
+ T"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
  org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity,
@@ -37,7 +39,7 @@ Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  on,org.fuin.objects4j.vo,org.fuin.srcgen4j.commons,org.fuin.utils4j,org
  .fuin.utils4j.fileprocessor,org.slf4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
- e-base.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-ja
- mopp.xsd,srcgen4j-core-velocity.xsd=src/main/resources/srcgen4j-core-ve
- locity.xsd,srcgen4j-core-xtext.xsd=src/main/resources/srcgen4j-core-xte
- xt.xsd
+ e-base.xsd,srcgen4j-core-emf.xsd=src/main/resources/srcgen4j-core-emf.x
+ sd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-jamopp.xsd
+ ,srcgen4j-core-velocity.xsd=src/main/resources/srcgen4j-core-velocity.x
+ sd,srcgen4j-core-xtext.xsd=src/main/resources/srcgen4j-core-xtext.xsd

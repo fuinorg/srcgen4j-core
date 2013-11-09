@@ -1,0 +1,9 @@
+package a.b.c;
+
+public class Hello${name} extends AbstractHello${name} {
+
+    public void sayHello() {
+        System.out.println("Hello ${name}");
+    }
+
+}
