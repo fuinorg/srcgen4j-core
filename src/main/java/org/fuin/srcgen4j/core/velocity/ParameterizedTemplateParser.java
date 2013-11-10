@@ -25,11 +25,11 @@ import java.util.Set;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.OrFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
-import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.IncrementalParser;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
+import org.fuin.srcgen4j.core.base.AbstractParser;
 import org.fuin.utils4j.fileprocessor.FileProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +39,8 @@ import org.slf4j.LoggerFactory;
  * {@link ParameterizedTemplateModel} or {@link ParameterizedTemplateModels} and
  * combines all files into one model.
  */
-public final class ParameterizedTemplateParser implements
+public final class ParameterizedTemplateParser extends
+        AbstractParser<ParameterizedTemplateParserConfig> implements
         IncrementalParser<ParameterizedTemplateModels> {
 
     private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateParser.class);
@@ -62,6 +63,13 @@ public final class ParameterizedTemplateParser implements
 
     private SrcGen4JContext context;
 
+    /**
+     * Default constructor.
+     */
+    public ParameterizedTemplateParser() {
+        super(ParameterizedTemplateParserConfig.class);
+    }
+
     @Override
     public void initialize(final SrcGen4JContext context, final ParserConfig config) {
 
@@ -70,14 +78,7 @@ public final class ParameterizedTemplateParser implements
 
         LOG.debug("Initialize parser: " + name);
 
-        final Config<ParserConfig> cfg = config.getConfig();
-        if (!(cfg.getConfig() instanceof ParameterizedTemplateParserConfig)) {
-            throw new IllegalStateException("The configuration is expected to be of type '"
-                    + ParameterizedTemplateParserConfig.class.getName() + "', but was: "
-                    + cfg.getConfig().getClass().getName());
-        }
-        parserConfig = (ParameterizedTemplateParserConfig) cfg.getConfig();
-
+        parserConfig = getConcreteConfig(config);
         modelFilter = new RegexFileFilter(parserConfig.getModelFilter());
         templateFilter = new RegexFileFilter(parserConfig.getTemplateFilter());
         fileFilter = new OrFileFilter(modelFilter, templateFilter);

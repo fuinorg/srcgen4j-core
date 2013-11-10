@@ -61,7 +61,8 @@ public abstract class AbstractParser<CONFIG_TYPE> {
             if (!(concreteConfigClass.isAssignableFrom(cfg.getConfig().getClass()))) {
                 throw new IllegalStateException("The configuration is expected to be of type '"
                         + concreteConfigClass.getName() + "', but was: "
-                        + cfg.getConfig().getClass().getName());
+                        + cfg.getConfig().getClass().getName()
+                        + " - Did you add the configuration class to the JXB context?");
             }
         }
         return (CONFIG_TYPE) cfg.getConfig();
