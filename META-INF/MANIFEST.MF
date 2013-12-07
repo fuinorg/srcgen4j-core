@@ -26,18 +26,19 @@ Export-Package: org.fuin.srcgen4j.core.base;uses:="javax.xml.bind.annota
  T"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
- org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity,
- org.apache.velocity.app,org.apache.velocity.context,org.apache.velocity
- .runtime.resource.loader,org.eclipse.emf.common.notify;resolution:=opti
- onal,org.eclipse.emf.common.util;resolution:=optional,org.eclipse.emf.e
- core;resolution:=optional,org.eclipse.emf.ecore.resource;resolution:=op
- tional,org.eclipse.emf.ecore.resource.impl;resolution:=optional,org.ecl
- ipse.emf.ecore.util;resolution:=optional,org.emftext.language.java;reso
- lution:=optional,org.emftext.language.java.classifiers;resolution:=opti
- onal,org.emftext.language.java.containers;resolution:=optional,org.emft
- ext.language.java.resource;resolution:=optional,org.fuin.objects4j.comm
- on,org.fuin.objects4j.vo,org.fuin.srcgen4j.commons,org.fuin.utils4j,org
- .fuin.utils4j.fileprocessor,org.slf4j;version="[1.6,2)"
+ org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity;
+ resolution:=optional,org.apache.velocity.app;resolution:=optional,org.a
+ pache.velocity.context;resolution:=optional,org.apache.velocity.runtime
+ .resource.loader;resolution:=optional,org.eclipse.emf.common.notify;res
+ olution:=optional,org.eclipse.emf.common.util;resolution:=optional,org.
+ eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.resource;r
+ esolution:=optional,org.eclipse.emf.ecore.resource.impl;resolution:=opt
+ ional,org.eclipse.emf.ecore.util;resolution:=optional,org.emftext.langu
+ age.java;resolution:=optional,org.emftext.language.java.classifiers;res
+ olution:=optional,org.emftext.language.java.containers;resolution:=opti
+ onal,org.emftext.language.java.resource;resolution:=optional,org.fuin.o
+ bjects4j.common,org.fuin.objects4j.vo,org.fuin.srcgen4j.commons,org.fui
+ n.utils4j,org.fuin.utils4j.fileprocessor,org.slf4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
  e-base.xsd,srcgen4j-core-emf.xsd=src/main/resources/srcgen4j-core-emf.x
  sd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-jamopp.xsd

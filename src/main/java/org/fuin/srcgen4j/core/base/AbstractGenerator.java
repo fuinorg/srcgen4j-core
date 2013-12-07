@@ -177,20 +177,23 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
             final String logInfo) {
 
         final Folder folder = getGeneratorConfig().findTargetFolder(artifactName);
-        final File dir = new File(folder.getDirectory());
+        final File dir = folder.getCanonicalDir();
         final File file = new File(dir, filename);
 
-        // Make sure the path exists
-        if (!file.getParentFile().exists()) {
+        // Make sure the folder exists
+        if (!dir.exists()) {
             if (folder.isCreate()) {
-                file.getParentFile().mkdirs();
+                dir.mkdirs();
             } else {
-                throw new IllegalStateException("Directory '" + file.getParentFile()
+                throw new IllegalStateException("Directory '" + dir
                         + "' does not exist, but configuration does not allow creation: "
                         + "<folder name=\"" + folder.getName() + "\" create=\"false\" ... />");
             }
         }
-
+        // Make sure the parent directory for the file exists
+        if (!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
         if (file.exists() && !folder.isOverride()) {
             // Skip file because override is not allowed
             return new GeneratedFile(file, logInfo, true);
