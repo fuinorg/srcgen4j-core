@@ -44,7 +44,7 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
             final Map<Object, Object> vars = new HashMap<Object, Object>();
             vars.put("name", greeting.getName());
             return new GeneratedArtifact(artifact, "a/b/c/AbstractHello" + greeting.getName()
-                    + ".java", Utils4J.replaceVars(src, vars));
+                    + ".java", Utils4J.replaceVars(src, vars).getBytes());
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }

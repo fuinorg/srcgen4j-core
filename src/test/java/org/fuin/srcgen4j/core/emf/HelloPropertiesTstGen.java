@@ -47,7 +47,7 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
             }
         }
 
-        return new GeneratedArtifact(artifact, "hello.properties", sb.toString());
+        return new GeneratedArtifact(artifact, "hello.properties", sb.toString().getBytes());
 
     }
 

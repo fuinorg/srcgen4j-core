@@ -17,10 +17,11 @@
  */
 package org.fuin.srcgen4j.core.base;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.Writer;
+import java.io.OutputStream;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.Folder;
@@ -221,11 +222,12 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         } else {
             LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
             try {
-                final Writer writer = new FileWriter(genFile.getFile());
+                final OutputStream out = new BufferedOutputStream(new FileOutputStream(
+                        genFile.getFile()));
                 try {
-                    writer.write(artifact.getSource());
+                    out.write(artifact.getData());
                 } finally {
-                    writer.close();
+                    out.close();
                 }
                 genFile.persist();
             } catch (final IOException ex) {
