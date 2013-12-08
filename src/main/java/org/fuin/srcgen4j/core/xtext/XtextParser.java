@@ -21,6 +21,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
@@ -31,7 +32,8 @@ import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
 /**
  * Parses Xtext models.
  */
-public final class XtextParser extends AbstractEMFParser<XtextParserConfig> implements Parser<ResourceSet> {
+public final class XtextParser extends AbstractEMFParser<XtextParserConfig> implements
+        Parser<ResourceSet> {
 
     private XtextParserConfig parserConfig;
 
@@ -44,6 +46,10 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
 
     @Override
     public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
+
+        // Xtext always needs a configuration
+        Contract.requireArgNotNull("config", config);
+
         this.parserConfig = getConcreteConfig(config);
 
         setModelDirs(new SrcGen4JFile(parserConfig.getModelPath()));

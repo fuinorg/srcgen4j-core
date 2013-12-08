@@ -23,6 +23,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import javax.validation.constraints.NotNull;
+
 import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.Folder;
 import org.fuin.srcgen4j.commons.GenerateException;
@@ -213,7 +215,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      * @throws GenerateException
      *             Error writing the artifact.
      */
-    protected final void write(final GeneratedArtifact artifact) throws GenerateException {
+    protected final void write(@NotNull final GeneratedArtifact artifact) throws GenerateException {
+
+        Contract.requireArgNotNull("artifact", artifact);
 
         final GeneratedFile genFile = getTargetFile(artifact.getName(), artifact.getPathAndName(),
                 null);

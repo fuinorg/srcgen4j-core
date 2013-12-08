@@ -25,6 +25,7 @@ import java.util.Set;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.OrFileFilter;
 import org.apache.commons.io.filefilter.RegexFileFilter;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.IncrementalParser;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
@@ -72,6 +73,9 @@ public final class ParameterizedTemplateParser extends
 
     @Override
     public void initialize(final SrcGen4JContext context, final ParserConfig config) {
+
+        // This type of parser always needs a configuration
+        Contract.requireArgNotNull("config", config);
 
         name = config.getName();
         varMap = config.getParent().getVarMap();

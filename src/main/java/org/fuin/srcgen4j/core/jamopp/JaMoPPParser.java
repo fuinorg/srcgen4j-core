@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.emftext.language.java.JavaClasspath;
 import org.emftext.language.java.JavaPackage;
 import org.emftext.language.java.resource.JavaSourceOrClassFileResourceFactoryImpl;
+import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
@@ -58,6 +59,10 @@ public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> im
 
     @Override
     public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
+
+        // JaMoPP always needs a configuration
+        Contract.requireArgNotNull("config", config);
+
         this.parserConfig = getConcreteConfig(config);
 
         jarFiles = parserConfig.getJarFiles();

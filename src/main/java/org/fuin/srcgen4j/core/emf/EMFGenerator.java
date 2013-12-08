@@ -116,7 +116,9 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
             if (!incremental || factory.isIncremental()) {
                 LOG.debug("Generate with factory " + factory.getClass().getSimpleName());
                 final GeneratedArtifact generatedArtifact = factory.create(notifier);
-                write(generatedArtifact);
+                if (generatedArtifact != null) {
+                    write(generatedArtifact);
+                }
             }
         }
 
@@ -129,7 +131,9 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
 
         for (final ArtifactFactory<ResourceSet> factory : resourceSetFactories) {
             final GeneratedArtifact generatedArtifact = factory.create(getModel());
-            write(generatedArtifact);
+            if (generatedArtifact != null) {
+                write(generatedArtifact);
+            }
         }
 
     }
