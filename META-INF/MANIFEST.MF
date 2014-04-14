@@ -37,9 +37,9 @@ Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  age.java;resolution:=optional,org.emftext.language.java.classifiers;res
  olution:=optional,org.emftext.language.java.containers;resolution:=opti
  onal,org.emftext.language.java.resource;resolution:=optional,org.fuin.o
- bjects4j.common,org.fuin.objects4j.vo,org.fuin.srcgen4j.commons,org.fui
- n.utils4j;version="[0.8,1)",org.fuin.utils4j.fileprocessor;version="[0.
- 8,1)",org.slf4j;version="[1.6,2)"
+ bjects4j.common,org.fuin.objects4j.vo,org.fuin.srcgen4j.commons;version
+ ="[0.3,1)",org.fuin.utils4j;version="[0.8,1)",org.fuin.utils4j.fileproc
+ essor;version="[0.8,1)",org.slf4j;version="[1.6,2)"
 Include-Resource: srcgen4j-core-base.xsd=src/main/resources/srcgen4j-cor
  e-base.xsd,srcgen4j-core-emf.xsd=src/main/resources/srcgen4j-core-emf.x
  sd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-jamopp.xsd
