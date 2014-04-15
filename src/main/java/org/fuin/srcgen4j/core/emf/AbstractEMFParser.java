@@ -21,9 +21,10 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.emf.common.notify.Notifier;
@@ -198,7 +199,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     private boolean resolvedAllProxies(final List<String> unresolved,
             final int resourcesProcessedBefore) {
 
-        final List<EObject> eObjects = findAllEObjects(resourceSet);
+        final Set<EObject> eObjects = findAllEObjects(resourceSet);
 
         // Check if we discovered any new resources
         final int totalResources = resourceSet.getResources().size();
@@ -211,8 +212,10 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         boolean failure = false;
         int resolved = 0;
         final int count = eObjects.size();
-        for (int i = 0; i < count; i++) {
-            final EObject eObj = eObjects.get(i);
+        final Iterator<EObject> it = eObjects.iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            final EObject eObj = it.next();
             if (eObj instanceof InternalEObject) {
                 final InternalEObject iObj = (InternalEObject) eObj;
                 for (final EObject crossRef : iObj.eCrossReferences()) {
@@ -231,6 +234,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
                 if ((i % 1000) == 0) {
                     LOG.debug("Finished " + i + " of " + count + " references");
                 }
+                i++;
             }
         }
         LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: " + unresolved.size());
@@ -253,8 +257,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * 
      * @return List.
      */
-    private static List<EObject> findAllEObjects(final ResourceSet resourceSet) {
-        final List<EObject> list = new LinkedList<EObject>();
+    private static Set<EObject> findAllEObjects(final ResourceSet resourceSet) {
+        final Set<EObject> list = new HashSet<EObject>();
         for (final Iterator<Notifier> i = resourceSet.getAllContents(); i.hasNext();) {
             final Notifier next = i.next();
             if (next instanceof EObject) {
