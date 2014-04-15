@@ -110,8 +110,6 @@ public final class GeneratedFile {
             return;
         }
 
-        persisted = true;
-
         try {
 
             // Compare new and old file
@@ -123,6 +121,8 @@ public final class GeneratedFile {
                 tmpFile.renameTo(file);
                 LOG.info("Generated: " + getPath() + logInfo);
             }
+
+            persisted = true;
 
         } catch (final IOException ex) {
             throw new RuntimeException("Error comparing content: tmp=" + tmpFile + ", target="
