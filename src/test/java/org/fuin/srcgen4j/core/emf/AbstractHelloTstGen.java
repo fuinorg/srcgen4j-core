@@ -20,6 +20,8 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
 
     private boolean incremental = true;
 
+    private Map<String, String> varMap;
+
     @Override
     public final Class<? extends Greeting> getModelType() {
         return Greeting.class;
@@ -29,6 +31,7 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
     public final void init(final ArtifactFactoryConfig config) {
         this.artifact = config.getArtifact();
         this.incremental = config.isIncremental();
+        this.varMap = config.getVarMap();
     }
 
     @Override
@@ -43,7 +46,8 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
                     "src/test/resources/AbstractHello.template"));
             final Map<Object, Object> vars = new HashMap<Object, Object>();
             vars.put("name", greeting.getName());
-            return new GeneratedArtifact(artifact, "a/b/c/AbstractHello" + greeting.getName()
+            vars.put("path", varMap.get("package".replace('.', '/')));
+            return new GeneratedArtifact(artifact, "${path}/AbstractHello" + greeting.getName()
                     + ".java", Utils4J.replaceVars(src, vars).getBytes());
         } catch (final IOException ex) {
             throw new RuntimeException(ex);

@@ -1,4 +1,4 @@
-package a.b.c;
+package ${package};
 
 public abstract class AbstractHello${name} {
 
