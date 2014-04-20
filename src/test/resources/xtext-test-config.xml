@@ -29,9 +29,7 @@
 		    <config>
 				<emf:emf-generator-config>
 					<emf:artifact-factory artifact="abstractHello" class="org.fuin.srcgen4j.core.emf.AbstractHelloTstGen">
-						<variables>
-							<variable name="package" value="a.b.c" />
-						</variables>
+						<variable name="package" value="a.b.c" />
 					</emf:artifact-factory>
 					<emf:artifact-factory artifact="manualHello" class="org.fuin.srcgen4j.core.emf.ManualHelloTstGen" />
 					<emf:artifact-factory artifact="helloProps" incremental="false" class="org.fuin.srcgen4j.core.emf.HelloPropertiesTstGen" />

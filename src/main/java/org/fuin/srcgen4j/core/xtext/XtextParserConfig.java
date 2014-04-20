@@ -153,7 +153,8 @@ public class XtextParserConfig extends AbstractElement implements
     public final XtextParserConfig init(final SrcGen4JContext context,
             final Config<ParserConfig> parent, final Map<String, String> vars) {
         this.context = context;
-        setModelPath(replaceVars(getModelPath(), vars));
+        inheritVariables(vars);
+        setModelPath(replaceVars(getModelPath(), getVarMap()));
         return this;
     }
 

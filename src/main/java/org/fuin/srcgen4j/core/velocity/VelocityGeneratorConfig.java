@@ -94,13 +94,14 @@ public abstract class VelocityGeneratorConfig extends AbstractElement implements
     @Override
     public final VelocityGeneratorConfig init(final SrcGen4JContext context,
             final Config<GeneratorConfig> parent, final Map<String, String> vars) {
-        setTemplatePath(replaceVars(getTemplatePath(), vars));
-        init(vars);
+        inheritVariables(vars);
+        setTemplatePath(replaceVars(getTemplatePath(), getVarMap()));
+        init(getVarMap());
         return this;
     }
 
     /**
-     * Initialize child objects.
+     * Initialize child objects. May be overwritten by child classes.
      * 
      * @param vars
      *            Variable context.

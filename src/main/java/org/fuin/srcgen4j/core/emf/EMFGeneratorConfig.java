@@ -21,12 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.objects4j.common.NeverNull;
+import org.fuin.objects4j.common.Nullable;
 import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
 import org.fuin.srcgen4j.commons.ArtifactFactoryConfig;
@@ -43,6 +45,8 @@ import org.fuin.srcgen4j.commons.SrcGen4JContext;
 public class EMFGeneratorConfig extends AbstractElement implements
         InitializableElement<EMFGeneratorConfig, Config<GeneratorConfig>> {
 
+    @Nullable
+    @Valid
     @XmlElement(name = "artifact-factory")
     private List<ArtifactFactoryConfig> factoryConfigs;
 
@@ -58,9 +62,11 @@ public class EMFGeneratorConfig extends AbstractElement implements
     @Override
     public final EMFGeneratorConfig init(final SrcGen4JContext context,
             final Config<GeneratorConfig> parent, final Map<String, String> vars) {
+
+        inheritVariables(vars);
         if (factoryConfigs != null) {
             for (final ArtifactFactoryConfig factoryConfig : factoryConfigs) {
-                factoryConfig.init(context);
+                factoryConfig.init(context, getVarMap());
             }
         }
         return this;

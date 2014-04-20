@@ -125,11 +125,12 @@ public class TargetFileListProducerConfig extends AbstractElement implements
     public final TargetFileListProducerConfig init(final SrcGen4JContext context,
             final ParameterizedTemplateModel parent, final Map<String, String> vars) {
         setParent(parent);
-        setClassName(replaceVars(getClassName(), vars));
+        inheritVariables(vars);
+        setClassName(replaceVars(getClassName(), getVarMap()));
         if (config instanceof InitializableElement) {
             final InitializableElement<?, TargetFileListProducerConfig> ie;
             ie = (InitializableElement<?, TargetFileListProducerConfig>) config;
-            ie.init(context, this, vars);
+            ie.init(context, this, getVarMap());
         }
         return this;
     }

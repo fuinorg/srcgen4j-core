@@ -186,8 +186,9 @@ public class ParameterizedTemplateParserConfig extends AbstractElement implement
     @Override
     public final ParameterizedTemplateParserConfig init(final SrcGen4JContext context,
             final Config<GeneratorConfig> parent, final Map<String, String> vars) {
-        setModelPath(replaceVars(getModelPath(), vars));
-        setTemplatePath(replaceVars(getTemplatePath(), vars));
+        inheritVariables(vars);
+        setModelPath(replaceVars(getModelPath(), getVarMap()));
+        setTemplatePath(replaceVars(getTemplatePath(), getVarMap()));
         return this;
     }
 
