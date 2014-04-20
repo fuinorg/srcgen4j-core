@@ -46,8 +46,10 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
                     "src/test/resources/AbstractHello.template"));
             final Map<Object, Object> vars = new HashMap<Object, Object>();
             vars.put("name", greeting.getName());
-            vars.put("path", varMap.get("package".replace('.', '/')));
-            return new GeneratedArtifact(artifact, "${path}/AbstractHello" + greeting.getName()
+            final String pkg = varMap.get("package");
+            final String path = pkg.replace('.', '/');
+            vars.put("package", pkg);
+            return new GeneratedArtifact(artifact, path + "/AbstractHello" + greeting.getName()
                     + ".java", Utils4J.replaceVars(src, vars).getBytes());
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
