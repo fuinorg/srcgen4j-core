@@ -57,7 +57,7 @@ public class XtextParserTest {
                 XtextParserConfig.class, EMFGeneratorConfig.class, SrcGen4JFile.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().get(0);
+        final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
         final List<SrcGen4JFile> srcDirs = new ArrayList<SrcGen4JFile>();
         srcDirs.add(dir);
 

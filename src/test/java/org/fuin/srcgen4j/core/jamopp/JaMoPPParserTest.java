@@ -51,7 +51,7 @@ public class JaMoPPParserTest {
                 JaMoPPParserConfig.class, SrcGen4JFile.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().get(0);
+        final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
         assertThat(config.getConfig()).isNotNull();
         assertThat(config.getConfig().getConfig()).isNotNull();
         assertThat(config.getConfig().getConfig()).isInstanceOf(JaMoPPParserConfig.class);
