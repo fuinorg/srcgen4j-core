@@ -53,18 +53,21 @@ public final class PTGenHelper {
      * @throws UnmarshalObjectException
      *             Error reading the configuration.
      */
-    public static SrcGen4JConfig createAndInit(final SrcGen4JContext context, final File configFile)
-            throws UnmarshalObjectException {
+    public static SrcGen4JConfig createAndInit(final SrcGen4JContext context,
+            final File configFile) throws UnmarshalObjectException {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final SrcGen4JConfig config = helper.create(configFile, JAXBContext.newInstance(
-                    SrcGen4JConfig.class, VelocityGeneratorConfig.class,
-                    ParameterizedTemplateParserConfig.class,
-                    ParameterizedTemplateGeneratorConfig.class));
-            config.init(context, Utils4J.getCanonicalFile(configFile.getParentFile()));
+            final SrcGen4JConfig config = helper.create(configFile, JAXBContext
+                    .newInstance(SrcGen4JConfig.class,
+                            VelocityGeneratorConfig.class,
+                            ParameterizedTemplateParserConfig.class,
+                            ParameterizedTemplateGeneratorConfig.class));
+            config.init(context,
+                    Utils4J.getCanonicalFile(configFile.getParentFile()));
             return config;
         } catch (final JAXBException ex) {
-            throw new UnmarshalObjectException("Error reading the configuration: " + configFile, ex);
+            throw new UnmarshalObjectException(
+                    "Error reading the configuration: " + configFile, ex);
         }
     }
 

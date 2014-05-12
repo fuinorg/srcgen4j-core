@@ -59,7 +59,8 @@ public final class ParameterizedTemplateModels {
      * @param paramTemplates
      *            Template list to set.
      */
-    public final void setParamTemplates(final List<ParameterizedTemplateModel> paramTemplates) {
+    public final void setParamTemplates(
+            final List<ParameterizedTemplateModel> paramTemplates) {
         this.paramTemplates = paramTemplates;
     }
 
@@ -70,7 +71,8 @@ public final class ParameterizedTemplateModels {
      * @param paramTemplate
      *            Template to add - Cannot be NULL.
      */
-    public final void addParamTemplate(final ParameterizedTemplateModel paramTemplate) {
+    public final void addParamTemplate(
+            final ParameterizedTemplateModel paramTemplate) {
         if (paramTemplates == null) {
             paramTemplates = new ArrayList<ParameterizedTemplateModel>();
         }
@@ -84,7 +86,8 @@ public final class ParameterizedTemplateModels {
      * @param list
      *            LIst of templates to add - Cannot be NULL.
      */
-    public final void addParamTemplates(final List<ParameterizedTemplateModel> list) {
+    public final void addParamTemplates(
+            final List<ParameterizedTemplateModel> list) {
         if (list != null) {
             for (final ParameterizedTemplateModel template : list) {
                 addParamTemplate(template);
@@ -100,7 +103,8 @@ public final class ParameterizedTemplateModels {
      * @param vars
      *            Variables to use.
      */
-    public final void init(final SrcGen4JContext context, final Map<String, String> vars) {
+    public final void init(final SrcGen4JContext context,
+            final Map<String, String> vars) {
         if (paramTemplates != null) {
             for (final ParameterizedTemplateModel paramTemplate : paramTemplates) {
                 paramTemplate.init(context, vars);
@@ -120,11 +124,12 @@ public final class ParameterizedTemplateModels {
      * 
      * @return List - Never NULL, but may be empty.
      */
-    public final List<ParameterizedTemplateModel> findReferencesTo(final File templateDir,
-            final File templateFile) {
+    public final List<ParameterizedTemplateModel> findReferencesTo(
+            final File templateDir, final File templateFile) {
 
         final List<ParameterizedTemplateModel> result = new ArrayList<ParameterizedTemplateModel>();
-        if ((paramTemplates != null) && Utils4J.fileInsideDirectory(templateDir, templateFile)) {
+        if ((paramTemplates != null)
+                && Utils4J.fileInsideDirectory(templateDir, templateFile)) {
             for (final ParameterizedTemplateModel paramTemplate : paramTemplates) {
                 if (paramTemplate.hasReferenceTo(templateDir, templateFile)) {
                     result.add(paramTemplate);

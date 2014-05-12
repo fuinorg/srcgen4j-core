@@ -47,15 +47,20 @@ public class JaMoPPParserTest {
         final DefaultContext context = new DefaultContext();
         final SrcGen4JFile dir = new SrcGen4JFile("src/test/jamopp");
         final SrcGen4JFile file = new SrcGen4JFile(dir, "test-config.xml");
-        final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
-                JaMoPPParserConfig.class, SrcGen4JFile.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(
+                SrcGen4JConfig.class, JaMoPPParserConfig.class,
+                SrcGen4JFile.class);
+        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(
+                file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
+        final ParserConfig config = srcGen4JConfig.getParsers().getList()
+                .get(0);
         assertThat(config.getConfig()).isNotNull();
         assertThat(config.getConfig().getConfig()).isNotNull();
-        assertThat(config.getConfig().getConfig()).isInstanceOf(JaMoPPParserConfig.class);
-        final JaMoPPParserConfig cfg = (JaMoPPParserConfig) config.getConfig().getConfig();
+        assertThat(config.getConfig().getConfig()).isInstanceOf(
+                JaMoPPParserConfig.class);
+        final JaMoPPParserConfig cfg = (JaMoPPParserConfig) config.getConfig()
+                .getConfig();
         assertThat(cfg.getBinDirs()).hasSize(1);
         assertThat(cfg.getJarFiles()).hasSize(1);
         assertThat(cfg.getSrcDirs()).hasSize(1);

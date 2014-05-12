@@ -32,8 +32,9 @@ public class ArgumentTest {
 
         // PREPARE
         final Argument testee = new Argument("key", "value");
-        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplateModel.class,
-                TargetFile.class, Argument.class);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(
+                ParameterizedTemplateModel.class, TargetFile.class,
+                Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE

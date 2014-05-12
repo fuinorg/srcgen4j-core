@@ -46,7 +46,8 @@ public abstract class VelocityGenerator<MODEL> extends
     /** Key for the location of the template files. */
     public static final String TEMPLATE_DIR_KEY = "templateDir";
 
-    private static final Logger LOG = LoggerFactory.getLogger(VelocityGenerator.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(VelocityGenerator.class);
 
     private VelocityEngine ve;
 
@@ -78,10 +79,12 @@ public abstract class VelocityGenerator<MODEL> extends
             ve.addProperty("resource.loader", "class");
         } else {
             ve.addProperty("resource.loader", "file, class");
-            ve.addProperty("file.resource.loader.class", FileResourceLoader.class.getName());
+            ve.addProperty("file.resource.loader.class",
+                    FileResourceLoader.class.getName());
             ve.addProperty("file.resource.loader.path", templateDir.toString());
         }
-        ve.addProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
+        ve.addProperty("class.resource.loader.class",
+                ClasspathResourceLoader.class.getName());
         ve.init();
         return ve;
     }
@@ -102,14 +105,18 @@ public abstract class VelocityGenerator<MODEL> extends
      * @throws GenerateException
      *             Error merging the template
      */
-    protected final void merge(final VelocityContext context, final String artifactName,
-            final String templateName, final String filename) throws GenerateException {
+    protected final void merge(final VelocityContext context,
+            final String artifactName, final String templateName,
+            final String filename) throws GenerateException {
 
-        final GeneratedFile genFile = getTargetFile(artifactName, filename, templateName);
+        final GeneratedFile genFile = getTargetFile(artifactName, filename,
+                templateName);
         if (genFile.isSkip()) {
-            LOG.debug("Omitted already existing file: " + genFile + " [" + templateName + "]");
+            LOG.debug("Omitted already existing file: " + genFile + " ["
+                    + templateName + "]");
         } else {
-            LOG.debug("Start merging velocity template: " + genFile + " [" + templateName + "]");
+            LOG.debug("Start merging velocity template: " + genFile + " ["
+                    + templateName + "]");
             // Merge content
             try {
                 final Writer writer = new FileWriter(genFile.getFile());
@@ -122,8 +129,8 @@ public abstract class VelocityGenerator<MODEL> extends
                 genFile.persist();
 
             } catch (final IOException ex) {
-                throw new GenerateException("Error merging template '" + templateName + "' to '"
-                        + filename + "'!", ex);
+                throw new GenerateException("Error merging template '"
+                        + templateName + "' to '" + filename + "'!", ex);
             }
         }
 
@@ -135,8 +142,10 @@ public abstract class VelocityGenerator<MODEL> extends
     }
 
     @Override
-    public final void generate(final boolean incremental) throws GenerateException {
-        this.templateDir = Utils4J.getCanonicalFile(getSpecificConfig().getTemplateDir());
+    public final void generate(final boolean incremental)
+            throws GenerateException {
+        this.templateDir = Utils4J.getCanonicalFile(getSpecificConfig()
+                .getTemplateDir());
         this.ve = createVelocityEngine(templateDir);
 
         LOG.debug("Template directory: " + templateDir);

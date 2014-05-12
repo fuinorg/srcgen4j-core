@@ -37,14 +37,16 @@ public final class ManualHelloTstGen implements ArtifactFactory<Greeting> {
     }
 
     @Override
-    public final GeneratedArtifact create(final Greeting greeting) throws GenerateException {
+    public final GeneratedArtifact create(final Greeting greeting)
+            throws GenerateException {
         try {
             final String src = FileUtils.readFileToString(new File(
                     "src/test/resources/Hello.template"));
             final Map<Object, Object> vars = new HashMap<Object, Object>();
             vars.put("name", greeting.getName());
-            return new GeneratedArtifact(artifact, "a/b/c/Hello" + greeting.getName() + ".java",
-                    Utils4J.replaceVars(src, vars).getBytes());
+            return new GeneratedArtifact(artifact, "a/b/c/Hello"
+                    + greeting.getName() + ".java", Utils4J.replaceVars(src,
+                    vars).getBytes());
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }

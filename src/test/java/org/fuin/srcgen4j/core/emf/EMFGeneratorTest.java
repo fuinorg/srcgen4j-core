@@ -48,12 +48,16 @@ public class EMFGeneratorTest {
         final SrcGen4JFile dir = new SrcGen4JFile("src/test/resources");
         final SrcGen4JFile file = new SrcGen4JFile(dir, "xtext-test-config.xml");
 
-        final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
-                XtextParserConfig.class, EMFGeneratorConfig.class, SrcGen4JFile.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(
+                SrcGen4JConfig.class, XtextParserConfig.class,
+                EMFGeneratorConfig.class, SrcGen4JFile.class);
+        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(
+                file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final GeneratorConfig generatorConfig = srcGen4JConfig.getGenerators().findByName("gen1");
-        final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
+        final GeneratorConfig generatorConfig = srcGen4JConfig.getGenerators()
+                .findByName("gen1");
+        final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList()
+                .get(0);
 
         final XtextParser parser = new XtextParser();
         parser.initialize(context, parserConfig);
@@ -66,14 +70,20 @@ public class EMFGeneratorTest {
         testee.generate(resourceSet, false);
 
         // VERIFY
-        assertThat(new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))
-                .hasSameContentAs(new File("src/test/resources/AbstractHelloUniverse.java"));
-        assertThat(new File("target/xtest-test/a/b/c/AbstractHelloWorld.java")).hasSameContentAs(
-                new File("src/test/resources/AbstractHelloWorld.java"));
-        assertThat(new File("target/xtest-test/a/b/c/HelloUniverse.java")).hasSameContentAs(
-                new File("src/test/resources/HelloUniverse.java"));
-        assertThat(new File("target/xtest-test/a/b/c/HelloWorld.java")).hasSameContentAs(
-                new File("src/test/resources/HelloWorld.java"));
+        assertThat(
+                new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))
+                .hasSameContentAs(
+                        new File(
+                                "src/test/resources/AbstractHelloUniverse.java"));
+        assertThat(new File("target/xtest-test/a/b/c/AbstractHelloWorld.java"))
+                .hasSameContentAs(
+                        new File("src/test/resources/AbstractHelloWorld.java"));
+        assertThat(new File("target/xtest-test/a/b/c/HelloUniverse.java"))
+                .hasSameContentAs(
+                        new File("src/test/resources/HelloUniverse.java"));
+        assertThat(new File("target/xtest-test/a/b/c/HelloWorld.java"))
+                .hasSameContentAs(
+                        new File("src/test/resources/HelloWorld.java"));
 
     }
     // CHECKSTYLE:ON

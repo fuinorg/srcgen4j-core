@@ -71,8 +71,8 @@ public class JaMoPPParserConfig extends AbstractElement implements
      * @param srcDirs
      *            List of source directories to parse or NULL.
      */
-    public JaMoPPParserConfig(final List<SrcGen4JFile> jarFiles, final List<SrcGen4JFile> binDirs,
-            final List<SrcGen4JFile> srcDirs) {
+    public JaMoPPParserConfig(final List<SrcGen4JFile> jarFiles,
+            final List<SrcGen4JFile> binDirs, final List<SrcGen4JFile> srcDirs) {
         super();
         this.jarFiles = jarFiles;
         this.binDirs = binDirs;

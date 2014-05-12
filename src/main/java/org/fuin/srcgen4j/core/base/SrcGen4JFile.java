@@ -158,7 +158,8 @@ public final class SrcGen4JFile {
             if (name == null) {
                 file = new File(path.replace('/', File.separatorChar));
             } else {
-                file = new File((path + "/" + name).replace('/', File.separatorChar));
+                file = new File((path + "/" + name).replace('/',
+                        File.separatorChar));
             }
         }
         return file;

@@ -53,11 +53,14 @@ public class XtextParserTest {
         final DefaultContext context = new DefaultContext();
         final SrcGen4JFile dir = new SrcGen4JFile("src/test/resources");
         final SrcGen4JFile file = new SrcGen4JFile(dir, "xtext-test-config.xml");
-        final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class,
-                XtextParserConfig.class, EMFGeneratorConfig.class, SrcGen4JFile.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file.toFile(), jaxbContext);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(
+                SrcGen4JConfig.class, XtextParserConfig.class,
+                EMFGeneratorConfig.class, SrcGen4JFile.class);
+        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(
+                file.toFile(), jaxbContext);
         srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
+        final ParserConfig config = srcGen4JConfig.getParsers().getList()
+                .get(0);
         final List<SrcGen4JFile> srcDirs = new ArrayList<SrcGen4JFile>();
         srcDirs.add(dir);
 

@@ -34,8 +34,9 @@ import org.fuin.srcgen4j.core.base.AbstractGenerator;
  *            Type of the generator specific configuration - Use 'Object' if the
  *            generator does not require any configuration.
  */
-public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<ResourceSet, CONFIG>
-        implements Generator<ResourceSet> {
+public abstract class AbstractEMFGenerator<CONFIG> extends
+        AbstractGenerator<ResourceSet, CONFIG> implements
+        Generator<ResourceSet> {
 
     /**
      * default constructor.
@@ -45,7 +46,8 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
     }
 
     @Override
-    protected final void generate(final boolean incremental) throws GenerateException {
+    protected final void generate(final boolean incremental)
+            throws GenerateException {
 
         beforeGenerate();
 
@@ -106,7 +108,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate(@NotNull Notifier notifier, boolean incremental)
-            throws GenerateException;
+    protected abstract void generate(@NotNull Notifier notifier,
+            boolean incremental) throws GenerateException;
 
 }

@@ -28,14 +28,16 @@ import org.slf4j.LoggerFactory;
  * {@link ParameterizedTemplateModel#getTargetFileListProducer()} and
  * {@link ParameterizedTemplateModel#getTargetFiles()} is available.
  */
-public final class TargetFilesMustBeAvailableValidator implements
+public final class TargetFilesMustBeAvailableValidator
+        implements
         ConstraintValidator<TargetFilesMustBeAvailable, ParameterizedTemplateModel> {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(TargetFilesMustBeAvailableValidator.class);
 
     @Override
-    public final void initialize(final TargetFilesMustBeAvailable constraintAnnotation) {
+    public final void initialize(
+            final TargetFilesMustBeAvailable constraintAnnotation) {
         // Not used
     }
 
@@ -44,7 +46,8 @@ public final class TargetFilesMustBeAvailableValidator implements
             final ConstraintValidatorContext context) {
 
         if (value.getTargetFileListProducerConfig() == null) {
-            if ((value.getTargetFiles() == null || value.getTargetFiles().size() == 0)) {
+            if ((value.getTargetFiles() == null || value.getTargetFiles()
+                    .size() == 0)) {
                 LOG.debug("Element 'target-files' is mandatory if no element "
                         + "'target-file-list-producer' is defined");
                 return false;

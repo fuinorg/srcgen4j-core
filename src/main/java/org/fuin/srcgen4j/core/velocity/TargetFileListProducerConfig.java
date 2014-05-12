@@ -39,7 +39,8 @@ import org.fuin.utils4j.Utils4J;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "target-file-list-producer")
 @XmlType(propOrder = { "config", "className" })
-public class TargetFileListProducerConfig extends AbstractElement implements
+public class TargetFileListProducerConfig extends AbstractElement
+        implements
         InitializableElement<TargetFileListProducerConfig, ParameterizedTemplateModel> {
 
     @TrimmedNotEmpty
@@ -122,8 +123,10 @@ public class TargetFileListProducerConfig extends AbstractElement implements
 
     @Override
     @SuppressWarnings("unchecked")
-    public final TargetFileListProducerConfig init(final SrcGen4JContext context,
-            final ParameterizedTemplateModel parent, final Map<String, String> vars) {
+    public final TargetFileListProducerConfig init(
+            final SrcGen4JContext context,
+            final ParameterizedTemplateModel parent,
+            final Map<String, String> vars) {
         setParent(parent);
         inheritVariables(vars);
         setClassName(replaceVars(getClassName(), getVarMap()));
@@ -148,7 +151,8 @@ public class TargetFileListProducerConfig extends AbstractElement implements
         final Object obj = Utils4J.createInstance(className);
         if (!(obj instanceof TargetFileListProducer)) {
             throw new IllegalStateException("Expected class to be of type '"
-                    + TargetFileListProducer.class.getName() + "', but was: " + className);
+                    + TargetFileListProducer.class.getName() + "', but was: "
+                    + className);
         }
         tflProducer = (TargetFileListProducer) obj;
         return tflProducer;

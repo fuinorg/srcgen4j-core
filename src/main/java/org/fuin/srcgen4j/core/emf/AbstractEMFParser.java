@@ -47,9 +47,11 @@ import org.slf4j.LoggerFactory;
  * @param <CONFIG_TYPE>
  *            Type of the concrete configuration.
  */
-public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE> {
+public abstract class AbstractEMFParser<CONFIG_TYPE> extends
+        AbstractParser<CONFIG_TYPE> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFParser.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(AbstractEMFParser.class);
 
     private ResourceSet resourceSet = new ResourceSetImpl();
 
@@ -95,7 +97,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      *            "class", ...)
      */
     public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
-            final List<SrcGen4JFile> modelDirs, final List<String> fileExtensions) {
+            final List<SrcGen4JFile> modelDirs,
+            final List<String> fileExtensions) {
         super(concreteConfigClass);
         this.modelDirs = modelDirs;
         this.fileExtensions = fileExtensions;
@@ -107,7 +110,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     protected final void parseModelFiles() {
 
         if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
-            throw new IllegalStateException("No file extensions for EMF model files set!");
+            throw new IllegalStateException(
+                    "No file extensions for EMF model files set!");
         }
 
         // Drop previous resource set
@@ -130,7 +134,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     protected final void resolveProxies() {
         final List<String> unresolved = new ArrayList<String>();
         if (!resolvedAllProxies(unresolved, 0)) {
-            LOG.warn("Could not resolve the following proxies (" + unresolved.size() + "):");
+            LOG.warn("Could not resolve the following proxies ("
+                    + unresolved.size() + "):");
             for (final String ref : unresolved) {
                 LOG.warn("Not found: " + ref);
             }
@@ -165,8 +170,10 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
             @Override
             public boolean accept(final File file) {
                 final boolean pointFile = file.getName().startsWith(".");
-                final String extension = FilenameUtils.getExtension(file.getName());
-                return (!pointFile && fileExtensions.contains(extension)) || file.isDirectory();
+                final String extension = FilenameUtils.getExtension(file
+                        .getName());
+                return (!pointFile && fileExtensions.contains(extension))
+                        || file.isDirectory();
             }
         });
         return files;
@@ -187,7 +194,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
             for (final File file : files) {
                 if (file.isFile()) {
                     final Resource resource = resourceSet.getResource(
-                            URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
+                            URI.createFileURI(Utils4J.getCanonicalPath(file)),
+                            true);
                     LOG.debug("Parsed: " + resource.getURI());
                 } else {
                     parseDir(file);
@@ -219,7 +227,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
             if (eObj instanceof InternalEObject) {
                 final InternalEObject iObj = (InternalEObject) eObj;
                 for (final EObject crossRef : iObj.eCrossReferences()) {
-                    final EObject resolvedRef = EcoreUtil.resolve(crossRef, resourceSet);
+                    final EObject resolvedRef = EcoreUtil.resolve(crossRef,
+                            resourceSet);
                     final String resolvedRefStr = getStrRef(resolvedRef);
                     if (resolvedRef.eIsProxy()) {
                         failure = true;
@@ -237,7 +246,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
                 i++;
             }
         }
-        LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: " + unresolved.size());
+        LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: "
+                + unresolved.size());
         return !failure && resolvedAllProxies(unresolved, totalResources);
     }
 
@@ -259,7 +269,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      */
     private static Set<EObject> findAllEObjects(final ResourceSet resourceSet) {
         final Set<EObject> list = new HashSet<EObject>();
-        for (final Iterator<Notifier> i = resourceSet.getAllContents(); i.hasNext();) {
+        for (final Iterator<Notifier> i = resourceSet.getAllContents(); i
+                .hasNext();) {
             final Notifier next = i.next();
             if (next instanceof EObject) {
                 list.add((EObject) next);

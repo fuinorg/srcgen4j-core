@@ -30,14 +30,16 @@ import org.slf4j.LoggerFactory;
  * Validates if all parameters defined in {@link TargetFile#getArguments()} are
  * also defined in {@link ParameterizedTemplate#getArguments()()}.
  */
-public final class TargetArgsMatchTemplateArgsValidator implements
+public final class TargetArgsMatchTemplateArgsValidator
+        implements
         ConstraintValidator<TargetArgsMatchTemplateArgs, ParameterizedTemplateModel> {
 
     private static final Logger LOG = LoggerFactory
             .getLogger(TargetArgsMatchTemplateArgsValidator.class);
 
     @Override
-    public final void initialize(final TargetArgsMatchTemplateArgs constraintAnnotation) {
+    public final void initialize(
+            final TargetArgsMatchTemplateArgs constraintAnnotation) {
         // Not used
     }
 

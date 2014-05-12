@@ -34,7 +34,8 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
     }
 
     @Override
-    public final GeneratedArtifact create(final ResourceSet resourceSet) throws GenerateException {
+    public final GeneratedArtifact create(final ResourceSet resourceSet)
+            throws GenerateException {
 
         final StringBuffer sb = new StringBuffer();
 
@@ -43,11 +44,13 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
             final Notifier notifier = it.next();
             if (notifier instanceof Greeting) {
                 final Greeting greeting = (Greeting) notifier;
-                sb.append("a.b.c.Hello" + greeting.getName() + "=" + greeting.getName() + "\n");
+                sb.append("a.b.c.Hello" + greeting.getName() + "="
+                        + greeting.getName() + "\n");
             }
         }
 
-        return new GeneratedArtifact(artifact, "hello.properties", sb.toString().getBytes());
+        return new GeneratedArtifact(artifact, "hello.properties", sb
+                .toString().getBytes());
 
     }
 

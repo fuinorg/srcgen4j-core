@@ -40,7 +40,8 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
     }
 
     @Override
-    public final GeneratedArtifact create(final Greeting greeting) throws GenerateException {
+    public final GeneratedArtifact create(final Greeting greeting)
+            throws GenerateException {
         try {
             final String src = FileUtils.readFileToString(new File(
                     "src/test/resources/AbstractHello.template"));
@@ -49,8 +50,9 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
             final String pkg = varMap.get("package");
             final String path = pkg.replace('.', '/');
             vars.put("package", pkg);
-            return new GeneratedArtifact(artifact, path + "/AbstractHello" + greeting.getName()
-                    + ".java", Utils4J.replaceVars(src, vars).getBytes());
+            return new GeneratedArtifact(artifact, path + "/AbstractHello"
+                    + greeting.getName() + ".java", Utils4J.replaceVars(src,
+                    vars).getBytes());
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }

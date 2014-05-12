@@ -85,7 +85,8 @@ public class EMFGeneratorConfig extends AbstractElement implements
      */
     @SuppressWarnings("unchecked")
     @NeverNull
-    public final <MODEL> List<ArtifactFactory<MODEL>> getFactories(final Class<MODEL> modelType) {
+    public final <MODEL> List<ArtifactFactory<MODEL>> getFactories(
+            final Class<MODEL> modelType) {
         final List<ArtifactFactory<MODEL>> list = new ArrayList<ArtifactFactory<MODEL>>();
         if (factories == null) {
             factories = new ArrayList<ArtifactFactory<?>>();

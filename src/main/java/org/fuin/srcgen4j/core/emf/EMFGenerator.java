@@ -34,9 +34,11 @@ import org.slf4j.LoggerFactory;
 /**
  * Generates content based on an ECORE {@link ResourceSet}.
  */
-public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig> {
+public final class EMFGenerator extends
+        AbstractEMFGenerator<EMFGeneratorConfig> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EMFGenerator.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(EMFGenerator.class);
 
     private final Set<ArtifactFactory<Notifier>> notifierFactories;
 
@@ -70,11 +72,12 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         }
 
         // Add factories interested in any type of notifier
-        final List<ArtifactFactory<Notifier>> nfactories = config.getFactories(Notifier.class);
+        final List<ArtifactFactory<Notifier>> nfactories = config
+                .getFactories(Notifier.class);
         for (final ArtifactFactory<Notifier> factory : nfactories) {
             notifierFactories.add(factory);
-            LOG.debug("Added notifier factory for model type '" + factory.getModelType() + "': "
-                    + factory.getClass());
+            LOG.debug("Added notifier factory for model type '"
+                    + factory.getModelType() + "': " + factory.getClass());
         }
 
     }
@@ -100,8 +103,8 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
     }
 
     @Override
-    protected final void generate(@NotNull final Notifier notifier, final boolean incremental)
-            throws GenerateException {
+    protected final void generate(@NotNull final Notifier notifier,
+            final boolean incremental) throws GenerateException {
 
         LOG.debug("Generate from " + Notifier.class.getSimpleName());
 
@@ -114,8 +117,10 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
 
         for (final ArtifactFactory<Notifier> factory : factories) {
             if (!incremental || factory.isIncremental()) {
-                LOG.debug("Generate with factory " + factory.getClass().getSimpleName());
-                final GeneratedArtifact generatedArtifact = factory.create(notifier);
+                LOG.debug("Generate with factory "
+                        + factory.getClass().getSimpleName());
+                final GeneratedArtifact generatedArtifact = factory
+                        .create(notifier);
                 if (generatedArtifact != null) {
                     write(generatedArtifact);
                 }
@@ -130,7 +135,8 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         LOG.debug("Generate from " + ResourceSet.class.getSimpleName());
 
         for (final ArtifactFactory<ResourceSet> factory : resourceSetFactories) {
-            final GeneratedArtifact generatedArtifact = factory.create(getModel());
+            final GeneratedArtifact generatedArtifact = factory
+                    .create(getModel());
             if (generatedArtifact != null) {
                 write(generatedArtifact);
             }

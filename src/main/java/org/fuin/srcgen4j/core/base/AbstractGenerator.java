@@ -43,9 +43,11 @@ import org.slf4j.LoggerFactory;
  *            Type of the generator specific configuration - Use 'Object' if the
  *            generator does not require any configuration.
  */
-public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODEL> {
+public abstract class AbstractGenerator<MODEL, CONFIG> implements
+        Generator<MODEL> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractGenerator.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(AbstractGenerator.class);
 
     private String name;
 
@@ -74,18 +76,22 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         final Object obj = config.getConfig().getConfig();
         if (getSpecificConfigClass() == null) {
             if (obj != null) {
-                throw new IllegalStateException("No configuration is expected, but was: "
-                        + obj.getClass());
+                throw new IllegalStateException(
+                        "No configuration is expected, but was: "
+                                + obj.getClass());
             }
         } else {
             if (obj == null) {
-                throw new IllegalStateException("The configuration is expected to be of type '"
-                        + getSpecificConfigClass().getName() + "', but was: null");
+                throw new IllegalStateException(
+                        "The configuration is expected to be of type '"
+                                + getSpecificConfigClass().getName()
+                                + "', but was: null");
             }
             if (!getSpecificConfigClass().isAssignableFrom(obj.getClass())) {
-                throw new IllegalStateException("The configuration is expected to be of type '"
-                        + getSpecificConfigClass().getName() + "', but was: "
-                        + obj.getClass().getName());
+                throw new IllegalStateException(
+                        "The configuration is expected to be of type '"
+                                + getSpecificConfigClass().getName()
+                                + "', but was: " + obj.getClass().getName());
             }
         }
 
@@ -176,10 +182,11 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      * 
      * @return File to write to or NULL if nothing should be written.
      */
-    protected final GeneratedFile getTargetFile(final String artifactName, final String filename,
-            final String logInfo) {
+    protected final GeneratedFile getTargetFile(final String artifactName,
+            final String filename, final String logInfo) {
 
-        final Folder folder = getGeneratorConfig().findTargetFolder(artifactName);
+        final Folder folder = getGeneratorConfig().findTargetFolder(
+                artifactName);
         final File dir = folder.getCanonicalDir();
         final File file = new File(dir, filename);
 
@@ -188,9 +195,12 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
             if (folder.isCreate()) {
                 dir.mkdirs();
             } else {
-                throw new IllegalStateException("Directory '" + dir
-                        + "' does not exist, but configuration does not allow creation: "
-                        + "<folder name=\"" + folder.getName() + "\" create=\"false\" ... />");
+                throw new IllegalStateException(
+                        "Directory '"
+                                + dir
+                                + "' does not exist, but configuration does not allow creation: "
+                                + "<folder name=\"" + folder.getName()
+                                + "\" create=\"false\" ... />");
             }
         }
         // Make sure the parent directory for the file exists
@@ -215,19 +225,21 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      * @throws GenerateException
      *             Error writing the artifact.
      */
-    protected final void write(@NotNull final GeneratedArtifact artifact) throws GenerateException {
+    protected final void write(@NotNull final GeneratedArtifact artifact)
+            throws GenerateException {
 
         Contract.requireArgNotNull("artifact", artifact);
 
-        final GeneratedFile genFile = getTargetFile(artifact.getName(), artifact.getPathAndName(),
-                null);
+        final GeneratedFile genFile = getTargetFile(artifact.getName(),
+                artifact.getPathAndName(), null);
         if (genFile.isSkip()) {
-            LOG.debug("Omitted already existing file: " + genFile + " [" + artifact + "]");
+            LOG.debug("Omitted already existing file: " + genFile + " ["
+                    + artifact + "]");
         } else {
             LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
             try {
-                final OutputStream out = new BufferedOutputStream(new FileOutputStream(
-                        genFile.getFile()));
+                final OutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(genFile.getFile()));
                 try {
                     out.write(artifact.getData());
                 } finally {
@@ -235,8 +247,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
                 }
                 genFile.persist();
             } catch (final IOException ex) {
-                throw new GenerateException("Error writing artifact '" + artifact + "' to '"
-                        + artifact.getPathAndName() + "'!", ex);
+                throw new GenerateException("Error writing artifact '"
+                        + artifact + "' to '" + artifact.getPathAndName()
+                        + "'!", ex);
             }
         }
     }
@@ -250,6 +263,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate(boolean incremental) throws GenerateException;
+    protected abstract void generate(boolean incremental)
+            throws GenerateException;
 
 }

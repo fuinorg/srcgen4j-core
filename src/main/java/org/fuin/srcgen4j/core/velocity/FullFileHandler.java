@@ -29,7 +29,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class FullFileHandler implements FileHandler {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FullFileHandler.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(FullFileHandler.class);
 
     private final ParameterizedTemplateParser parser;
 
@@ -51,7 +52,8 @@ public final class FullFileHandler implements FileHandler {
     public final FileHandlerResult handleFile(final File file) {
         if (parser.getModelFilter().accept(file)) {
             LOG.info("Adding template file: " + file.getName());
-            final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
+            final ParameterizedTemplateModel pt = ParameterizedTemplateModel
+                    .create(file);
             pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);
         }

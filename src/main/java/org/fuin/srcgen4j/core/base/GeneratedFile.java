@@ -30,7 +30,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class GeneratedFile {
 
-    private static final Logger LOG = LoggerFactory.getLogger(GeneratedFile.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(GeneratedFile.class);
 
     private final File file;
 
@@ -64,7 +65,8 @@ public final class GeneratedFile {
      * @param skip
      *            If the file should NOT be generated TRUE, else FALSE.
      */
-    public GeneratedFile(final File file, final String logInfo, final boolean skip) {
+    public GeneratedFile(final File file, final String logInfo,
+            final boolean skip) {
         super();
         this.file = file;
         this.tmpFile = new File(file + ".tmp");
@@ -125,8 +127,8 @@ public final class GeneratedFile {
             persisted = true;
 
         } catch (final IOException ex) {
-            throw new RuntimeException("Error comparing content: tmp=" + tmpFile + ", target="
-                    + file + logInfo, ex);
+            throw new RuntimeException("Error comparing content: tmp="
+                    + tmpFile + ", target=" + file + logInfo, ex);
         }
 
     }

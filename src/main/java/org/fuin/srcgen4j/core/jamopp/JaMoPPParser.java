@@ -39,10 +39,11 @@ import org.slf4j.LoggerFactory;
 /**
  * JaMoPP based parser for Java source/class files and JARs.
  */
-public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> implements
-        Parser<ResourceSet> {
+public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig>
+        implements Parser<ResourceSet> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(JaMoPPParser.class);
+    private static final Logger LOG = LoggerFactory
+            .getLogger(JaMoPPParser.class);
 
     private List<SrcGen4JFile> jarFiles;
 
@@ -58,7 +59,8 @@ public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> im
     }
 
     @Override
-    public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
+    public final void initialize(final SrcGen4JContext context,
+            final ParserConfig config) {
 
         // JaMoPP always needs a configuration
         Contract.requireArgNotNull("config", config);
@@ -71,12 +73,14 @@ public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> im
         setFileExtensions("java", "class");
 
         // Initialize JaMoPP
-        if (!EPackage.Registry.INSTANCE.containsKey("http://www.emftext.org/java")) {
-            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java", JavaPackage.eINSTANCE);
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("java",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
-            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("class",
-                    new JavaSourceOrClassFileResourceFactoryImpl());
+        if (!EPackage.Registry.INSTANCE
+                .containsKey("http://www.emftext.org/java")) {
+            EPackage.Registry.INSTANCE.put("http://www.emftext.org/java",
+                    JavaPackage.eINSTANCE);
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+                    "java", new JavaSourceOrClassFileResourceFactoryImpl());
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(
+                    "class", new JavaSourceOrClassFileResourceFactoryImpl());
         }
 
     }
@@ -94,7 +98,8 @@ public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> im
         } else {
             for (final SrcGen4JFile jarFile : jarFiles) {
                 if (jarFile.exists()) {
-                    final URI uri = URI.createFileURI(jarFile.getCanonicalPath());
+                    final URI uri = URI.createFileURI(jarFile
+                            .getCanonicalPath());
                     LOG.debug("Register classifier JAR: " + uri);
                     cp.registerClassifierJar(uri);
                 } else {
@@ -109,11 +114,13 @@ public final class JaMoPPParser extends AbstractEMFParser<JaMoPPParserConfig> im
         } else {
             for (final SrcGen4JFile binDir : binDirs) {
                 if (binDir.exists()) {
-                    final URI uri = URI.createFileURI(binDir.getCanonicalPath());
+                    final URI uri = URI
+                            .createFileURI(binDir.getCanonicalPath());
                     LOG.debug("Register source or class file folder: " + uri);
                     cp.registerSourceOrClassFileFolder(uri);
                 } else {
-                    LOG.error("Configured binary directory does not exist: " + binDir);
+                    LOG.error("Configured binary directory does not exist: "
+                            + binDir);
                 }
             }
         }

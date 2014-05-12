@@ -43,8 +43,10 @@ public class ParameterizedTemplateGeneratorTest {
         final File expectedA2 = new File(TEST_RES_DIR + "/A2.java");
         final File expectedB2 = new File(TEST_RES_DIR + "/B2.java");
 
-        final File configFile = new File(TEST_RES_DIR + "/velocity-test-config.xml");
-        final SrcGen4JConfig config = PTGenHelper.createAndInit(new DefaultContext(), configFile);
+        final File configFile = new File(TEST_RES_DIR
+                + "/velocity-test-config.xml");
+        final SrcGen4JConfig config = PTGenHelper.createAndInit(
+                new DefaultContext(), configFile);
         final SrcGen4J testee = new SrcGen4J(config, new DefaultContext());
 
         // EXECUTE

@@ -55,14 +55,19 @@ public abstract class AbstractParser<CONFIG_TYPE> {
     protected final CONFIG_TYPE getConcreteConfig(final ParserConfig config) {
         final Config<ParserConfig> cfg = config.getConfig();
         if (cfg == null) {
-            throw new IllegalStateException("The configuration is expected to be of type '"
-                    + concreteConfigClass.getName() + "', but was: null");
+            throw new IllegalStateException(
+                    "The configuration is expected to be of type '"
+                            + concreteConfigClass.getName()
+                            + "', but was: null");
         } else {
-            if (!(concreteConfigClass.isAssignableFrom(cfg.getConfig().getClass()))) {
-                throw new IllegalStateException("The configuration is expected to be of type '"
-                        + concreteConfigClass.getName() + "', but was: "
-                        + cfg.getConfig().getClass().getName()
-                        + " - Did you add the configuration class to the JXB context?");
+            if (!(concreteConfigClass.isAssignableFrom(cfg.getConfig()
+                    .getClass()))) {
+                throw new IllegalStateException(
+                        "The configuration is expected to be of type '"
+                                + concreteConfigClass.getName()
+                                + "', but was: "
+                                + cfg.getConfig().getClass().getName()
+                                + " - Did you add the configuration class to the JXB context?");
             }
         }
         return (CONFIG_TYPE) cfg.getConfig();
