@@ -207,7 +207,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
         if (!file.getParentFile().exists()) {
             file.getParentFile().mkdirs();
         }
-        if (file.exists() && !folder.isOverride()) {
+        if (file.exists() && !folder.overrideAllowed(file)) {
             // Skip file because override is not allowed
             return new GeneratedFile(file, logInfo, true);
         }
