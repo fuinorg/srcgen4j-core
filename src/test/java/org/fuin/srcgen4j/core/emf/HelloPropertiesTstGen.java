@@ -2,6 +2,9 @@
 package org.fuin.srcgen4j.core.emf;
 
 import java.util.Iterator;
+import java.util.Map;
+
+import javax.validation.constraints.NotNull;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -34,8 +37,10 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
     }
 
     @Override
-    public final GeneratedArtifact create(final ResourceSet resourceSet)
-            throws GenerateException {
+    public final GeneratedArtifact create(
+            @NotNull final ResourceSet resourceSet,
+            @NotNull final Map<String, Object> context,
+            final boolean preparationRun) throws GenerateException {
 
         final StringBuffer sb = new StringBuffer();
 

@@ -19,6 +19,7 @@ package org.fuin.srcgen4j.core.emf;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.validation.constraints.NotNull;
@@ -103,8 +104,9 @@ public final class EMFGenerator extends
     }
 
     @Override
-    protected final void generate(@NotNull final Notifier notifier,
-            final boolean incremental) throws GenerateException {
+    protected final void generate(@NotNull final Map<String, Object> context,
+            @NotNull final Notifier notifier, final boolean incremental,
+            final boolean preparationRun) throws GenerateException {
 
         LOG.debug("Generate from " + Notifier.class.getSimpleName());
 
@@ -119,9 +121,9 @@ public final class EMFGenerator extends
             if (!incremental || factory.isIncremental()) {
                 LOG.debug("Generate with factory "
                         + factory.getClass().getSimpleName());
-                final GeneratedArtifact generatedArtifact = factory
-                        .create(notifier);
-                if (generatedArtifact != null) {
+                final GeneratedArtifact generatedArtifact = factory.create(
+                        notifier, context, preparationRun);
+                if ((generatedArtifact != null) && !preparationRun) {
                     write(generatedArtifact);
                 }
             }
@@ -130,14 +132,17 @@ public final class EMFGenerator extends
     }
 
     @Override
-    protected final void afterGenerate() throws GenerateException {
+    protected final void afterGenerate(
+            @NotNull final Map<String, Object> context,
+            final boolean incremental, final boolean preparationRun)
+            throws GenerateException {
 
         LOG.debug("Generate from " + ResourceSet.class.getSimpleName());
 
         for (final ArtifactFactory<ResourceSet> factory : resourceSetFactories) {
-            final GeneratedArtifact generatedArtifact = factory
-                    .create(getModel());
-            if (generatedArtifact != null) {
+            final GeneratedArtifact generatedArtifact = factory.create(
+                    getModel(), context, preparationRun);
+            if ((generatedArtifact != null) && !preparationRun) {
                 write(generatedArtifact);
             }
         }

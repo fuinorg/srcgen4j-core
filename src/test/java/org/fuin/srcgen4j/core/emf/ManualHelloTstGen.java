@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.io.FileUtils;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
 import org.fuin.srcgen4j.commons.ArtifactFactoryConfig;
@@ -37,8 +39,9 @@ public final class ManualHelloTstGen implements ArtifactFactory<Greeting> {
     }
 
     @Override
-    public final GeneratedArtifact create(final Greeting greeting)
-            throws GenerateException {
+    public final GeneratedArtifact create(@NotNull final Greeting greeting,
+            @NotNull final Map<String, Object> context,
+            final boolean preparationRun) throws GenerateException {
         try {
             final String src = FileUtils.readFileToString(new File(
                     "src/test/resources/Hello.template"));
