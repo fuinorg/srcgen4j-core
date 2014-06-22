@@ -18,10 +18,7 @@
 package org.fuin.srcgen4j.core.emf;
 
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -29,17 +26,20 @@ import java.util.Set;
  */
 public final class SimpleCodeSnippetContext implements CodeSnippetContext {
 
-    private final Map<String, String> references;
+    private final CodeReferenceRegistry refReg;
 
     private final Set<String> imports;
 
     /**
-     * Default constructor.
+     * Constructor with registry.
+     * 
+     * @param refReg
+     *            Reference registry.
      */
-    public SimpleCodeSnippetContext() {
+    public SimpleCodeSnippetContext(final CodeReferenceRegistry refReg) {
         super();
         this.imports = new HashSet<String>();
-        this.references = new HashMap<String, String>();
+        this.refReg = refReg;
     }
 
     @Override
@@ -49,16 +49,20 @@ public final class SimpleCodeSnippetContext implements CodeSnippetContext {
 
     @Override
     public final void requiresReference(final String uniqueName) {
-        references.put(uniqueName, references.get(uniqueName));
+        String resolved = refReg.getReference(uniqueName);
+        if (resolved == null) {
+            resolved = uniqueName;
+        }
+        imports.add(resolved);
     }
-    
+
     @Override
     public final String getReference(final String uniqueName) {
-        final String fqn = references.get(uniqueName);
-        if (fqn == null) {
-            return uniqueName;
+        String resolved = refReg.getReference(uniqueName);
+        if (resolved == null) {
+            resolved = uniqueName;
         }
-        return fqn;
+        return resolved;
     }
 
     /**
@@ -68,39 +72,6 @@ public final class SimpleCodeSnippetContext implements CodeSnippetContext {
      */
     public final Set<String> getImports() {
         return Collections.unmodifiableSet(imports);
-    }
-
-    /**
-     * Returns a set of required references.
-     * 
-     * @return Fully qualified names to import.
-     */
-    public final Set<String> getReferences() {
-        return Collections.unmodifiableSet(references.keySet());
-    }
-
-    /**
-     * Resolves the references and adds them to the import list.
-     * 
-     * @param refReg
-     *            Registry to use for resolving the references.
-     * 
-     * @return TRUE if all references have been resolved. 
-     */
-    public final boolean resolve(final CodeReferenceRegistry refReg) {
-        final Iterator<String> it = references.keySet().iterator();
-        while (it.hasNext()) {
-            final String key = it.next();
-            String fqn = references.get(key);
-            if (fqn == null) {
-                fqn = refReg.getReference(key);
-                if (fqn != null) {
-                    references.put(key, fqn);
-                    imports.add(fqn);
-                }
-            }
-        }
-        return references.isEmpty();
     }
 
 }
