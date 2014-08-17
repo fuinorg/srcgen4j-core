@@ -20,10 +20,7 @@ Export-Package: org.fuin.srcgen4j.core.base;version="0.4.0.SNAPSHOT";use
  cgen4j.core.emf;version="0.4.0.SNAPSHOT";uses:="javax.validation.constr
  aints,javax.xml.bind.annotation,org.eclipse.emf.common.notify,org.eclip
  se.emf.ecore.resource,org.fuin.objects4j.common,org.fuin.srcgen4j.commo
- ns,org.fuin.srcgen4j.core.base",org.fuin.srcgen4j.core.jamopp;version="
- 0.4.0.SNAPSHOT";uses:="javax.xml.bind.annotation,org.eclipse.emf.ecore.
- resource,org.emftext.language.java.classifiers,org.fuin.srcgen4j.common
- s,org.fuin.srcgen4j.core.base,org.fuin.srcgen4j.core.emf"
+ ns,org.fuin.srcgen4j.core.base"
 Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
  org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity;
@@ -33,14 +30,11 @@ Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  olution:=optional,org.eclipse.emf.common.util;resolution:=optional,org.
  eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.resource;r
  esolution:=optional,org.eclipse.emf.ecore.resource.impl;resolution:=opt
- ional,org.eclipse.emf.ecore.util;resolution:=optional,org.emftext.langu
- age.java;resolution:=optional,org.emftext.language.java.classifiers;res
- olution:=optional,org.emftext.language.java.containers;resolution:=opti
- onal,org.emftext.language.java.resource;resolution:=optional,org.fuin.o
- bjects4j.common;version="[0.5,1)",org.fuin.objects4j.vo;version="[0.5,1
- )",org.fuin.srcgen4j.commons;version="[0.4,1)",org.fuin.utils4j;version
- ="[0.8,1)",org.fuin.utils4j.fileprocessor;version="[0.8,1)",org.slf4j;v
- ersion="[1.6,2)"
+ ional,org.eclipse.emf.ecore.util;resolution:=optional,org.fuin.objects4
+ j.common;version="[0.5,1)",org.fuin.objects4j.vo;version="[0.5,1)",org.
+ fuin.srcgen4j.commons;version="[0.4,1)",org.fuin.utils4j;version="[0.8,
+ 1)",org.fuin.utils4j.fileprocessor;version="[0.8,1)",org.slf4j;version=
+ "[1.6,2)"
 Include-Resource: srcgen4j-core-xtext.xsd=src/main/resources/srcgen4j-co
  re-xtext.xsd,srcgen4j-core-base.xsd=src/main/resources/srcgen4j-core-ba
  se.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-jamopp
