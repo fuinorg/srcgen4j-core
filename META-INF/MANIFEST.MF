@@ -31,7 +31,7 @@ Import-Package: javax.validation,javax.validation.constraints,javax.xml.
  eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.resource;r
  esolution:=optional,org.eclipse.emf.ecore.resource.impl;resolution:=opt
  ional,org.eclipse.emf.ecore.util;resolution:=optional,org.fuin.objects4
- j.common;version="[0.5,1)",org.fuin.objects4j.vo;version="[0.5,1)",org.
+ j.common;version="[0.6,1)",org.fuin.objects4j.vo;version="[0.6,1)",org.
  fuin.srcgen4j.commons;version="[0.4,1)",org.fuin.utils4j;version="[0.8,
  1)",org.fuin.utils4j.fileprocessor;version="[0.8,1)",org.slf4j;version=
  "[1.6,2)"
