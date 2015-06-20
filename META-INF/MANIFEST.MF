@@ -21,20 +21,20 @@ Export-Package: org.fuin.srcgen4j.core.base;version="0.4.0.SNAPSHOT";use
  aints,javax.xml.bind.annotation,org.eclipse.emf.common.notify,org.eclip
  se.emf.ecore.resource,org.fuin.objects4j.common,org.fuin.srcgen4j.commo
  ns,org.fuin.srcgen4j.core.base"
-Import-Package: javax.validation,javax.validation.constraints,javax.xml.
- bind,javax.xml.bind.annotation,org.apache.commons.io;version="[1.4,2)",
- org.apache.commons.io.filefilter;version="[1.4,2)",org.apache.velocity;
- resolution:=optional,org.apache.velocity.app;resolution:=optional,org.a
- pache.velocity.context;resolution:=optional,org.apache.velocity.runtime
- .resource.loader;resolution:=optional,org.eclipse.emf.common.notify;res
- olution:=optional,org.eclipse.emf.common.util;resolution:=optional,org.
- eclipse.emf.ecore;resolution:=optional,org.eclipse.emf.ecore.resource;r
- esolution:=optional,org.eclipse.emf.ecore.resource.impl;resolution:=opt
- ional,org.eclipse.emf.ecore.util;resolution:=optional,org.fuin.objects4
- j.common;version="[0.6,1)",org.fuin.objects4j.vo;version="[0.6,1)",org.
- fuin.srcgen4j.commons;version="[0.4,1)",org.fuin.utils4j;version="[0.8,
- 1)",org.fuin.utils4j.fileprocessor;version="[0.8,1)",org.slf4j;version=
- "[1.6,2)"
+Import-Package: javax.validation;version="[1.1,2)",javax.validation.cons
+ traints;version="[1.1,2)",javax.xml.bind,javax.xml.bind.annotation,org.
+ apache.commons.io;version="[1.4,2)",org.apache.commons.io.filefilter;ve
+ rsion="[1.4,2)",org.apache.velocity;resolution:=optional,org.apache.vel
+ ocity.app;resolution:=optional,org.apache.velocity.context;resolution:=
+ optional,org.apache.velocity.runtime.resource.loader;resolution:=option
+ al,org.eclipse.emf.common.notify;resolution:=optional,org.eclipse.emf.c
+ ommon.util;resolution:=optional,org.eclipse.emf.ecore;resolution:=optio
+ nal,org.eclipse.emf.ecore.resource;resolution:=optional,org.eclipse.emf
+ .ecore.resource.impl;resolution:=optional,org.eclipse.emf.ecore.util;re
+ solution:=optional,org.fuin.objects4j.common;version="[0.6,1)",org.fuin
+ .objects4j.vo;version="[0.6,1)",org.fuin.srcgen4j.commons;version="[0.4
+ ,1)",org.fuin.utils4j;version="[0.8,1)",org.fuin.utils4j.fileprocessor;
+ version="[0.8,1)",org.slf4j;version="[1.7,2)"
 Include-Resource: srcgen4j-core-xtext.xsd=src/main/resources/srcgen4j-co
  re-xtext.xsd,srcgen4j-core-base.xsd=src/main/resources/srcgen4j-core-ba
  se.xsd,srcgen4j-core-jamopp.xsd=src/main/resources/srcgen4j-core-jamopp
