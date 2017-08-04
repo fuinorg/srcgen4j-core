@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2013 Future Invent Informationsmanagement GmbH. All rights
- * reserved. <http://www.fuin.org/>
+ * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * http://www.fuin.org/
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,7 +13,7 @@
  * details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see http://www.gnu.org/licenses/.
  */
 package org.fuin.srcgen4j.core.velocity;
 
@@ -43,7 +43,6 @@ import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.MarshalObjectException;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
-import org.fuin.srcgen4j.commons.VariableResolver;
 import org.fuin.srcgen4j.core.base.Producer;
 import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
@@ -353,7 +352,7 @@ public class ParameterizedTemplateModel implements Serializable,
             final Map<String, String> vars) {
 
         if (template != null) {
-            template = VariableResolver.replaceVars(template, vars);
+            template = Utils4J.replaceVars(template, vars);
         }
         if (arguments != null) {
             for (final Argument argument : arguments) {

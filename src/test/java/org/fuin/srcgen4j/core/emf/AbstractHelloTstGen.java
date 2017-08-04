@@ -48,7 +48,7 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
         try {
             final String src = FileUtils.readFileToString(new File(
                     "src/test/resources/AbstractHello.template"));
-            final Map<Object, Object> vars = new HashMap<Object, Object>();
+            final Map<String, String> vars = new HashMap<>();
             vars.put("name", greeting.getName());
             final String pkg = varMap.get("package");
             final String path = pkg.replace('.', '/');

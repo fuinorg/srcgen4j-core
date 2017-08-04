@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2013 Future Invent Informationsmanagement GmbH. All rights
- * reserved. <http://www.fuin.org/>
+ * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * http://www.fuin.org/
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,7 +13,7 @@
  * details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see http://www.gnu.org/licenses/.
  */
 package org.fuin.srcgen4j.core.base;
 
@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.fuin.srcgen4j.commons.VariableResolver;
 import org.fuin.utils4j.Utils4J;
 
 /**
@@ -142,9 +141,9 @@ public final class SrcGen4JFile {
      *            <code>null</code>.
      */
     public final void replaceVars(final Map<String, String> vars) {
-        path = VariableResolver.replaceVars(path, vars);
+        path = Utils4J.replaceVars(path, vars);
         if (name != null) {
-            name = VariableResolver.replaceVars(name, vars);
+            name = Utils4J.replaceVars(name, vars);
         }
     }
 

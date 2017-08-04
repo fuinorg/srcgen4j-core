@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2013 Future Invent Informationsmanagement GmbH. All rights
- * reserved. <http://www.fuin.org/>
+ * Copyright (C) 2015 Michael Schnell. All rights reserved. 
+ * http://www.fuin.org/
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -13,7 +13,7 @@
  * details.
  *
  * You should have received a copy of the GNU Lesser General Public License
- * along with this library. If not, see <http://www.gnu.org/licenses/>.
+ * along with this library. If not, see http://www.gnu.org/licenses/.
  */
 package org.fuin.srcgen4j.core.velocity;
 
@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
-import org.fuin.srcgen4j.commons.VariableResolver;
+import org.fuin.utils4j.Utils4J;
 
 /**
  * File to produce.
@@ -179,8 +179,8 @@ public final class TargetFile implements Serializable, Comparable<TargetFile> {
      *            Variables to use.
      */
     public final void init(final Map<String, String> vars) {
-        path = VariableResolver.replaceVars(path, vars);
-        name = VariableResolver.replaceVars(name, vars);
+        path = Utils4J.replaceVars(path, vars);
+        name = Utils4J.replaceVars(name, vars);
         if (arguments != null) {
             for (final Argument argument : arguments) {
                 argument.init(vars);
