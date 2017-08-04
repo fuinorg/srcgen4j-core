@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Validates if all parameters defined in {@link TargetFile#getArguments()} are
- * also defined in {@link ParameterizedTemplate#getArguments()()}.
+ * also defined in {@link ParameterizedTemplateModel#getArguments()}.
  */
 public final class TargetArgsMatchTemplateArgsValidator
         implements

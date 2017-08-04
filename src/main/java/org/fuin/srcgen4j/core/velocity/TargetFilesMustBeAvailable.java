@@ -28,8 +28,9 @@ import javax.validation.Payload;
 
 //CHECKSTYLE:OFF
 /**
- * Validates if {@link ParameterizedTemplateModel#getTargetFileListProducer()}
- * or {@link ParameterizedTemplateModel#getTargetFiles()} is set.
+ * Validates if one of
+ * {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
+ * {@link ParameterizedTemplateModel#getTargetFiles()} is available.
  */
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)

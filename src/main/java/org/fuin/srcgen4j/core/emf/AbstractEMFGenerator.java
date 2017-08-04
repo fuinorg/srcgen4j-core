@@ -122,7 +122,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends
      * @param notifier
      *            Type of notifier.
      * 
-     * @return If the {@link #generate(Notifier)} method should be called TRUE,
+     * @return If the {@link #generate(Map, Notifier, boolean, boolean)} method should be called TRUE,
      *         else FALSE.
      */
     protected abstract boolean wants(@NotNull Notifier notifier);

@@ -157,7 +157,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
 
     /**
      * Returns the specific configuration. This is a shortcut for
-     * {@link #getConfig().getConfig().getConfig()}.
+     * <code>getConfig().getConfig().getConfig()</code>.
      * 
      * @return Generator configuration or NULL.
      */

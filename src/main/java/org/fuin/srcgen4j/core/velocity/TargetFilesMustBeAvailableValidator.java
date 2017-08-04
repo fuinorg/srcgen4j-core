@@ -24,8 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Validates if at least one of
- * {@link ParameterizedTemplateModel#getTargetFileListProducer()} and
+ * Validates if one of
+ * {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
  * {@link ParameterizedTemplateModel#getTargetFiles()} is available.
  */
 public final class TargetFilesMustBeAvailableValidator
