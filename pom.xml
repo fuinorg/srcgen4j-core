@@ -1,99 +1,105 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>org.fuin</groupId>
-        <artifactId>pom-osgi</artifactId>
-        <version>1.4.0</version>
-    </parent>
+	<parent>
+		<groupId>org.fuin</groupId>
+		<artifactId>pom-osgi</artifactId>
+		<version>1.4.0</version>
+	</parent>
 
-    <groupId>org.fuin.srcgen4j</groupId>
-    <artifactId>srcgen4j-core</artifactId>
-    <packaging>jar</packaging>
-    <version>0.4.1-SNAPSHOT</version>
-    <name>SrcGen4j Core</name>
-    <description>Source code generation for Java (Core)</description>
-    <url>http://www.fuin.org/srcgen4j/core/</url>
+	<groupId>org.fuin.srcgen4j</groupId>
+	<artifactId>srcgen4j-core</artifactId>
+	<packaging>jar</packaging>
+	<version>0.4.1-SNAPSHOT</version>
+	<name>SrcGen4j Core</name>
+	<description>Source code generation for Java (Core)</description>
+	<url>http://www.fuin.org/srcgen4j/core/</url>
 
-    <scm>
-        <url>https://github.com/fuinorg/srcgen4j-core/</url>
-        <connection>scm:git:git://github.com/fuinorg/srcgen4j-core.git</connection>
-        <developerConnection>scm:git:git@github.com:fuinorg/srcgen4j-core.git</developerConnection>
-    </scm>
+	<scm>
+		<url>https://github.com/fuinorg/srcgen4j-core/</url>
+		<connection>scm:git:git://github.com/fuinorg/srcgen4j-core.git</connection>
+		<developerConnection>scm:git:git@github.com:fuinorg/srcgen4j-core.git</developerConnection>
+	</scm>
 
-    <issueManagement>
-        <system>GitHub Issues</system>
-        <url>https://github.com/fuinorg/srcgen4j-core/issues</url>
-    </issueManagement>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/fuinorg/srcgen4j-core/issues</url>
+	</issueManagement>
 
 	<properties>
 		<xtext.version>2.12.0</xtext.version>
 	</properties>
 
-    <dependencies>
+	<dependencies>
 
-        <!-- Compile -->
+		<!-- Compile -->
 
-        <dependency>
-            <groupId>javax.validation</groupId>
-            <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
-        </dependency>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin.srcgen4j</groupId>
-            <artifactId>srcgen4j-commons</artifactId>
-            <version>0.4.1-SNAPSHOT</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.0.Final</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>objects4j</artifactId>
-            <version>0.6.4</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin.srcgen4j</groupId>
+			<artifactId>srcgen4j-commons</artifactId>
+			<version>0.4.1-SNAPSHOT</version>
+		</dependency>
 
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.5</version>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>objects4j</artifactId>
+			<version>0.6.4</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.12</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.5</version>
+		</dependency>
 
-        <!-- Technology JARs - Add this dependencies to your POM if you need it -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.12</version>
+		</dependency>
 
-        <!-- Velocity -->
+		<!-- Technology JARs - Add this dependencies to your POM if you need it -->
 
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-            <version>1.7</version>
-            <optional>true</optional>
-        </dependency>
+		<!-- Velocity -->
 
-        <!-- EMF Ecore -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- EMF Ecore -->
 
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore</artifactId>
 			<version>2.11.2</version>
-            <optional>true</optional>
+			<optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.emf</groupId>
 			<artifactId>org.eclipse.emf.ecore.change</artifactId>
 			<version>2.11.0</version>
-            <optional>true</optional>
+			<optional>true</optional>
 		</dependency>
 
-        <!-- XTEXT -->
+		<!-- XTEXT -->
 
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
@@ -107,92 +113,99 @@
 			<version>${xtext.version}</version>
 		</dependency>
 
-        <!-- Test -->
+		<!-- Test -->
 
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.easytesting</groupId>
-            <artifactId>fest-assert</artifactId>
-            <version>1.4</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.1.0</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin</groupId>
-            <artifactId>units4j</artifactId>
-            <version>0.8.2</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.fuin</groupId>
+			<artifactId>units4j</artifactId>
+			<version>0.8.2</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.googlecode.openpojo</groupId>
-            <artifactId>openpojo</artifactId>
-            <version>0.7.3</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.googlecode.openpojo</groupId>
+			<artifactId>openpojo</artifactId>
+			<version>0.7.3</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.12</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.mail</groupId>
-                    <artifactId>mail</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.jms</groupId>
-                    <artifactId>jms</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jmx</groupId>
-                    <artifactId>jmxri</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.jdmk</groupId>
-                    <artifactId>jmxtools</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.mail</groupId>
+					<artifactId>mail</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>javax.jms</groupId>
+					<artifactId>jms</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jmx</groupId>
+					<artifactId>jmxri</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.sun.jdmk</groupId>
+					<artifactId>jmxtools</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-            <version>5.1.3.Final</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <artifactId>jaxb-impl</artifactId>
-                    <groupId>com.sun.xml.bind</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>jaxb-api</artifactId>
-                    <groupId>javax.xml.bind</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>2.2.6</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.fuin.xsample</groupId>
-            <artifactId>org.fuin.xsample.dsl</artifactId>
-            <version>0.0.1</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.1.Final</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>jaxb-impl</artifactId>
+					<groupId>com.sun.xml.bind</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jaxb-api</artifactId>
+					<groupId>javax.xml.bind</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-    </dependencies>
+		<dependency>
+			<groupId>org.fuin.xsample</groupId>
+			<artifactId>org.fuin.xsample.dsl</artifactId>
+			<version>0.0.1</version>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 
 </project>

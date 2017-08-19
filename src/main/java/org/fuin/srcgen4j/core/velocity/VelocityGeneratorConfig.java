@@ -17,6 +17,8 @@
  */
 package org.fuin.srcgen4j.core.velocity;
 
+import static org.fuin.utils4j.Utils4J.replaceVars;
+
 import java.io.File;
 import java.util.Map;
 
@@ -25,11 +27,11 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
-import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
+import org.fuin.xmlcfg4j.AbstractElement;
 
 /**
  * Minimal configuration for the velocity based generators.

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:cfg="http://www.fuin.org/xmlcfg4j"
+   xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons"
    targetNamespace="http://www.fuin.org/srcgen4j/core/emf">
-	
-	<xs:import namespace="http://www.fuin.org/srcgen4j/commons" />
-	
-	<!-- Configuration for the generator -->
-	
-	<xs:element name="emf-generator-config" type="velo:emf-generatorConfigType"
-		xmlns:velo="http://www.fuin.org/srcgen4j/core/emf" />
-		
-	<xs:complexType name="emf-generatorConfigType">
-	    <xs:sequence>
-     	  <xs:element type="sg4jc:variableType" name="variable" minOccurs="0" maxOccurs="unbounded" xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons"/>
-	      <xs:element type="sg4jc:artifactFactoryConfigType" name="artifact-factory" minOccurs="1" maxOccurs="unbounded" xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons" />
-	    </xs:sequence>
-	</xs:complexType>
-	
+
+    <xs:import namespace="http://www.fuin.org/xmlcfg4j" schemaLocation="http://www.fuin.org/xsd/xmlcfg4j.xsd" />
+    <xs:import namespace="http://www.fuin.org/srcgen4j/commons" schemaLocation="http://www.fuin.org/xsd/srcgen4j-commons.xsd" />
+
+    <!-- Configuration for the generator -->
+
+    <xs:element name="emf-generator-config" type="velo:emf-generatorConfigType" xmlns:velo="http://www.fuin.org/srcgen4j/core/emf" />
+
+    <xs:complexType name="emf-generatorConfigType">
+        <xs:sequence>
+           <xs:element type="cfg:variableType" name="variable" minOccurs="0" maxOccurs="unbounded" xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons"/>
+          <xs:element type="sg4jc:artifactFactoryConfigType" name="artifact-factory" minOccurs="1" maxOccurs="unbounded" xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons" />
+        </xs:sequence>
+    </xs:complexType>
+
 </xs:schema>

@@ -17,7 +17,7 @@
  */
 package org.fuin.srcgen4j.core.velocity;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +69,6 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        System.out.println(xml);
         final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
 
         // VERIFY
@@ -100,7 +99,6 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        System.out.println(xml);
         final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
 
         // VERIFY
