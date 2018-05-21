@@ -1,4 +1,7 @@
-/target
-/.settings
-/*.log
-META-INF/MANIFEST.MF
+.*
+!.gitignore
+!.gitkeep
+!.checkstyle
+target
+META-INF
+*.log
