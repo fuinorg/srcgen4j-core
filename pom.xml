@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>objects4j</artifactId>
-			<version>0.6.4</version>
+			<version>0.6.8</version>
 		</dependency>
 
 		<dependency>
@@ -132,7 +132,7 @@
 		<dependency>
 			<groupId>org.fuin</groupId>
 			<artifactId>units4j</artifactId>
-			<version>0.8.2</version>
+			<version>0.8.3</version>
 			<scope>test</scope>
 		</dependency>
 
