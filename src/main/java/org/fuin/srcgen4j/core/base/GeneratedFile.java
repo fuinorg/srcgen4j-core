@@ -112,10 +112,16 @@ public final class GeneratedFile {
             // Compare new and old file
             if (FileUtils.contentEquals(tmpFile, file)) {
                 LOG.debug("Omitted: {} {}", getPath(), logInfo);
-                tmpFile.delete();
+                if (!tmpFile.delete()) {
+                    tmpFile.deleteOnExit();
+                }
             } else {
-                file.delete();
-                tmpFile.renameTo(file);
+                if (!file.delete()) {
+                    throw new IOException("Wasn't able to delete file " + file);
+                }
+                if (!tmpFile.renameTo(file)) {
+                    throw new IOException("Wasn't able to rename temporary file " + tmpFile + " to " + file);
+                }
                 LOG.info("Generated: {} {}", getPath(), logInfo);
             }
 
