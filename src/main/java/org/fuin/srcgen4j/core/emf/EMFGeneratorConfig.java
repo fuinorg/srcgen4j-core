@@ -21,14 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Nullable;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.fuin.objects4j.common.NeverNull;
-import org.fuin.objects4j.common.Nullable;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
 import org.fuin.srcgen4j.commons.ArtifactFactoryConfig;
 import org.fuin.srcgen4j.commons.Config;
@@ -84,7 +84,7 @@ public class EMFGeneratorConfig extends AbstractElement implements
      *            Type of the model to create an artifact for.
      */
     @SuppressWarnings("unchecked")
-    @NeverNull
+    @NotNull
     public final <MODEL> List<ArtifactFactory<MODEL>> getFactories(
             final Class<MODEL> modelType) {
         final List<ArtifactFactory<MODEL>> list = new ArrayList<ArtifactFactory<MODEL>>();
