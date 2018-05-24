@@ -6,14 +6,13 @@
 	<parent>
 		<groupId>org.fuin</groupId>
 		<artifactId>pom-osgi</artifactId>
-		<version>1.4.0</version>
+		<version>1.5.0</version>
 	</parent>
 
 	<groupId>org.fuin.srcgen4j</groupId>
 	<artifactId>srcgen4j-core</artifactId>
 	<packaging>jar</packaging>
 	<version>0.4.1-SNAPSHOT</version>
-	<name>SrcGen4j Core</name>
 	<description>Source code generation for Java (Core)</description>
 	<url>http://www.fuin.org/srcgen4j/core/</url>
 
@@ -45,7 +44,7 @@
 		<dependency>
 			<groupId>javax.validation</groupId>
 			<artifactId>validation-api</artifactId>
-			<version>2.0.0.Final</version>
+			<version>2.0.1.Final</version>
 		</dependency>
 
 		<dependency>
@@ -63,13 +62,13 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.5</version>
+			<version>2.6</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.25</version>
 		</dependency>
 
 		<!-- Technology JARs - Add this dependencies to your POM if you need it -->
@@ -125,7 +124,7 @@
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>3.1.0</version>
+			<version>3.10.0</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -137,16 +136,16 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.googlecode.openpojo</groupId>
+			<groupId>com.openpojo</groupId>
 			<artifactId>openpojo</artifactId>
-			<version>0.7.3</version>
+			<version>0.8.10</version>
 			<scope>test</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.12</version>
+			<version>1.7.25</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -185,7 +184,7 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
-			<version>6.0.1.Final</version>
+			<version>6.0.10.Final</version>
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
@@ -207,5 +206,27 @@
 		</dependency>
 
 	</dependencies>
+
+    <build>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.1</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>
