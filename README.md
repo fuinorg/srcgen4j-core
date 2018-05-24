@@ -3,8 +3,6 @@ srcgen4j-core
 
 Source code generation for Java (Core)
 
-__CAUTION: *Project is in early stage (Work in progress)*__
-
 [![Build Status](https://fuin-org.ci.cloudbees.com/job/srcgen4j-core/badge/icon)](https://fuin-org.ci.cloudbees.com/job/srcgen4j-core/)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
