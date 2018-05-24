@@ -116,7 +116,7 @@ public final class GeneratedFile {
                     tmpFile.deleteOnExit();
                 }
             } else {
-                if (!file.delete()) {
+                if (file.exists() && !file.delete()) {
                     throw new IOException("Wasn't able to delete file " + file);
                 }
                 if (!tmpFile.renameTo(file)) {
