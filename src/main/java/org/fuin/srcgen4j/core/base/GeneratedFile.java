@@ -82,7 +82,7 @@ public final class GeneratedFile {
      * 
      * @return Target file to generate to - Never NULL.
      */
-    public final File getFile() {
+    public final File getTmpFile() {
         return tmpFile;
     }
 

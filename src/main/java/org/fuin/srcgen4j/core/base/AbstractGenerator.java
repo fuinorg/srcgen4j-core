@@ -213,7 +213,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         } else {
             LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
             try {
-                final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getFile()));
+                final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getTmpFile()));
                 try {
                     out.write(artifact.getData());
                 } finally {
