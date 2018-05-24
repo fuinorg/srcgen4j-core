@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "parameterized-template-generator")
-public final class ParameterizedTemplateGeneratorConfig extends
-        VelocityGeneratorConfig {
+public final class ParameterizedTemplateGeneratorConfig extends VelocityGeneratorConfig {
 
 }

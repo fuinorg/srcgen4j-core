@@ -49,23 +49,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Velocity template that has a number of parameters. Every target file defines
- * concrete values for those parameters. The list of target files is statically
- * defined or dynamically created by another class that generates the list.
+ * Velocity template that has a number of parameters. Every target file defines concrete values for those parameters. The list of target
+ * files is statically defined or dynamically created by another class that generates the list.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "parameterized-template")
-@XmlType(propOrder = { "template", "arguments", "targetFiles",
-        "tflProducerConfig" })
+@XmlType(propOrder = { "template", "arguments", "targetFiles", "tflProducerConfig" })
 @TargetArgsMatchTemplateArgs
 @TargetFilesMustBeAvailable
-public class ParameterizedTemplateModel implements Serializable,
-        Comparable<ParameterizedTemplateModel>, Producer {
+public class ParameterizedTemplateModel implements Serializable, Comparable<ParameterizedTemplateModel>, Producer {
 
     private static final long serialVersionUID = 1L;
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(ParameterizedTemplateModel.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateModel.class);
 
     @XmlAttribute
     @TrimmedNotEmpty
@@ -99,11 +95,9 @@ public class ParameterizedTemplateModel implements Serializable,
      * @param template
      *            Relative path and name of the template - Cannot be NULL.
      * @param targetFiles
-     *            Array of target files - Cannot be NULL and should have at
-     *            least one entry.
+     *            Array of target files - Cannot be NULL and should have at least one entry.
      */
-    public ParameterizedTemplateModel(final String template,
-            final TargetFile... targetFiles) {
+    public ParameterizedTemplateModel(final String template, final TargetFile... targetFiles) {
         super();
 
         this.template = template;
@@ -126,8 +120,7 @@ public class ParameterizedTemplateModel implements Serializable,
      * @param tflProducerConfig
      *            Configuration - Cannot be NULL.
      */
-    public ParameterizedTemplateModel(final String template,
-            final TargetFileListProducerConfig tflProducerConfig) {
+    public ParameterizedTemplateModel(final String template, final TargetFileListProducerConfig tflProducerConfig) {
         super();
 
         this.template = template;
@@ -156,8 +149,7 @@ public class ParameterizedTemplateModel implements Serializable,
     }
 
     /**
-     * Returns the list of arguments defined by the template. All values serve
-     * as default for the parameters defined in a target file.
+     * Returns the list of arguments defined by the template. All values serve as default for the parameters defined in a target file.
      * 
      * @return Arguments and their default values defined for the template.
      */
@@ -166,20 +158,17 @@ public class ParameterizedTemplateModel implements Serializable,
     }
 
     /**
-     * Sets the list of arguments defined by the template. All values serve as
-     * default for the parameters defined in a target file.
+     * Sets the list of arguments defined by the template. All values serve as default for the parameters defined in a target file.
      * 
      * @param arguments
-     *            Arguments and their default values defined for the template or
-     *            NULL.
+     *            Arguments and their default values defined for the template or NULL.
      */
     public final void setArguments(final List<Argument> arguments) {
         this.arguments = arguments;
     }
 
     /**
-     * Adds an argument to the template. If the list of arguments does not
-     * exist, it will be created.
+     * Adds an argument to the template. If the list of arguments does not exist, it will be created.
      * 
      * @param argument
      *            Arguments to add.
@@ -211,21 +200,17 @@ public class ParameterizedTemplateModel implements Serializable,
     }
 
     /**
-     * Returns the list of target files. Either by using the producer or by
-     * simply returning the internal list.
+     * Returns the list of target files. Either by using the producer or by simply returning the internal list.
      * 
      * @return Target files - Never NULL and has at least one entry.
      */
     public final List<TargetFile> createTargetFileList() {
         if (tflProducerConfig == null) {
-            LOG.info("Using target file list: " + targetFiles.size()
-                    + " elements");
+            LOG.info("Using target file list: " + targetFiles.size() + " elements");
             return targetFiles;
         }
-        final TargetFileListProducer producer = tflProducerConfig
-                .getTargetFileListProducer();
-        LOG.info("Using target file list producer: "
-                + producer.getClass().getName());
+        final TargetFileListProducer producer = tflProducerConfig.getTargetFileListProducer();
+        LOG.info("Using target file list producer: " + producer.getClass().getName());
         return producer.createTargetFiles();
     }
 
@@ -243,8 +228,7 @@ public class ParameterizedTemplateModel implements Serializable,
     public final int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = (prime * result)
-                + ((template == null) ? 0 : template.hashCode());
+        result = (prime * result) + ((template == null) ? 0 : template.hashCode());
         return result;
     }
 
@@ -348,8 +332,7 @@ public class ParameterizedTemplateModel implements Serializable,
      * @param vars
      *            Variables to use.
      */
-    public final void init(final SrcGen4JContext context,
-            final Map<String, String> vars) {
+    public final void init(final SrcGen4JContext context, final Map<String, String> vars) {
 
         if (template != null) {
             template = Utils4J.replaceVars(template, vars);
@@ -373,25 +356,21 @@ public class ParameterizedTemplateModel implements Serializable,
      * Checks if this model has a reference to the given template file.
      * 
      * @param templateDir
-     *            Directory where all template files are located - Cannot be
-     *            NULL.
+     *            Directory where all template files are located - Cannot be NULL.
      * @param templateFile
      *            Template file to check - Cannot be NULL.
      * 
      * @return If the template is referenced TRUE else FALSE.
      */
-    public final boolean hasReferenceTo(final File templateDir,
-            final File templateFile) {
-        final String p1 = Utils4J.getCanonicalPath(new File(templateDir,
-                template));
+    public final boolean hasReferenceTo(final File templateDir, final File templateFile) {
+        final String p1 = Utils4J.getCanonicalPath(new File(templateDir, template));
         final String p2 = Utils4J.getCanonicalPath(templateFile);
         return p1.equals(p2);
     }
 
     private static JAXBContext createJaxbContext() {
         try {
-            return JAXBContext.newInstance(ParameterizedTemplateModel.class,
-                    TargetFile.class, Argument.class);
+            return JAXBContext.newInstance(ParameterizedTemplateModel.class, TargetFile.class, Argument.class);
         } catch (final JAXBException ex) {
             throw new RuntimeException(ex);
         }
@@ -408,8 +387,7 @@ public class ParameterizedTemplateModel implements Serializable,
     public static ParameterizedTemplateModel create(final Reader reader) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplateModel pc = helper.create(reader,
-                    createJaxbContext());
+            final ParameterizedTemplateModel pc = helper.create(reader, createJaxbContext());
             Contract.requireValid(pc);
             return pc;
         } catch (final UnmarshalObjectException ex) {
@@ -428,8 +406,7 @@ public class ParameterizedTemplateModel implements Serializable,
     public static ParameterizedTemplateModel create(final File file) {
         try {
             final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplateModel pc = helper.create(file,
-                    createJaxbContext());
+            final ParameterizedTemplateModel pc = helper.create(file, createJaxbContext());
             pc.setFile(file);
             Contract.requireValid(pc);
             return pc;

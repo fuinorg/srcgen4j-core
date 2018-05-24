@@ -28,8 +28,7 @@ import javax.validation.Payload;
 
 //CHECKSTYLE:OFF
 /**
- * Validates if one of
- * {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
+ * Validates if one of {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
  * {@link ParameterizedTemplateModel#getTargetFiles()} is available.
  */
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })

@@ -41,11 +41,9 @@ import org.slf4j.LoggerFactory;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xtext-parser-config")
-public class XtextParserConfig extends AbstractElement implements
-        InitializableElement<XtextParserConfig, Config<ParserConfig>> {
+public class XtextParserConfig extends AbstractElement implements InitializableElement<XtextParserConfig, Config<ParserConfig>> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(XtextParserConfig.class);
+    private static final Logger LOG = LoggerFactory.getLogger(XtextParserConfig.class);
 
     @XmlAttribute(name = "modelPath")
     private String modelPath;
@@ -153,8 +151,7 @@ public class XtextParserConfig extends AbstractElement implements
     }
 
     @Override
-    public final XtextParserConfig init(final SrcGen4JContext context,
-            final Config<ParserConfig> parent, final Map<String, String> vars) {
+    public final XtextParserConfig init(final SrcGen4JContext context, final Config<ParserConfig> parent, final Map<String, String> vars) {
         this.context = context;
         inheritVariables(vars);
         setModelPath(replaceVars(getModelPath(), getVarMap()));
@@ -172,11 +169,9 @@ public class XtextParserConfig extends AbstractElement implements
         }
         LOG.info("Creating setup class: " + setupClassName);
         try {
-            setupClass = Class.forName(setupClassName, true,
-                    context.getClassLoader());
+            setupClass = Class.forName(setupClassName, true, context.getClassLoader());
         } catch (final ClassNotFoundException ex) {
-            throw new RuntimeException("Couldn't load setup class: "
-                    + setupClassName, ex);
+            throw new RuntimeException("Couldn't load setup class: " + setupClassName, ex);
         }
         return setupClass;
     }

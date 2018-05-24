@@ -67,8 +67,7 @@ public final class SrcGen4JFile {
     }
 
     /**
-     * Constructor for a file (directory and file name) or a directory
-     * (directory only).
+     * Constructor for a file (directory and file name) or a directory (directory only).
      * 
      * @param dir
      *            Directory - Cannot be NULL.
@@ -137,8 +136,7 @@ public final class SrcGen4JFile {
      * Replaces all variables inside path or file name with values from a map.
      * 
      * @param vars
-     *            Map with key/values (both of type <code>String</code> - May be
-     *            <code>null</code>.
+     *            Map with key/values (both of type <code>String</code> - May be <code>null</code>.
      */
     public final void replaceVars(final Map<String, String> vars) {
         path = Utils4J.replaceVars(path, vars);
@@ -157,19 +155,16 @@ public final class SrcGen4JFile {
             if (name == null) {
                 file = new File(path.replace('/', File.separatorChar));
             } else {
-                file = new File((path + "/" + name).replace('/',
-                        File.separatorChar));
+                file = new File((path + "/" + name).replace('/', File.separatorChar));
             }
         }
         return file;
     }
 
     /**
-     * Tests whether the file or directory denoted by this abstract pathname
-     * exists.
+     * Tests whether the file or directory denoted by this abstract pathname exists.
      * 
-     * @return true if and only if the file or directory denoted by this
-     *         abstract pathname exists; false otherwise
+     * @return true if and only if the file or directory denoted by this abstract pathname exists; false otherwise
      * 
      */
     public final boolean exists() {

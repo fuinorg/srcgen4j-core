@@ -32,8 +32,7 @@ import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
 /**
  * Parses Xtext models.
  */
-public final class XtextParser extends AbstractEMFParser<XtextParserConfig>
-        implements Parser<ResourceSet> {
+public final class XtextParser extends AbstractEMFParser<XtextParserConfig> implements Parser<ResourceSet> {
 
     private XtextParserConfig parserConfig;
 
@@ -45,8 +44,7 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig>
     }
 
     @Override
-    public final void initialize(final SrcGen4JContext context,
-            final ParserConfig config) {
+    public final void initialize(final SrcGen4JContext context, final ParserConfig config) {
 
         // Xtext always needs a configuration
         Contract.requireArgNotNull("config", config);
@@ -60,11 +58,9 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig>
     }
 
     private void doSetup() {
-        final String errorMessage = "Initializing the Xtext DSL with '"
-                + parserConfig.getSetupClassName() + ".doSetup()' failed!";
+        final String errorMessage = "Initializing the Xtext DSL with '" + parserConfig.getSetupClassName() + ".doSetup()' failed!";
         try {
-            final Method method = parserConfig.getSetupClass()
-                    .getDeclaredMethod("doSetup");
+            final Method method = parserConfig.getSetupClass().getDeclaredMethod("doSetup");
             method.invoke(parserConfig.getSetupClass(), new Object[] {});
         } catch (final SecurityException ex) {
             throw new RuntimeException(errorMessage, ex);

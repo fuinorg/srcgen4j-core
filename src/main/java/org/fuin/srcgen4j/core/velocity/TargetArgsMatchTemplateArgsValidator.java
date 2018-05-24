@@ -27,25 +27,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Validates if all parameters defined in {@link TargetFile#getArguments()} are
- * also defined in {@link ParameterizedTemplateModel#getArguments()}.
+ * Validates if all parameters defined in {@link TargetFile#getArguments()} are also defined in
+ * {@link ParameterizedTemplateModel#getArguments()}.
  */
 public final class TargetArgsMatchTemplateArgsValidator
-        implements
-        ConstraintValidator<TargetArgsMatchTemplateArgs, ParameterizedTemplateModel> {
+        implements ConstraintValidator<TargetArgsMatchTemplateArgs, ParameterizedTemplateModel> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(TargetArgsMatchTemplateArgsValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TargetArgsMatchTemplateArgsValidator.class);
 
     @Override
-    public final void initialize(
-            final TargetArgsMatchTemplateArgs constraintAnnotation) {
+    public final void initialize(final TargetArgsMatchTemplateArgs constraintAnnotation) {
         // Not used
     }
 
     @Override
-    public final boolean isValid(final ParameterizedTemplateModel value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final ParameterizedTemplateModel value, final ConstraintValidatorContext context) {
 
         LOG.debug("Validate: " + value.getTemplate());
 

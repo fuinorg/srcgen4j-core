@@ -40,14 +40,11 @@ import org.slf4j.LoggerFactory;
  * @param <MODEL>
  *            Type of the model.
  * @param <CONFIG>
- *            Type of the generator specific configuration - Use 'Object' if the
- *            generator does not require any configuration.
+ *            Type of the generator specific configuration - Use 'Object' if the generator does not require any configuration.
  */
-public abstract class AbstractGenerator<MODEL, CONFIG> implements
-        Generator<MODEL> {
+public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODEL> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(AbstractGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractGenerator.class);
 
     private String name;
 
@@ -76,22 +73,16 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
         final Object obj = config.getConfig().getConfig();
         if (getSpecificConfigClass() == null) {
             if (obj != null) {
-                throw new IllegalStateException(
-                        "No configuration is expected, but was: "
-                                + obj.getClass());
+                throw new IllegalStateException("No configuration is expected, but was: " + obj.getClass());
             }
         } else {
             if (obj == null) {
                 throw new IllegalStateException(
-                        "The configuration is expected to be of type '"
-                                + getSpecificConfigClass().getName()
-                                + "', but was: null");
+                        "The configuration is expected to be of type '" + getSpecificConfigClass().getName() + "', but was: null");
             }
             if (!getSpecificConfigClass().isAssignableFrom(obj.getClass())) {
-                throw new IllegalStateException(
-                        "The configuration is expected to be of type '"
-                                + getSpecificConfigClass().getName()
-                                + "', but was: " + obj.getClass().getName());
+                throw new IllegalStateException("The configuration is expected to be of type '" + getSpecificConfigClass().getName()
+                        + "', but was: " + obj.getClass().getName());
             }
         }
 
@@ -100,17 +91,15 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
     }
 
     /**
-     * Extension point for specific initialization. Sub classes can use this to
-     * initialize something after the main initialization process is done. Does
-     * nothing by default.
+     * Extension point for specific initialization. Sub classes can use this to initialize something after the main initialization process
+     * is done. Does nothing by default.
      */
     protected void init() {
         // May be overwritten by sub classes
     }
 
     @Override
-    public final void generate(final MODEL model, final boolean incremental)
-            throws GenerateException {
+    public final void generate(final MODEL model, final boolean incremental) throws GenerateException {
 
         Contract.requireArgNotNull("model", model);
         Contract.requireValid(model);
@@ -142,11 +131,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
     }
 
     /**
-     * Returns the class of the expected configuration class. This method can be
-     * overridden to make sure the configuration is valid.
+     * Returns the class of the expected configuration class. This method can be overridden to make sure the configuration is valid.
      * 
-     * @return Specific configuration class or NULL if no configuration is
-     *         required.
+     * @return Specific configuration class or NULL if no configuration is required.
      */
     // CHECKSTYLE:OFF Empty methods do not violate the 'design for extension'
     // principle
@@ -156,8 +143,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
     }
 
     /**
-     * Returns the specific configuration. This is a shortcut for
-     * <code>getConfig().getConfig().getConfig()</code>.
+     * Returns the specific configuration. This is a shortcut for <code>getConfig().getConfig().getConfig()</code>.
      * 
      * @return Generator configuration or NULL.
      */
@@ -167,13 +153,11 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
     }
 
     /**
-     * Returns the target file for a given artifact type and filename. This
-     * method takes care about eventually creating non existing directories or
-     * protect existing files to be overridden.
+     * Returns the target file for a given artifact type and filename. This method takes care about eventually creating non existing
+     * directories or protect existing files to be overridden.
      * 
      * @param artifactName
-     *            Type of the artifact to create - This has to refer to an
-     *            existing entry in the configuration (Like '&lt;artifact
+     *            Type of the artifact to create - This has to refer to an existing entry in the configuration (Like '&lt;artifact
      *            name="<i>artifactName</i>" ..&gt;').
      * @param filename
      *            Name of the target file (without a path).
@@ -182,11 +166,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
      * 
      * @return File to write to or NULL if nothing should be written.
      */
-    protected final GeneratedFile getTargetFile(final String artifactName,
-            final String filename, final String logInfo) {
+    protected final GeneratedFile getTargetFile(final String artifactName, final String filename, final String logInfo) {
 
-        final Folder folder = getGeneratorConfig().findTargetFolder(
-                artifactName);
+        final Folder folder = getGeneratorConfig().findTargetFolder(artifactName);
         final File dir = folder.getCanonicalDir();
         final File file = new File(dir, filename);
 
@@ -195,12 +177,8 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
             if (folder.isCreate()) {
                 dir.mkdirs();
             } else {
-                throw new IllegalStateException(
-                        "Directory '"
-                                + dir
-                                + "' does not exist, but configuration does not allow creation: "
-                                + "<folder name=\"" + folder.getName()
-                                + "\" create=\"false\" ... />");
+                throw new IllegalStateException("Directory '" + dir + "' does not exist, but configuration does not allow creation: "
+                        + "<folder name=\"" + folder.getName() + "\" create=\"false\" ... />");
             }
         }
         // Make sure the parent directory for the file exists
@@ -225,21 +203,17 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
      * @throws GenerateException
      *             Error writing the artifact.
      */
-    protected final void write(@NotNull final GeneratedArtifact artifact)
-            throws GenerateException {
+    protected final void write(@NotNull final GeneratedArtifact artifact) throws GenerateException {
 
         Contract.requireArgNotNull("artifact", artifact);
 
-        final GeneratedFile genFile = getTargetFile(artifact.getName(),
-                artifact.getPathAndName(), null);
+        final GeneratedFile genFile = getTargetFile(artifact.getName(), artifact.getPathAndName(), null);
         if (genFile.isSkip()) {
-            LOG.debug("Omitted already existing file: " + genFile + " ["
-                    + artifact + "]");
+            LOG.debug("Omitted already existing file: " + genFile + " [" + artifact + "]");
         } else {
             LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
             try {
-                final OutputStream out = new BufferedOutputStream(
-                        new FileOutputStream(genFile.getFile()));
+                final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getFile()));
                 try {
                     out.write(artifact.getData());
                 } finally {
@@ -247,9 +221,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
                 }
                 genFile.persist();
             } catch (final IOException ex) {
-                throw new GenerateException("Error writing artifact '"
-                        + artifact + "' to '" + artifact.getPathAndName()
-                        + "'!", ex);
+                throw new GenerateException("Error writing artifact '" + artifact + "' to '" + artifact.getPathAndName() + "'!", ex);
             }
         }
     }
@@ -263,7 +235,6 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate(boolean incremental)
-            throws GenerateException;
+    protected abstract void generate(boolean incremental) throws GenerateException;
 
 }

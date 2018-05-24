@@ -27,11 +27,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Generates files for a given {@link ParameterizedTemplateModels} model.
  */
-public final class ParameterizedTemplateGenerator extends
-        VelocityGenerator<ParameterizedTemplateModels> {
+public final class ParameterizedTemplateGenerator extends VelocityGenerator<ParameterizedTemplateModels> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(ParameterizedTemplateGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateGenerator.class);
 
     /** Unique name of the only artifact type the generator produces. */
     public static final String ARTIFACT_NAME = "file";
@@ -39,8 +37,7 @@ public final class ParameterizedTemplateGenerator extends
     @Override
     protected final void generateIntern() throws GenerateException {
 
-        final List<ParameterizedTemplateModel> modelList = getModel()
-                .getModelList();
+        final List<ParameterizedTemplateModel> modelList = getModel().getModelList();
         if (modelList == null || modelList.size() == 0) {
             // Invalid model
             LOG.warn("No template models found");
@@ -53,12 +50,10 @@ public final class ParameterizedTemplateGenerator extends
 
     }
 
-    private void generate(final ParameterizedTemplateModel model)
-            throws GenerateException {
+    private void generate(final ParameterizedTemplateModel model) throws GenerateException {
         final List<TargetFile> targetFiles = model.createTargetFileList();
         if (targetFiles == null || targetFiles.size() == 0) {
-            LOG.warn("No target files found: " + model.getTemplate()
-                    + " [templates=" + model.getFile() + "]");
+            LOG.warn("No target files found: " + model.getTemplate() + " [templates=" + model.getFile() + "]");
         } else {
             for (final TargetFile targetFile : targetFiles) {
 
@@ -83,8 +78,7 @@ public final class ParameterizedTemplateGenerator extends
                     }
                 }
 
-                merge(context, ARTIFACT_NAME, model.getTemplate(),
-                        targetFile.getPathAndName());
+                merge(context, ARTIFACT_NAME, model.getTemplate(), targetFile.getPathAndName());
 
             }
         }

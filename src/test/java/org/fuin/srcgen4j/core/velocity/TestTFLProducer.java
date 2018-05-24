@@ -26,10 +26,8 @@ public final class TestTFLProducer implements TargetFileListProducer {
     @Override
     public final List<TargetFile> createTargetFiles() {
         final List<TargetFile> files = new ArrayList<TargetFile>();
-        files.add(new TargetFile("a", "A2.java", new Argument("name", "A2"),
-                new Argument("pkg", "a")));
-        files.add(new TargetFile("b", "B2.java", new Argument("name", "B2"),
-                new Argument("pkg", "b")));
+        files.add(new TargetFile("a", "A2.java", new Argument("name", "A2"), new Argument("pkg", "a")));
+        files.add(new TargetFile("b", "B2.java", new Argument("name", "B2"), new Argument("pkg", "b")));
         return files;
     }
 

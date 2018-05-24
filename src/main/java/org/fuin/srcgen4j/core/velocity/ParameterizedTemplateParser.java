@@ -36,16 +36,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Parses a given directory for XML files of type
- * {@link ParameterizedTemplateModel} or {@link ParameterizedTemplateModels} and
- * combines all files into one model.
+ * Parses a given directory for XML files of type {@link ParameterizedTemplateModel} or {@link ParameterizedTemplateModels} and combines all
+ * files into one model.
  */
-public final class ParameterizedTemplateParser extends
-        AbstractParser<ParameterizedTemplateParserConfig> implements
-        IncrementalParser<ParameterizedTemplateModels> {
+public final class ParameterizedTemplateParser extends AbstractParser<ParameterizedTemplateParserConfig>
+        implements IncrementalParser<ParameterizedTemplateModels> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(ParameterizedTemplateParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ParameterizedTemplateParser.class);
 
     private ParameterizedTemplateParserConfig parserConfig;
 
@@ -73,8 +70,7 @@ public final class ParameterizedTemplateParser extends
     }
 
     @Override
-    public void initialize(final SrcGen4JContext context,
-            final ParserConfig config) {
+    public void initialize(final SrcGen4JContext context, final ParserConfig config) {
 
         // This type of parser always needs a configuration
         Contract.requireArgNotNull("config", config);
@@ -100,16 +96,14 @@ public final class ParameterizedTemplateParser extends
             fullHandler = new FullFileHandler(this);
             final FileProcessor processor = new FileProcessor(fullHandler);
             processor.process(parserConfig.getModelDir());
-            final ParameterizedTemplateModels models = fullHandler
-                    .getTemplates();
+            final ParameterizedTemplateModels models = fullHandler.getTemplates();
             models.init(context, varMap);
         }
         return fullHandler.getTemplates();
     }
 
     @Override
-    public final ParameterizedTemplateModels parse(final Set<File> files)
-            throws ParseException {
+    public final ParameterizedTemplateModels parse(final Set<File> files) throws ParseException {
         LOG.info("Incremental parse");
         if (incrementalHandler == null) {
             incrementalHandler = new IncrementalFileHandler(this);
@@ -118,8 +112,7 @@ public final class ParameterizedTemplateParser extends
         for (final File file : files) {
             incrementalHandler.handleFile(file);
         }
-        final ParameterizedTemplateModels models = incrementalHandler
-                .getTemplates();
+        final ParameterizedTemplateModels models = incrementalHandler.getTemplates();
         models.init(context, varMap);
         return models;
     }

@@ -37,8 +37,8 @@ import org.fuin.xmlcfg4j.AbstractElement;
  * Minimal configuration for the velocity based generators.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class VelocityGeneratorConfig extends AbstractElement implements
-        InitializableElement<VelocityGeneratorConfig, Config<GeneratorConfig>> {
+public abstract class VelocityGeneratorConfig extends AbstractElement
+        implements InitializableElement<VelocityGeneratorConfig, Config<GeneratorConfig>> {
 
     @TrimmedNotEmpty
     @XmlAttribute(name = "templatePath")
@@ -94,8 +94,8 @@ public abstract class VelocityGeneratorConfig extends AbstractElement implements
     }
 
     @Override
-    public final VelocityGeneratorConfig init(final SrcGen4JContext context,
-            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
+    public final VelocityGeneratorConfig init(final SrcGen4JContext context, final Config<GeneratorConfig> parent,
+            final Map<String, String> vars) {
         inheritVariables(vars);
         setTemplatePath(replaceVars(getTemplatePath(), getVarMap()));
         init(getVarMap());

@@ -33,12 +33,9 @@ import org.fuin.srcgen4j.core.base.AbstractGenerator;
  * Generator that uses an ECORE resource set as input.
  * 
  * @param <CONFIG>
- *            Type of the generator specific configuration - Use 'Object' if the
- *            generator does not require any configuration.
+ *            Type of the generator specific configuration - Use 'Object' if the generator does not require any configuration.
  */
-public abstract class AbstractEMFGenerator<CONFIG> extends
-        AbstractGenerator<ResourceSet, CONFIG> implements
-        Generator<ResourceSet> {
+public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<ResourceSet, CONFIG> implements Generator<ResourceSet> {
 
     /**
      * default constructor.
@@ -48,8 +45,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends
     }
 
     @Override
-    protected final void generate(final boolean incremental)
-            throws GenerateException {
+    protected final void generate(final boolean incremental) throws GenerateException {
 
         final Map<String, Object> context = new HashMap<String, Object>();
 
@@ -74,56 +70,49 @@ public abstract class AbstractEMFGenerator<CONFIG> extends
     }
 
     /**
-     * Called before the generation process starts. Extension point for sub
-     * classes that want to prepare something. Default is to do nothing.
+     * Called before the generation process starts. Extension point for sub classes that want to prepare something. Default is to do
+     * nothing.
      * 
      * @param context
      *            Map used to store information during the generation process.
      * @param incremental
      *            If this is an incremental build TRUE, else FALSE (full build).
      * @param preparationRun
-     *            TRUE if this is the preparation (dry) run, else FALSE (real
-     *            generation).
+     *            TRUE if this is the preparation (dry) run, else FALSE (real generation).
      * 
      * @throws GenerateException
      *             Error when generating.
      */
-    protected void beforeGenerate(@NotNull final Map<String, Object> context,
-            final boolean incremental, final boolean preparationRun)
+    protected void beforeGenerate(@NotNull final Map<String, Object> context, final boolean incremental, final boolean preparationRun)
             throws GenerateException {
         // May be overwritten by sub classes
     }
 
     /**
-     * Called after the generation process starts. Extension point for sub
-     * classes that want to do some clean up. Default is to do nothing.
+     * Called after the generation process starts. Extension point for sub classes that want to do some clean up. Default is to do nothing.
      * 
      * @param context
      *            Map used to store information during the generation process.
      * @param incremental
      *            If this is an incremental build TRUE, else FALSE (full build).
      * @param preparationRun
-     *            TRUE if this is the preparation (dry) run, else FALSE (real
-     *            generation).
+     *            TRUE if this is the preparation (dry) run, else FALSE (real generation).
      * 
      * @throws GenerateException
      *             Error when generating.
      */
-    protected void afterGenerate(@NotNull final Map<String, Object> context,
-            final boolean incremental, final boolean preparationRun)
+    protected void afterGenerate(@NotNull final Map<String, Object> context, final boolean incremental, final boolean preparationRun)
             throws GenerateException {
         // May be overwritten by sub classes
     }
 
     /**
-     * Determines if the concrete generator is interested in a given notifier
-     * type.
+     * Determines if the concrete generator is interested in a given notifier type.
      * 
      * @param notifier
      *            Type of notifier.
      * 
-     * @return If the {@link #generate(Map, Notifier, boolean, boolean)} method should be called TRUE,
-     *         else FALSE.
+     * @return If the {@link #generate(Map, Notifier, boolean, boolean)} method should be called TRUE, else FALSE.
      */
     protected abstract boolean wants(@NotNull Notifier notifier);
 
@@ -137,14 +126,12 @@ public abstract class AbstractEMFGenerator<CONFIG> extends
      * @param incremental
      *            If this is an incremental build TRUE, else FALSE (full build).
      * @param preparationRun
-     *            TRUE if this is the preparation (dry) run, else FALSE (real
-     *            generation).
+     *            TRUE if this is the preparation (dry) run, else FALSE (real generation).
      * 
      * @throws GenerateException
      *             Error when generating.
      */
-    protected abstract void generate(@NotNull Map<String, Object> context,
-            @NotNull Notifier notifier, boolean incremental,
+    protected abstract void generate(@NotNull Map<String, Object> context, @NotNull Notifier notifier, boolean incremental,
             final boolean preparationRun) throws GenerateException;
 
 }

@@ -26,7 +26,7 @@ import java.util.Map;
 public final class SimpleCodeReferenceRegistry implements CodeReferenceRegistry {
 
     private final Map<String, String> map;
-    
+
     /**
      * Default constructor.
      */

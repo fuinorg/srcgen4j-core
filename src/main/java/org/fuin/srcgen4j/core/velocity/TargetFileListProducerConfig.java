@@ -42,8 +42,7 @@ import org.fuin.xmlcfg4j.AbstractElement;
 @XmlRootElement(name = "target-file-list-producer")
 @XmlType(propOrder = { "config", "className" })
 public class TargetFileListProducerConfig extends AbstractElement
-        implements
-        InitializableElement<TargetFileListProducerConfig, ParameterizedTemplateModel> {
+        implements InitializableElement<TargetFileListProducerConfig, ParameterizedTemplateModel> {
 
     @TrimmedNotEmpty
     @XmlAttribute(name = "class")
@@ -65,8 +64,7 @@ public class TargetFileListProducerConfig extends AbstractElement
     }
 
     /**
-     * Returns the name of the class that implements
-     * {@link TargetFileListProducer}.
+     * Returns the name of the class that implements {@link TargetFileListProducer}.
      * 
      * @return Full qualified name.
      */
@@ -75,8 +73,7 @@ public class TargetFileListProducerConfig extends AbstractElement
     }
 
     /**
-     * Sets the name of the class that implements {@link TargetFileListProducer}
-     * .
+     * Sets the name of the class that implements {@link TargetFileListProducer} .
      * 
      * @param className
      *            Full qualified name.
@@ -125,9 +122,7 @@ public class TargetFileListProducerConfig extends AbstractElement
 
     @Override
     @SuppressWarnings("unchecked")
-    public final TargetFileListProducerConfig init(
-            final SrcGen4JContext context,
-            final ParameterizedTemplateModel parent,
+    public final TargetFileListProducerConfig init(final SrcGen4JContext context, final ParameterizedTemplateModel parent,
             final Map<String, String> vars) {
         setParent(parent);
         inheritVariables(vars);
@@ -141,8 +136,7 @@ public class TargetFileListProducerConfig extends AbstractElement
     }
 
     /**
-     * Returns an existing target file list producer instance or creates a new
-     * one if it's the first call to this method.
+     * Returns an existing target file list producer instance or creates a new one if it's the first call to this method.
      * 
      * @return TargetFileListProducer of type {@link #className}.
      */
@@ -152,9 +146,8 @@ public class TargetFileListProducerConfig extends AbstractElement
         }
         final Object obj = Utils4J.createInstance(className);
         if (!(obj instanceof TargetFileListProducer)) {
-            throw new IllegalStateException("Expected class to be of type '"
-                    + TargetFileListProducer.class.getName() + "', but was: "
-                    + className);
+            throw new IllegalStateException(
+                    "Expected class to be of type '" + TargetFileListProducer.class.getName() + "', but was: " + className);
         }
         tflProducer = (TargetFileListProducer) obj;
         return tflProducer;

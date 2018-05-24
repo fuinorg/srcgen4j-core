@@ -42,8 +42,7 @@ import org.fuin.xmlcfg4j.AbstractElement;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "emf-generator-config")
-public class EMFGeneratorConfig extends AbstractElement implements
-        InitializableElement<EMFGeneratorConfig, Config<GeneratorConfig>> {
+public class EMFGeneratorConfig extends AbstractElement implements InitializableElement<EMFGeneratorConfig, Config<GeneratorConfig>> {
 
     @Nullable
     @Valid
@@ -60,8 +59,8 @@ public class EMFGeneratorConfig extends AbstractElement implements
     }
 
     @Override
-    public final EMFGeneratorConfig init(final SrcGen4JContext context,
-            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
+    public final EMFGeneratorConfig init(final SrcGen4JContext context, final Config<GeneratorConfig> parent,
+            final Map<String, String> vars) {
 
         inheritVariables(vars);
         if (factoryConfigs != null) {
@@ -85,8 +84,7 @@ public class EMFGeneratorConfig extends AbstractElement implements
      */
     @SuppressWarnings("unchecked")
     @NotNull
-    public final <MODEL> List<ArtifactFactory<MODEL>> getFactories(
-            final Class<MODEL> modelType) {
+    public final <MODEL> List<ArtifactFactory<MODEL>> getFactories(final Class<MODEL> modelType) {
         final List<ArtifactFactory<MODEL>> list = new ArrayList<ArtifactFactory<MODEL>>();
         if (factories == null) {
             factories = new ArrayList<ArtifactFactory<?>>();

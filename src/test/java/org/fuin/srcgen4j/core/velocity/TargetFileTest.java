@@ -36,8 +36,7 @@ public class TargetFileTest {
         final String path = "path";
         final String name = "name";
         final TargetFile testee = new TargetFile(path, name, arg1, arg2);
-        final JAXBContext jaxbContext = JAXBContext.newInstance(
-                TargetFile.class, Argument.class);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(TargetFile.class, Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE

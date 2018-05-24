@@ -58,13 +58,10 @@ public class ParameterizedTemplateTest {
 
         // PREPARE
         final String template = "my-template";
-        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(
-                template, targetFile1);
+        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(template, targetFile1);
         testee.addArgument(new Argument(arg1.getKey(), "ALLOWED_1"));
         testee.addArgument(new Argument(arg2.getKey(), "ALLOWED_2"));
-        final JAXBContext jaxbContext = JAXBContext.newInstance(
-                ParameterizedTemplateModel.class, TargetFile.class,
-                Argument.class);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplateModel.class, TargetFile.class, Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE
@@ -90,11 +87,8 @@ public class ParameterizedTemplateTest {
         final String template = "my-template";
         final TargetFileListProducerConfig tflProducerCfg = new TargetFileListProducerConfig();
         tflProducerCfg.setClassName(TestTargetFileProducer.class.getName());
-        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(
-                template, tflProducerCfg);
-        final JAXBContext jaxbContext = JAXBContext.newInstance(
-                ParameterizedTemplateModel.class, TargetFile.class,
-                Argument.class);
+        final ParameterizedTemplateModel testee = new ParameterizedTemplateModel(template, tflProducerCfg);
+        final JAXBContext jaxbContext = JAXBContext.newInstance(ParameterizedTemplateModel.class, TargetFile.class, Argument.class);
         final JaxbHelper helper = new JaxbHelper();
 
         // EXECUTE
@@ -105,16 +99,14 @@ public class ParameterizedTemplateTest {
         assertThat(copy.getTemplate()).isEqualTo(template);
         assertThat(copy.getTargetFiles()).isNull();
         assertThat(copy.getTargetFileListProducerConfig()).isNotNull();
-        assertThat(copy.getTargetFileListProducerConfig().getClassName())
-                .isEqualTo(TestTargetFileProducer.class.getName());
+        assertThat(copy.getTargetFileListProducerConfig().getClassName()).isEqualTo(TestTargetFileProducer.class.getName());
         final List<TargetFile> targetFiles = copy.createTargetFileList();
         assertThat(targetFiles.size()).isEqualTo(1);
         assertThat(targetFiles).contains(targetFile1);
 
     }
 
-    public static final class TestTargetFileProducer implements
-            TargetFileListProducer {
+    public static final class TestTargetFileProducer implements TargetFileListProducer {
 
         @Override
         public final List<TargetFile> createTargetFiles() {

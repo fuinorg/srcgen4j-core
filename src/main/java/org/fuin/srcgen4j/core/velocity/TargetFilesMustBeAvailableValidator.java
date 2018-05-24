@@ -24,48 +24,36 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Validates if one of
- * {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
+ * Validates if one of {@link ParameterizedTemplateModel#getTargetFileListProducerConfig()} and
  * {@link ParameterizedTemplateModel#getTargetFiles()} is available.
  */
 public final class TargetFilesMustBeAvailableValidator
-        implements
-        ConstraintValidator<TargetFilesMustBeAvailable, ParameterizedTemplateModel> {
+        implements ConstraintValidator<TargetFilesMustBeAvailable, ParameterizedTemplateModel> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(TargetFilesMustBeAvailableValidator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(TargetFilesMustBeAvailableValidator.class);
 
     @Override
-    public final void initialize(
-            final TargetFilesMustBeAvailable constraintAnnotation) {
+    public final void initialize(final TargetFilesMustBeAvailable constraintAnnotation) {
         // Not used
     }
 
     @Override
-    public final boolean isValid(final ParameterizedTemplateModel value,
-            final ConstraintValidatorContext context) {
+    public final boolean isValid(final ParameterizedTemplateModel value, final ConstraintValidatorContext context) {
 
         if (value.getTargetFileListProducerConfig() == null) {
-            if ((value.getTargetFiles() == null || value.getTargetFiles()
-                    .size() == 0)) {
-                LOG.debug("Element 'target-files' is mandatory if no element "
-                        + "'target-file-list-producer' is defined");
+            if ((value.getTargetFiles() == null || value.getTargetFiles().size() == 0)) {
+                LOG.debug("Element 'target-files' is mandatory if no element " + "'target-file-list-producer' is defined");
                 return false;
             }
         } else {
             /*
-             * TODO OSGI/Validator final
-             * Set<ConstraintViolation<TargetFileListProducerConfig>> violations
-             * = Contract .validate(value.getTargetFileListProducerConfig()); if
-             * (!violations.isEmpty()) {
-             * LOG.debug("Element 'target-file-list-producer' is invalid:"); for
-             * (final ConstraintViolation<TargetFileListProducerConfig>
-             * violation : violations) { LOG.error(violation.getMessage()); }
-             * return false; }
+             * TODO OSGI/Validator final Set<ConstraintViolation<TargetFileListProducerConfig>> violations = Contract
+             * .validate(value.getTargetFileListProducerConfig()); if (!violations.isEmpty()) {
+             * LOG.debug("Element 'target-file-list-producer' is invalid:"); for (final ConstraintViolation<TargetFileListProducerConfig>
+             * violation : violations) { LOG.error(violation.getMessage()); } return false; }
              */
             if (value.getTargetFiles() != null) {
-                LOG.debug("Element 'target-files' cannot exist if element "
-                        + "'target-file-list-producer' is defined");
+                LOG.debug("Element 'target-files' cannot exist if element " + "'target-file-list-producer' is defined");
                 return false;
             }
         }

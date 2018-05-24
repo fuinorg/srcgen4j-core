@@ -71,8 +71,7 @@ public final class TargetFile implements Serializable, Comparable<TargetFile> {
      * @param args
      *            Arguments for the template or NULL.
      */
-    public TargetFile(final String path, final String name,
-            final Argument... args) {
+    public TargetFile(final String path, final String name, final Argument... args) {
         super();
         Contract.requireArgNotNull("name", name);
         this.path = path;

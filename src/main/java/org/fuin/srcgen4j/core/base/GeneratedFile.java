@@ -30,8 +30,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class GeneratedFile {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(GeneratedFile.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GeneratedFile.class);
 
     private final File file;
 
@@ -65,8 +64,7 @@ public final class GeneratedFile {
      * @param skip
      *            If the file should NOT be generated TRUE, else FALSE.
      */
-    public GeneratedFile(final File file, final String logInfo,
-            final boolean skip) {
+    public GeneratedFile(final File file, final String logInfo, final boolean skip) {
         super();
         this.file = file;
         this.tmpFile = new File(file + ".tmp");
@@ -79,9 +77,8 @@ public final class GeneratedFile {
     }
 
     /**
-     * Returns the file to generate to. This is a reference to a temporary file.
-     * Calling {@link #persist()} will copy the temporary file to the target
-     * file if the content of the file is not equal.
+     * Returns the file to generate to. This is a reference to a temporary file. Calling {@link #persist()} will copy the temporary file to
+     * the target file if the content of the file is not equal.
      * 
      * @return Target file to generate to - Never NULL.
      */
@@ -99,11 +96,9 @@ public final class GeneratedFile {
     }
 
     /**
-     * Compares the content of the temporary file with the possibly existing
-     * target file. If both are equal the temporary file is deleted. Otherwise
-     * the old target file is deleted and the new generated file is renamed.
-     * This prevents time stamp changes for the target file if nothing changed
-     * since the last generation.
+     * Compares the content of the temporary file with the possibly existing target file. If both are equal the temporary file is deleted.
+     * Otherwise the old target file is deleted and the new generated file is renamed. This prevents time stamp changes for the target file
+     * if nothing changed since the last generation.
      */
     public final void persist() {
 
@@ -127,8 +122,7 @@ public final class GeneratedFile {
             persisted = true;
 
         } catch (final IOException ex) {
-            throw new RuntimeException("Error comparing content: tmp="
-                    + tmpFile + ", target=" + file + logInfo, ex);
+            throw new RuntimeException("Error comparing content: tmp=" + tmpFile + ", target=" + file + logInfo, ex);
         }
 
     }

@@ -47,11 +47,9 @@ import org.slf4j.LoggerFactory;
  * @param <CONFIG_TYPE>
  *            Type of the concrete configuration.
  */
-public abstract class AbstractEMFParser<CONFIG_TYPE> extends
-        AbstractParser<CONFIG_TYPE> {
+public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONFIG_TYPE> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(AbstractEMFParser.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFParser.class);
 
     private ResourceSet resourceSet = new ResourceSetImpl();
 
@@ -77,11 +75,10 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
      * @param modelDirs
      *            Directory with the Ecore model files.
      * @param fileExtensions
-     *            List of extensions for files to find ("mymodel", "java",
-     *            "class", ...)
+     *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
-            final List<SrcGen4JFile> modelDirs, final String... fileExtensions) {
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<SrcGen4JFile> modelDirs,
+            final String... fileExtensions) {
         this(concreteConfigClass, modelDirs, Arrays.asList(fileExtensions));
     }
 
@@ -93,11 +90,9 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
      * @param modelDirs
      *            Directory with the Ecore model files.
      * @param fileExtensions
-     *            List of extensions for files to find ("mymodel", "java",
-     *            "class", ...)
+     *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass,
-            final List<SrcGen4JFile> modelDirs,
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<SrcGen4JFile> modelDirs,
             final List<String> fileExtensions) {
         super(concreteConfigClass);
         this.modelDirs = modelDirs;
@@ -110,8 +105,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
     protected final void parseModelFiles() {
 
         if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
-            throw new IllegalStateException(
-                    "No file extensions for EMF model files set!");
+            throw new IllegalStateException("No file extensions for EMF model files set!");
         }
 
         // Drop previous resource set
@@ -134,8 +128,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
     protected final void resolveProxies() {
         final List<String> unresolved = new ArrayList<String>();
         if (!resolvedAllProxies(unresolved, 0)) {
-            LOG.warn("Could not resolve the following proxies ("
-                    + unresolved.size() + "):");
+            LOG.warn("Could not resolve the following proxies (" + unresolved.size() + "):");
             for (final String ref : unresolved) {
                 LOG.warn("Not found: " + ref);
             }
@@ -157,8 +150,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
     }
 
     /**
-     * Returns files that end with java and all directories. Files and
-     * directories started with a "." are excluded.
+     * Returns files that end with java and all directories. Files and directories started with a "." are excluded.
      * 
      * @param dir
      *            Directory to scan.
@@ -170,10 +162,8 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
             @Override
             public boolean accept(final File file) {
                 final boolean pointFile = file.getName().startsWith(".");
-                final String extension = FilenameUtils.getExtension(file
-                        .getName());
-                return (!pointFile && fileExtensions.contains(extension))
-                        || file.isDirectory();
+                final String extension = FilenameUtils.getExtension(file.getName());
+                return (!pointFile && fileExtensions.contains(extension)) || file.isDirectory();
             }
         });
         return files;
@@ -193,9 +183,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
         } else {
             for (final File file : files) {
                 if (file.isFile()) {
-                    final Resource resource = resourceSet.getResource(
-                            URI.createFileURI(Utils4J.getCanonicalPath(file)),
-                            true);
+                    final Resource resource = resourceSet.getResource(URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
                     LOG.debug("Parsed: " + resource.getURI());
                 } else {
                     parseDir(file);
@@ -204,8 +192,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
         }
     }
 
-    private boolean resolvedAllProxies(final List<String> unresolved,
-            final int resourcesProcessedBefore) {
+    private boolean resolvedAllProxies(final List<String> unresolved, final int resourcesProcessedBefore) {
 
         final Set<EObject> eObjects = findAllEObjects(resourceSet);
 
@@ -227,8 +214,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
             if (eObj instanceof InternalEObject) {
                 final InternalEObject iObj = (InternalEObject) eObj;
                 for (final EObject crossRef : iObj.eCrossReferences()) {
-                    final EObject resolvedRef = EcoreUtil.resolve(crossRef,
-                            resourceSet);
+                    final EObject resolvedRef = EcoreUtil.resolve(crossRef, resourceSet);
                     final String resolvedRefStr = getStrRef(resolvedRef);
                     if (resolvedRef.eIsProxy()) {
                         failure = true;
@@ -246,8 +232,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
                 i++;
             }
         }
-        LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: "
-                + unresolved.size());
+        LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: " + unresolved.size());
         return !failure && resolvedAllProxies(unresolved, totalResources);
     }
 
@@ -269,8 +254,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
      */
     private static Set<EObject> findAllEObjects(final ResourceSet resourceSet) {
         final Set<EObject> list = new HashSet<EObject>();
-        for (final Iterator<Notifier> i = resourceSet.getAllContents(); i
-                .hasNext();) {
+        for (final Iterator<Notifier> i = resourceSet.getAllContents(); i.hasNext();) {
             final Notifier next = i.next();
             if (next instanceof EObject) {
                 list.add((EObject) next);
@@ -291,8 +275,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
     /**
      * Returns the list of file extensions.
      * 
-     * @return List of extensions for files to find ("mymodel", "java", "class",
-     *         ...)
+     * @return List of extensions for files to find ("mymodel", "java", "class", ...)
      */
     protected final List<String> getFileExtensions() {
         return fileExtensions;
@@ -318,8 +301,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
     }
 
     /**
-     * Sets the model directories to parse. If no list exists internally, it
-     * will be created if necessary.
+     * Sets the model directories to parse. If no list exists internally, it will be created if necessary.
      * 
      * @param modelDirs
      *            Array of model directories or NULL.
@@ -337,20 +319,17 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends
      * Sets the list of file extensions.
      * 
      * @param fileExtensions
-     *            List of extensions for files to find ("mymodel", "java",
-     *            "class", ...)
+     *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
     protected final void setFileExtensions(final List<String> fileExtensions) {
         this.fileExtensions = fileExtensions;
     }
 
     /**
-     * Sets the list of file extensions. If no list exists internally, it will
-     * be created if necessary.
+     * Sets the list of file extensions. If no list exists internally, it will be created if necessary.
      * 
      * @param fileExtensions
-     *            Array of extensions for files to find ("mymodel", "java",
-     *            "class", ...)
+     *            Array of extensions for files to find ("mymodel", "java", "class", ...)
      */
     protected final void setFileExtensions(final String... fileExtensions) {
         if (fileExtensions == null) {

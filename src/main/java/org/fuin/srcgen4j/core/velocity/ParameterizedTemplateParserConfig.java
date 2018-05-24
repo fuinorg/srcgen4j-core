@@ -41,8 +41,7 @@ import org.fuin.xmlcfg4j.AbstractElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "parameterized-template-parser")
 public class ParameterizedTemplateParserConfig extends AbstractElement
-        implements
-        InitializableElement<ParameterizedTemplateParserConfig, Config<GeneratorConfig>> {
+        implements InitializableElement<ParameterizedTemplateParserConfig, Config<GeneratorConfig>> {
 
     @XmlAttribute(name = "modelPath")
     private String modelPath;
@@ -75,8 +74,7 @@ public class ParameterizedTemplateParserConfig extends AbstractElement
      * @param modelFilter
      *            Regular expression for selecting model files.
      */
-    public ParameterizedTemplateParserConfig(final String modelPath,
-            final String modelFilter) {
+    public ParameterizedTemplateParserConfig(final String modelPath, final String modelFilter) {
         super();
         this.modelPath = modelPath;
         this.modelFilter = modelFilter;
@@ -151,9 +149,7 @@ public class ParameterizedTemplateParserConfig extends AbstractElement
             try {
                 templateDir = new File(templatePath).getCanonicalFile();
             } catch (final IOException ex) {
-                throw new RuntimeException(
-                        "Couldn't determine canonical template file: "
-                                + templatePath, ex);
+                throw new RuntimeException("Couldn't determine canonical template file: " + templatePath, ex);
             }
         }
         return templateDir;
@@ -189,9 +185,8 @@ public class ParameterizedTemplateParserConfig extends AbstractElement
     }
 
     @Override
-    public final ParameterizedTemplateParserConfig init(
-            final SrcGen4JContext context,
-            final Config<GeneratorConfig> parent, final Map<String, String> vars) {
+    public final ParameterizedTemplateParserConfig init(final SrcGen4JContext context, final Config<GeneratorConfig> parent,
+            final Map<String, String> vars) {
         inheritVariables(vars);
         setModelPath(replaceVars(getModelPath(), getVarMap()));
         setTemplatePath(replaceVars(getTemplatePath(), getVarMap()));

@@ -28,8 +28,7 @@ import javax.validation.Payload;
 
 //CHECKSTYLE:OFF
 /**
- * Validates if no target file has unknown parameters that are not defined in
- * the template's parameter list.
+ * Validates if no target file has unknown parameters that are not defined in the template's parameter list.
  */
 @Target({ ElementType.TYPE, ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)

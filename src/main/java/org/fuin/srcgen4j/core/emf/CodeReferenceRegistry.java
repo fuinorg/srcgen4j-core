@@ -38,9 +38,8 @@ public interface CodeReferenceRegistry {
      * @param uniqueName
      *            Name that uniquely identifies an artifact.
      * @param fqn
-     *            Fully qualified name of the artifact for use in the source
-     *            code.
+     *            Fully qualified name of the artifact for use in the source code.
      */
     public void putReference(String uniqueName, String fqn);
-    
+
 }

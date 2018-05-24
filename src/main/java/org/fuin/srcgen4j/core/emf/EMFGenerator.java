@@ -35,11 +35,9 @@ import org.slf4j.LoggerFactory;
 /**
  * Generates content based on an ECORE {@link ResourceSet}.
  */
-public final class EMFGenerator extends
-        AbstractEMFGenerator<EMFGeneratorConfig> {
+public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig> {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(EMFGenerator.class);
+    private static final Logger LOG = LoggerFactory.getLogger(EMFGenerator.class);
 
     private final Set<ArtifactFactory<Notifier>> notifierFactories;
 
@@ -65,20 +63,17 @@ public final class EMFGenerator extends
         final EMFGeneratorConfig config = getSpecificConfig();
 
         // Add factories interested in resource sets
-        final List<ArtifactFactory<ResourceSet>> rsFactories = config
-                .getFactories(ResourceSet.class);
+        final List<ArtifactFactory<ResourceSet>> rsFactories = config.getFactories(ResourceSet.class);
         for (final ArtifactFactory<ResourceSet> factory : rsFactories) {
             resourceSetFactories.add(factory);
             LOG.debug("Added resource set factory: " + factory.getClass());
         }
 
         // Add factories interested in any type of notifier
-        final List<ArtifactFactory<Notifier>> nfactories = config
-                .getFactories(Notifier.class);
+        final List<ArtifactFactory<Notifier>> nfactories = config.getFactories(Notifier.class);
         for (final ArtifactFactory<Notifier> factory : nfactories) {
             notifierFactories.add(factory);
-            LOG.debug("Added notifier factory for model type '"
-                    + factory.getModelType() + "': " + factory.getClass());
+            LOG.debug("Added notifier factory for model type '" + factory.getModelType() + "': " + factory.getClass());
         }
 
     }
@@ -104,25 +99,21 @@ public final class EMFGenerator extends
     }
 
     @Override
-    protected final void generate(@NotNull final Map<String, Object> context,
-            @NotNull final Notifier notifier, final boolean incremental,
+    protected final void generate(@NotNull final Map<String, Object> context, @NotNull final Notifier notifier, final boolean incremental,
             final boolean preparationRun) throws GenerateException {
 
         LOG.debug("Generate from " + Notifier.class.getSimpleName());
 
         final Set<ArtifactFactory<Notifier>> factories = findFactories(notifier);
         if (factories.size() == 0) {
-            LOG.warn("Was asked to generate an artifact type I didn't request: "
-                    + notifier.getClass());
+            LOG.warn("Was asked to generate an artifact type I didn't request: " + notifier.getClass());
             return;
         }
 
         for (final ArtifactFactory<Notifier> factory : factories) {
             if (!incremental || factory.isIncremental()) {
-                LOG.debug("Generate with factory "
-                        + factory.getClass().getSimpleName());
-                final GeneratedArtifact generatedArtifact = factory.create(
-                        notifier, context, preparationRun);
+                LOG.debug("Generate with factory " + factory.getClass().getSimpleName());
+                final GeneratedArtifact generatedArtifact = factory.create(notifier, context, preparationRun);
                 if ((generatedArtifact != null) && !preparationRun) {
                     write(generatedArtifact);
                 }
@@ -132,16 +123,13 @@ public final class EMFGenerator extends
     }
 
     @Override
-    protected final void afterGenerate(
-            @NotNull final Map<String, Object> context,
-            final boolean incremental, final boolean preparationRun)
+    protected final void afterGenerate(@NotNull final Map<String, Object> context, final boolean incremental, final boolean preparationRun)
             throws GenerateException {
 
         LOG.debug("Generate from " + ResourceSet.class.getSimpleName());
 
         for (final ArtifactFactory<ResourceSet> factory : resourceSetFactories) {
-            final GeneratedArtifact generatedArtifact = factory.create(
-                    getModel(), context, preparationRun);
+            final GeneratedArtifact generatedArtifact = factory.create(getModel(), context, preparationRun);
             if ((generatedArtifact != null) && !preparationRun) {
                 write(generatedArtifact);
             }

@@ -23,9 +23,8 @@ package org.fuin.srcgen4j.core.emf;
 public interface CodeSnippetContext {
 
     /**
-     * Tells the context that this code fragment requires the import of a given
-     * artifact. This method is used if the fragment already "knows" the name to
-     * import.
+     * Tells the context that this code fragment requires the import of a given artifact. This method is used if the fragment already
+     * "knows" the name to import.
      * 
      * @param fqn
      *            Fully qualified name of the artifact to import.
@@ -33,8 +32,8 @@ public interface CodeSnippetContext {
     public void requiresImport(String fqn);
 
     /**
-     * Tells the context that this code fragment requires the import of a given
-     * artifact. This method is used if the fragment only knows the unique name.
+     * Tells the context that this code fragment requires the import of a given artifact. This method is used if the fragment only knows the
+     * unique name.
      * 
      * @param uniqueName
      *            Name that uniquely identifies an artifact.
@@ -47,8 +46,7 @@ public interface CodeSnippetContext {
      * @param uniqueName
      *            Name that uniquely identifies an artifact.
      * 
-     * @return Fully qualified name of the artifact for use in the source code
-     *         or the unique name if the reference was not resolved yet.
+     * @return Fully qualified name of the artifact for use in the source code or the unique name if the reference was not resolved yet.
      */
     public String getReference(String uniqueName);
 

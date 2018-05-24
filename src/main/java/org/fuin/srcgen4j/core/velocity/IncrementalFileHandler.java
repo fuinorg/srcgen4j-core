@@ -29,14 +29,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Collects all model files based on a list of changed files. Changed files may
- * be model or template files. For a changed template file all referencing model
- * files will be added.
+ * Collects all model files based on a list of changed files. Changed files may be model or template files. For a changed template file all
+ * referencing model files will be added.
  */
 public final class IncrementalFileHandler implements FileHandler {
 
-    private static final Logger LOG = LoggerFactory
-            .getLogger(IncrementalFileHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(IncrementalFileHandler.class);
 
     private final Map<File, List<ParameterizedTemplateModel>> templatesToModelMap;
 
@@ -67,29 +65,25 @@ public final class IncrementalFileHandler implements FileHandler {
         } else if (parser.getModelFilter().accept(file)) {
             // Changed model file
             LOG.info("Adding model file: " + file.getName());
-            final ParameterizedTemplateModel pt = ParameterizedTemplateModel
-                    .create(file);
+            final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
             pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);
         }
         return FileHandlerResult.CONTINUE;
     }
 
-    private void logList(final File file,
-            final List<ParameterizedTemplateModel> list) {
+    private void logList(final File file, final List<ParameterizedTemplateModel> list) {
         if (list.size() == 0) {
             LOG.info("No references found to template: " + file.getName());
         } else {
             if (LOG.isInfoEnabled()) {
-                LOG.info("Found " + list.size() + " reference(s) to template "
-                        + file.getName());
+                LOG.info("Found " + list.size() + " reference(s) to template " + file.getName());
                 for (final ParameterizedTemplateModel model : list) {
                     if (model.getFile() == null) {
                         // Should never happen...
                         LOG.info("Adding model file: " + model.getFile());
                     } else {
-                        LOG.info("Adding model file: "
-                                + model.getFile().getName());
+                        LOG.info("Adding model file: " + model.getFile().getName());
                     }
                 }
             }
@@ -113,18 +107,14 @@ public final class IncrementalFileHandler implements FileHandler {
         this.templates = new ParameterizedTemplateModels();
     }
 
-    private List<ParameterizedTemplateModel> findReferencesTo(
-            final File templateFile) {
-        List<ParameterizedTemplateModel> result = templatesToModelMap
-                .get(templateFile);
+    private List<ParameterizedTemplateModel> findReferencesTo(final File templateFile) {
+        List<ParameterizedTemplateModel> result = templatesToModelMap.get(templateFile);
         if (result == null) {
             try {
                 final ParameterizedTemplateModels pts = parser.parse();
-                result = pts.findReferencesTo(parser.getTemplateDir(),
-                        templateFile);
+                result = pts.findReferencesTo(parser.getTemplateDir(), templateFile);
             } catch (final ParseException ex) {
-                LOG.error("Error parsing model for template: " + templateFile,
-                        ex);
+                LOG.error("Error parsing model for template: " + templateFile, ex);
             }
         }
         return result;
