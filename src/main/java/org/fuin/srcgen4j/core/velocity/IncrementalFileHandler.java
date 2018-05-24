@@ -73,7 +73,7 @@ public final class IncrementalFileHandler implements FileHandler {
     }
 
     private void logList(final File file, final List<ParameterizedTemplateModel> list) {
-        if (list.size() == 0) {
+        if (list == null || list.size() == 0) {
             LOG.info("No references found to template: " + file.getName());
         } else {
             if (LOG.isInfoEnabled()) {
