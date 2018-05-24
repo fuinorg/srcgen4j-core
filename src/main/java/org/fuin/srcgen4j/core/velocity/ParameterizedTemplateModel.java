@@ -206,11 +206,11 @@ public class ParameterizedTemplateModel implements Serializable, Comparable<Para
      */
     public final List<TargetFile> createTargetFileList() {
         if (tflProducerConfig == null) {
-            LOG.info("Using target file list: " + targetFiles.size() + " elements");
+            LOG.info("Using target file list: {} elements", targetFiles.size());
             return targetFiles;
         }
         final TargetFileListProducer producer = tflProducerConfig.getTargetFileListProducer();
-        LOG.info("Using target file list producer: " + producer.getClass().getName());
+        LOG.info("Using target file list producer: {}", producer.getClass().getName());
         return producer.createTargetFiles();
     }
 

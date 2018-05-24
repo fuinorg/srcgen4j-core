@@ -50,7 +50,7 @@ public final class FullFileHandler implements FileHandler {
     @Override
     public final FileHandlerResult handleFile(final File file) {
         if (parser.getModelFilter().accept(file)) {
-            LOG.info("Adding template file: " + file.getName());
+            LOG.info("Adding template file: {}", file.getName());
             final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
             pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);

@@ -111,12 +111,12 @@ public final class GeneratedFile {
 
             // Compare new and old file
             if (FileUtils.contentEquals(tmpFile, file)) {
-                LOG.debug("Omitted: " + getPath() + logInfo);
+                LOG.debug("Omitted: {} {}", getPath(), logInfo);
                 tmpFile.delete();
             } else {
                 file.delete();
                 tmpFile.renameTo(file);
-                LOG.info("Generated: " + getPath() + logInfo);
+                LOG.info("Generated: {} {}", getPath(), logInfo);
             }
 
             persisted = true;

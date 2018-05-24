@@ -104,9 +104,9 @@ public abstract class VelocityGenerator<MODEL> extends AbstractGenerator<MODEL, 
 
         final GeneratedFile genFile = getTargetFile(artifactName, filename, templateName);
         if (genFile.isSkip()) {
-            LOG.debug("Omitted already existing file: " + genFile + " [" + templateName + "]");
+            LOG.debug("Omitted already existing file: {} [{}]", genFile, templateName);
         } else {
-            LOG.debug("Start merging velocity template: " + genFile + " [" + templateName + "]");
+            LOG.debug("Start merging velocity template: {} [{}]", genFile, templateName);
             // Merge content
             try {
                 final Writer writer = new FileWriter(genFile.getTmpFile());
@@ -135,7 +135,7 @@ public abstract class VelocityGenerator<MODEL> extends AbstractGenerator<MODEL, 
         this.templateDir = Utils4J.getCanonicalFile(getSpecificConfig().getTemplateDir());
         this.ve = createVelocityEngine(templateDir);
 
-        LOG.debug("Template directory: " + templateDir);
+        LOG.debug("Template directory: {}", templateDir);
 
         generateIntern();
     }

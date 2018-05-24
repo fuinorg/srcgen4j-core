@@ -64,7 +64,7 @@ public final class IncrementalFileHandler implements FileHandler {
             templates.addParamTemplates(list);
         } else if (parser.getModelFilter().accept(file)) {
             // Changed model file
-            LOG.info("Adding model file: " + file.getName());
+            LOG.info("Adding model file: {}", file.getName());
             final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
             pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);
@@ -74,16 +74,16 @@ public final class IncrementalFileHandler implements FileHandler {
 
     private void logList(final File file, final List<ParameterizedTemplateModel> list) {
         if (list == null || list.size() == 0) {
-            LOG.info("No references found to template: " + file.getName());
+            LOG.info("No references found to template: {}", file.getName());
         } else {
             if (LOG.isInfoEnabled()) {
-                LOG.info("Found " + list.size() + " reference(s) to template " + file.getName());
+                LOG.info("Found {} reference(s) to template {}", list.size(), file.getName());
                 for (final ParameterizedTemplateModel model : list) {
                     if (model.getFile() == null) {
                         // Should never happen...
-                        LOG.info("Adding model file: " + model.getFile());
+                        LOG.info("Adding model file: {}", model.getFile());
                     } else {
-                        LOG.info("Adding model file: " + model.getFile().getName());
+                        LOG.info("Adding model file: {}", model.getFile().getName());
                     }
                 }
             }

@@ -68,7 +68,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         this.config = config;
         name = config.getName();
 
-        LOG.debug("Initialize generator: " + name);
+        LOG.debug("Initialize generator: {}", name);
 
         final Object obj = config.getConfig().getConfig();
         if (getSpecificConfigClass() == null) {
@@ -106,9 +106,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
         this.model = model;
 
-        LOG.info("Starting generation: " + name);
+        LOG.info("Starting generation: {}", name);
         generate(incremental);
-        LOG.info("Generation finished: " + name);
+        LOG.info("Generation finished: {}", name);
 
     }
 
@@ -209,9 +209,9 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
         final GeneratedFile genFile = getTargetFile(artifact.getName(), artifact.getPathAndName(), null);
         if (genFile.isSkip()) {
-            LOG.debug("Omitted already existing file: " + genFile + " [" + artifact + "]");
+            LOG.debug("Omitted already existing file: {} [{}]", genFile, artifact);
         } else {
-            LOG.debug("Writing file: " + genFile + " [" + artifact + "]");
+            LOG.debug("Writing file:  {} [{}]", genFile, artifact);
             try {
                 final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getTmpFile()));
                 try {

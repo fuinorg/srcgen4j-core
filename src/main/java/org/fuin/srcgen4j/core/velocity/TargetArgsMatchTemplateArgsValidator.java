@@ -43,7 +43,7 @@ public final class TargetArgsMatchTemplateArgsValidator
     @Override
     public final boolean isValid(final ParameterizedTemplateModel value, final ConstraintValidatorContext context) {
 
-        LOG.debug("Validate: " + value.getTemplate());
+        LOG.debug("Validate: {}", value.getTemplate());
 
         if (value.getTargetFiles() == null) {
             LOG.debug("No target files defined...");
@@ -68,13 +68,13 @@ public final class TargetArgsMatchTemplateArgsValidator
             final List<Argument> args = targetFile.getArguments();
             for (final Argument arg : args) {
                 if (!allowedArgs.contains(arg)) {
-                    LOG.debug("Not an allowed argument: '" + arg);
+                    LOG.debug("Not an allowed argument: '{}'", arg);
                     return false;
                 }
             }
         }
 
-        LOG.debug("Validated succesfully: " + value.getTemplate());
+        LOG.debug("Validated succesfully: {}", value.getTemplate());
         return true;
     }
 

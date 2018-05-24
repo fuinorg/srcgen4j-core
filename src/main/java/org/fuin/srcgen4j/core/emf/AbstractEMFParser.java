@@ -128,9 +128,9 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     protected final void resolveProxies() {
         final List<String> unresolved = new ArrayList<String>();
         if (!resolvedAllProxies(unresolved, 0)) {
-            LOG.warn("Could not resolve the following proxies (" + unresolved.size() + "):");
+            LOG.warn("Could not resolve the following proxies ({}):", unresolved.size());
             for (final String ref : unresolved) {
-                LOG.warn("Not found: " + ref);
+                LOG.warn("Not found: {}", ref);
             }
             final Iterator<Notifier> it = resourceSet.getAllContents();
             while (it.hasNext()) {
@@ -176,15 +176,15 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      *            Directory to parse.
      */
     private void parseDir(final File dir) {
-        LOG.debug("Parse: " + dir);
+        LOG.debug("Parse: {}", dir);
         final File[] files = getFiles(dir);
         if ((files == null) || (files.length == 0)) {
-            LOG.debug("No files found in directory: " + dir);
+            LOG.debug("No files found in directory: {}", dir);
         } else {
             for (final File file : files) {
                 if (file.isFile()) {
                     final Resource resource = resourceSet.getResource(URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
-                    LOG.debug("Parsed: " + resource.getURI());
+                    LOG.debug("Parsed: {}", resource.getURI());
                 } else {
                     parseDir(file);
                 }
@@ -227,12 +227,12 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
                     }
                 }
                 if ((i % 1000) == 0) {
-                    LOG.debug("Finished " + i + " of " + count + " references");
+                    LOG.debug("Finished {} of {} references", i, count);
                 }
                 i++;
             }
         }
-        LOG.debug("Cross references - Resolved: " + resolved + ", Unresolved: " + unresolved.size());
+        LOG.debug("Cross references - Resolved: {}, Unresolved: {}", resolved, unresolved.size());
         return !failure && resolvedAllProxies(unresolved, totalResources);
     }
 

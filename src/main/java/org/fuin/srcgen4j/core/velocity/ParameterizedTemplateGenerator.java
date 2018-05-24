@@ -53,7 +53,7 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
     private void generate(final ParameterizedTemplateModel model) throws GenerateException {
         final List<TargetFile> targetFiles = model.createTargetFileList();
         if (targetFiles == null || targetFiles.size() == 0) {
-            LOG.warn("No target files found: " + model.getTemplate() + " [templates=" + model.getFile() + "]");
+            LOG.warn("No target files found: {} [templates={}]", model.getTemplate(), model.getFile());
         } else {
             for (final TargetFile targetFile : targetFiles) {
 
@@ -64,7 +64,7 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
                 } else {
                     for (final Argument arg : model.getArguments()) {
                         context.put(arg.getKey(), arg.getValue());
-                        LOG.debug("Default argument: " + arg);
+                        LOG.debug("Default argument: {}", arg);
                     }
                 }
 
@@ -74,7 +74,7 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
                 } else {
                     for (final Argument arg : targetFile.getArguments()) {
                         context.put(arg.getKey(), arg.getValue());
-                        LOG.debug("Specific argument: " + arg);
+                        LOG.debug("Specific argument: {}", arg);
                     }
                 }
 

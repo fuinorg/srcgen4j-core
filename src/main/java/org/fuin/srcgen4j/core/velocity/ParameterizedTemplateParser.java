@@ -78,7 +78,7 @@ public final class ParameterizedTemplateParser extends AbstractParser<Parameteri
         name = config.getName();
         varMap = config.getParent().getVarMap();
 
-        LOG.debug("Initialize parser: " + name);
+        LOG.debug("Initialize parser: {}", name);
 
         parserConfig = getConcreteConfig(config);
         modelFilter = new RegexFileFilter(parserConfig.getModelFilter());
@@ -91,7 +91,7 @@ public final class ParameterizedTemplateParser extends AbstractParser<Parameteri
 
     @Override
     public final ParameterizedTemplateModels parse() throws ParseException {
-        LOG.info("Full parse: " + name);
+        LOG.info("Full parse: {}", name);
         if (fullHandler == null) {
             fullHandler = new FullFileHandler(this);
             final FileProcessor processor = new FileProcessor(fullHandler);

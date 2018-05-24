@@ -167,7 +167,7 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
         if (setupClass != null) {
             return setupClass;
         }
-        LOG.info("Creating setup class: " + setupClassName);
+        LOG.info("Creating setup class: {}", setupClassName);
         try {
             setupClass = Class.forName(setupClassName, true, context.getClassLoader());
         } catch (final ClassNotFoundException ex) {

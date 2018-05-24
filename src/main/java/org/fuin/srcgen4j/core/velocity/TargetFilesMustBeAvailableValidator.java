@@ -42,7 +42,7 @@ public final class TargetFilesMustBeAvailableValidator
 
         if (value.getTargetFileListProducerConfig() == null) {
             if ((value.getTargetFiles() == null || value.getTargetFiles().size() == 0)) {
-                LOG.debug("Element 'target-files' is mandatory if no element " + "'target-file-list-producer' is defined");
+                LOG.debug("Element 'target-files' is mandatory if no element 'target-file-list-producer' is defined");
                 return false;
             }
         } else {
@@ -53,7 +53,7 @@ public final class TargetFilesMustBeAvailableValidator
              * violation : violations) { LOG.error(violation.getMessage()); } return false; }
              */
             if (value.getTargetFiles() != null) {
-                LOG.debug("Element 'target-files' cannot exist if element " + "'target-file-list-producer' is defined");
+                LOG.debug("Element 'target-files' cannot exist if element 'target-file-list-producer' is defined");
                 return false;
             }
         }
