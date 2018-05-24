@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>org.fuin.srcgen4j</groupId>
 			<artifactId>srcgen4j-commons</artifactId>
-			<version>0.4.1</version>
+			<version>0.4.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
