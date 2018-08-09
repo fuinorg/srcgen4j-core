@@ -3,13 +3,11 @@ srcgen4j-core
 
 Source code generation for Java (Core)
 
-[![Build Status](https://fuin-org.ci.cloudbees.com/job/srcgen4j-core/badge/icon)](https://fuin-org.ci.cloudbees.com/job/srcgen4j-core/)
+[![Build Status](https://jenkins.fuin.org/job/srcgen4j-core/badge/icon)](https://jenkins.fuin.org/job/srcgen4j-core/)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-
-<a href="https://fuin-org.ci.cloudbees.com/job/srcgen4j-core"><img src="http://www.fuin.org/images/Button-Built-on-CB-1.png" width="213" height="72" border="0" alt="Built on CloudBees"/></a>
 
 What is this?
 -------------
