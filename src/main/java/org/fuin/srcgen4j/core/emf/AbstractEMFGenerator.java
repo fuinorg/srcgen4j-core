@@ -72,12 +72,12 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
             }
             
             if (total == 0) {
-                LOG.error("EMF model contains no content");
+                LOG.error("EMF model contains no content (incremental={})", incremental);
             } else {
                 if (wants == 0) {
-                    LOG.warn("EMF model contains {} elements, but the generator wanted none", total);
+                    LOG.warn("EMF model contains {} elements, but the generator wanted none (incremental={})", total, incremental);
                 } else {
-                    LOG.info("EMF model contains {} elements and generator wanted {} of them", total, wants);
+                    LOG.info("EMF model contains {} elements and generator wanted {} of them (incremental={})", total, wants, incremental);
                 }
             }
 
