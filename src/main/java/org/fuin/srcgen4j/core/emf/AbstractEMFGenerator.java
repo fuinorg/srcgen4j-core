@@ -28,6 +28,8 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.fuin.srcgen4j.commons.GenerateException;
 import org.fuin.srcgen4j.commons.Generator;
 import org.fuin.srcgen4j.core.base.AbstractGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Generator that uses an ECORE resource set as input.
@@ -37,6 +39,8 @@ import org.fuin.srcgen4j.core.base.AbstractGenerator;
  */
 public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<ResourceSet, CONFIG> implements Generator<ResourceSet> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFGenerator.class);
+    
     /**
      * default constructor.
      */
@@ -55,11 +59,25 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
 
             beforeGenerate(context, incremental, preparationRun);
 
+            int total = 0;
+            int wants = 0;
             final Iterator<Notifier> it = getModel().getAllContents();
             while (it.hasNext()) {
                 final Notifier notifier = it.next();
+                total++;
                 if (wants(notifier)) {
+                    wants++;
                     generate(context, notifier, incremental, preparationRun);
+                }
+            }
+            
+            if (total == 0) {
+                LOG.error("EMF model contains no content");
+            } else {
+                if (wants == 0) {
+                    LOG.warn("EMF model contains {} elements, but the generator wanted none", total);
+                } else {
+                    LOG.info("EMF model contains {} elements and generator wanted {} of them", total, wants);
                 }
             }
 
