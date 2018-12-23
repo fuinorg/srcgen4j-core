@@ -27,12 +27,17 @@ import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
+import org.fuin.srcgen4j.core.emf.ParseError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Parses Xtext models.
  */
 public final class XtextParser extends AbstractEMFParser<XtextParserConfig> implements Parser<ResourceSet> {
 
+    private static final Logger LOG = LoggerFactory.getLogger(XtextParser.class);
+    
     private XtextParserConfig parserConfig;
 
     /**
@@ -80,6 +85,13 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
 
         parseModel();
         // resolveProxies(); TODO Do we need to resolve cross references?
+        
+        if (getErrors().size() > 0) {
+            for (final ParseError error : getErrors()) {
+                LOG.error("{}", error);
+            }
+            throw new ParseException("There was an error parsing at least one of the resources - See log for details.");
+        }
         return getResourceSet();
 
     }
