@@ -26,7 +26,6 @@ import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.Parser;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
-import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.fuin.srcgen4j.core.emf.AbstractEMFParser;
 
 /**
@@ -51,8 +50,9 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
 
         this.parserConfig = getConcreteConfig(config);
 
-        setModelDirs(new SrcGen4JFile(parserConfig.getModelPath()));
+        setModelDirs(parserConfig.getModelDirs());
         setFileExtensions(parserConfig.getModelExt());
+        setModelResources(parserConfig.getModelResources());
 
         doSetup();
     }
@@ -78,7 +78,7 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
     @Override
     public final ResourceSet parse() throws ParseException {
 
-        parseModelFiles();
+        parseModel();
         // resolveProxies(); TODO Do we need to resolve cross references?
         return getResourceSet();
 

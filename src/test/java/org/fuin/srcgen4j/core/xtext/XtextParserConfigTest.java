@@ -25,58 +25,53 @@ import javax.xml.bind.JAXBContext;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.fuin.srcgen4j.commons.DefaultContext;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.core.emf.EMFGeneratorConfig;
-import org.fuin.utils4j.classpath.Handler;
+import org.fuin.utils4j.Utils4J;
 import org.fuin.xsample.xSampleDsl.Greeting;
 import org.fuin.xsample.xSampleDsl.impl.GreetingImpl;
 import org.fuin.xsample.xSampleDsl.impl.ModelImpl;
 import org.junit.Test;
 
 /**
- * Test for {@link XtextParser}.
+ * Test for {@link XtextParserConfig}.
  */
-public class XtextParserTest {
+public class XtextParserConfigTest {
 
     // CHECKSTYLE:OFF
 
     @Test
-    public void testParse() throws Exception {
-
-        Handler.add();
-        
-        final DefaultContext context = new DefaultContext();
-        final File dir = new File("src/test/resources");
-        final File file = new File(dir, "xtext-test-config.xml");
-        final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
-        srcGen4JConfig.init(context, new File("."));
-        final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
-
-        final XtextParser testee = new XtextParser();
-        testee.initialize(context, config);
-
-        // TEST
-        final ResourceSet resourceSet = testee.parse();
-
-        // VERIFY
-        assertThat(resourceSet).isNotNull();
-
-        final TreeIterator<Notifier> it = resourceSet.getAllContents();
-        assertThat(it.next()).isInstanceOf(LazyLinkingResource.class);
-        assertThat(it.next()).isInstanceOf(ModelImpl.class);
-        final Notifier notifier = it.next();
-        assertThat(notifier).isInstanceOf(GreetingImpl.class);
-        final Greeting greeting = (Greeting) notifier;
-        assertThat(greeting.getName()).isEqualTo("World");
-
+    public void testIsFile() throws Exception {
+        assertThat(XtextParserConfig.isFile("src/main/resources")).isTrue();
+        assertThat(XtextParserConfig.isFile("classpath:/src/main/resources")).isFalse();
     }
 
+    @Test
+    public void testAsFile() throws Exception {
+        assertThat(XtextParserConfig.asFile("src/main/resources")).isEqualTo(new File("src/main/resources").getAbsoluteFile());
+    }
+
+    @Test
+    public void testIsResource() throws Exception {
+        assertThat(XtextParserConfig.isResource("src/main/resources")).isFalse();
+        assertThat(XtextParserConfig.isResource("classpath:/src/main/resources")).isTrue();
+    }
+
+    @Test
+    public void testAsResource() throws Exception {
+        final String str = "classpath:/src/main/resources";
+        final URI uri = XtextParserConfig.asResource(str);
+        assertThat(uri).isEqualTo(URI.createURI(str));
+    }
+    
     // CHECKSTYLE:ON
 
 }

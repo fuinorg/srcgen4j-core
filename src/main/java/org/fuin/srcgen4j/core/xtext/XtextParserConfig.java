@@ -20,13 +20,19 @@ package org.fuin.srcgen4j.core.xtext;
 import static org.fuin.utils4j.Utils4J.replaceVars;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.eclipse.emf.common.util.URI;
 import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.ParserConfig;
@@ -56,7 +62,9 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
 
     private transient SrcGen4JContext context;
 
-    private transient File modelDir;
+    private transient List<File> modelDirs;
+
+    private transient List<URI> modelResources;
 
     private transient Class<?> setupClass;
 
@@ -88,18 +96,6 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
      */
     public final String getModelPath() {
         return modelPath;
-    }
-
-    /**
-     * Returns the model directory.
-     * 
-     * @return Model directory or NULL.
-     */
-    public final File getModelDir() {
-        if ((modelDir == null) && (modelPath != null)) {
-            modelDir = Utils4J.getCanonicalFile(new File(modelPath));
-        }
-        return modelDir;
     }
 
     /**
@@ -174,6 +170,92 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
             throw new RuntimeException("Couldn't load setup class: " + setupClassName, ex);
         }
         return setupClass;
+    }
+
+    private List<String> paths() {
+        final List<String> list = new ArrayList<>();
+        final StringTokenizer tok = new StringTokenizer(modelPath, ";");
+        while (tok.hasMoreTokens()) {
+            list.add(tok.nextToken());
+        }
+        return list;
+    }
+
+    /**
+     * Returns the information if the given string is a file reference. It's considered a file if there has no ':' character in the text.
+     * 
+     * @param str
+     *            Text to test for a file.
+     * 
+     * @return {@code true} if it references a file.
+     */
+    public static boolean isFile(final String str) {
+        if (str.contains(":")) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns a file for the string.
+     * 
+     * @param str
+     *            File reference.
+     * 
+     * @return File.
+     */
+    public static File asFile(final String str) {
+        return Utils4J.getCanonicalFile(new File(str));
+    }
+
+    /**
+     * Returns the information if the given string is a resource reference. It's considered a file if there is a ':' character in the text.
+     * 
+     * @param str
+     *            Text to test for a resource.
+     * 
+     * @return {@code true} if it references a resource.
+     */
+    public static boolean isResource(final String str) {
+        return !isFile(str);
+    }
+
+    /**
+     * Returns a file for the string.
+     * 
+     * @param str
+     *            File reference.
+     * 
+     * @return File.
+     */
+    public static URI asResource(final String str) {
+        return URI.createURI(str);
+    }
+
+    /**
+     * Returns a list of model directories to parse.
+     * 
+     * @return Directory list or NULL.
+     */
+    public final List<File> getModelDirs() {
+        if ((modelDirs == null) && (modelPath != null)) {
+            modelDirs = paths().stream().filter(XtextParserConfig::isFile).map(XtextParserConfig::asFile).collect(Collectors.toList());
+        }
+        return modelDirs;
+    }
+
+    /**
+     * Returns a list of model resources to parse.
+     * 
+     * @return List of resources or NULL.
+     */
+    public final List<URI> getModelResources() {
+        if ((modelResources == null) && (modelPath != null)) {
+            modelResources = new ArrayList<>();
+            modelResources = paths().stream().filter(XtextParserConfig::isResource).map(XtextParserConfig::asResource)
+                    .collect(Collectors.toList());
+        }
+        return modelResources;
     }
 
 }

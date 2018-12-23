@@ -36,7 +36,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.fuin.srcgen4j.core.base.AbstractParser;
-import org.fuin.srcgen4j.core.base.SrcGen4JFile;
 import org.fuin.utils4j.Utils4J;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,9 +52,11 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
 
     private ResourceSet resourceSet = new ResourceSetImpl();
 
-    private List<SrcGen4JFile> modelDirs;
+    private List<File> modelDirs;
 
     private List<String> fileExtensions;
+
+    private List<URI> modelResources;
 
     /**
      * Basic constructor.
@@ -77,8 +78,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<SrcGen4JFile> modelDirs,
-            final String... fileExtensions) {
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final String... fileExtensions) {
         this(concreteConfigClass, modelDirs, Arrays.asList(fileExtensions));
     }
 
@@ -92,17 +92,16 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<SrcGen4JFile> modelDirs,
-            final List<String> fileExtensions) {
+    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final List<String> fileExtensions) {
         super(concreteConfigClass);
         this.modelDirs = modelDirs;
         this.fileExtensions = fileExtensions;
     }
 
     /**
-     * Parses all model file in the directory. y
+     * Parses all model files in the directories and all resources. y
      */
-    protected final void parseModelFiles() {
+    protected final void parseModel() {
 
         if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
             throw new IllegalStateException("No file extensions for EMF model files set!");
@@ -111,15 +110,30 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         // Drop previous resource set
         resourceSet = new ResourceSetImpl();
 
-        // Start parsing recursively
+        parseDirs();
+        parseResources();
+
+    }
+
+    private void parseDirs() {
         if ((modelDirs == null) || (modelDirs.size() == 0)) {
             LOG.debug("No model directories to parse");
         } else {
-            for (final SrcGen4JFile modelDir : modelDirs) {
-                parseDir(modelDir.toFile());
+            for (final File modelDir : modelDirs) {
+                parseDir(modelDir);
             }
         }
+    }
 
+    private void parseResources() {
+        if ((modelResources == null) || (modelResources.size() == 0)) {
+            LOG.debug("No model resources to parse");
+        } else {
+            for (final URI modelResource : modelResources) {
+                final Resource resource = resourceSet.getResource(modelResource, true);
+                LOG.debug("Parsed: {}", resource.getURI());
+            }
+        }
     }
 
     /**
@@ -268,8 +282,17 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * 
      * @return List of directories.
      */
-    protected final List<SrcGen4JFile> getModelDirs() {
+    protected final List<File> getModelDirs() {
         return modelDirs;
+    }
+
+    /**
+     * Returns the model resources.
+     * 
+     * @return List of resources.
+     */
+    protected final List<URI> getModelResources() {
+        return modelResources;
     }
 
     /**
@@ -296,7 +319,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param modelDirs
      *            List of model directories or NULL.
      */
-    protected final void setModelDirs(final List<SrcGen4JFile> modelDirs) {
+    protected final void setModelDirs(final List<File> modelDirs) {
         this.modelDirs = modelDirs;
     }
 
@@ -306,11 +329,11 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param modelDirs
      *            Array of model directories or NULL.
      */
-    protected final void setModelDirs(final SrcGen4JFile... modelDirs) {
+    protected final void setModelDirs(final File... modelDirs) {
         if (modelDirs == null) {
             this.modelDirs = null;
         } else {
-            this.modelDirs = new ArrayList<SrcGen4JFile>();
+            this.modelDirs = new ArrayList<File>();
             this.modelDirs.addAll(Arrays.asList(modelDirs));
         }
     }
@@ -337,6 +360,31 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         } else {
             this.fileExtensions = new ArrayList<String>();
             this.fileExtensions.addAll(Arrays.asList(fileExtensions));
+        }
+    }
+
+    /**
+     * Sets the model resources to parse.
+     * 
+     * @param modelResources
+     *            List of model resources or NULL.
+     */
+    protected final void setModelResources(final List<URI> modelResources) {
+        this.modelResources = modelResources;
+    }
+
+    /**
+     * Sets the model resources to parse. If no list exists internally, it will be created if necessary.
+     * 
+     * @param modelResources
+     *            Array of model resources or NULL.
+     */
+    protected final void setModelResources(final URI... modelResources) {
+        if (modelResources == null) {
+            this.modelResources = null;
+        } else {
+            this.modelResources = new ArrayList<URI>();
+            this.modelResources.addAll(Arrays.asList(modelResources));
         }
     }
 

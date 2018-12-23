@@ -5,7 +5,7 @@
                  xmlns:emf="http://www.fuin.org/srcgen4j/core/emf">
 	
 	<cfg:variables>
-		<cfg:variable name="testRes" value="src/test/resources" />
+		<cfg:variable name="testRes" value="src/test/resources/domain;classpath:/xtext-test-resource.xsdsl" />
 	</cfg:variables>
 	
 	<projects>

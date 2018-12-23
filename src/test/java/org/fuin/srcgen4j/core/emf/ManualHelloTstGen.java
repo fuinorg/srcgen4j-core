@@ -3,6 +3,7 @@ package org.fuin.srcgen4j.core.emf;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public final class ManualHelloTstGen implements ArtifactFactory<Greeting> {
     public final GeneratedArtifact create(@NotNull final Greeting greeting, @NotNull final Map<String, Object> context,
             final boolean preparationRun) throws GenerateException {
         try {
-            final String src = FileUtils.readFileToString(new File("src/test/resources/Hello.template"));
+            final String src = FileUtils.readFileToString(new File("src/test/resources/Hello.template"), Charset.forName("utf-8"));
             final Map<String, String> vars = new HashMap<>();
             vars.put("name", greeting.getName());
             return new GeneratedArtifact(artifact, "a/b/c/Hello" + greeting.getName() + ".java", Utils4J.replaceVars(src, vars).getBytes());
