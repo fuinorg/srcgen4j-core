@@ -79,7 +79,7 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
     public final ResourceSet parse() throws ParseException {
 
         parseModel();
-        // resolveProxies(); TODO Do we need to resolve cross references?
+        resolveProxies();
         return getResourceSet();
 
     }
