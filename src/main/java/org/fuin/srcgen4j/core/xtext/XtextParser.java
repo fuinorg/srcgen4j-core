@@ -82,7 +82,10 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
         // resolveProxies(); TODO Do we need to resolve cross references?
 
         if (isError()) {
-            throw new ParseException("There was an error parsing at least one of the resources - See log for details.");
+            throw new ParseException("There was an error parsing at least one of the resources - See log for details");
+        }
+        if (!isModelFullyResolved()) {
+            throw new ParseException("There is at least one unresolved reference - See log for details");
         }
         return getResourceSet();
 

@@ -223,6 +223,32 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         }
     }
 
+    /**
+     * Determines if all proxies in the model are resolved.
+     * 
+     * @return {@code true} if there are no more proxies in the model.
+     */
+    public boolean isModelFullyResolved() {
+
+        boolean resolved = true;
+        final Set<EObject> eObjects = findAllEObjects(resourceSet);
+        final Iterator<EObject> it = eObjects.iterator();
+        while (it.hasNext()) {
+            final EObject eObj = it.next();
+            if (eObj instanceof InternalEObject) {
+                final InternalEObject iObj = (InternalEObject) eObj;
+                for (final EObject crossRef : iObj.eCrossReferences()) {
+                    if (crossRef.eIsProxy()) {
+                        LOG.error("Unresolved: {}", crossRef);
+                        resolved = false;
+                    }
+                }
+            }
+        }
+        return resolved;
+        
+    }
+
     private boolean resolvedAllProxies(final List<String> unresolved, final int resourcesProcessedBefore) {
 
         final Set<EObject> eObjects = findAllEObjects(resourceSet);
