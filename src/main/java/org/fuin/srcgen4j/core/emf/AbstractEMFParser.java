@@ -28,10 +28,12 @@ import java.util.Set;
 
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.Resource.Diagnostic;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -112,6 +114,17 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
 
         parseDirs();
         parseResources();
+
+        final EList<Resource> resources = resourceSet.getResources();
+        for (final Resource resource : resources) {
+            final EList<Diagnostic> errors = resource.getErrors();
+            if (errors.size() > 0) {
+                for (final Diagnostic error : errors) {
+                    LOG.error("{}", error);
+                }
+            }
+        }
+        
 
     }
 
