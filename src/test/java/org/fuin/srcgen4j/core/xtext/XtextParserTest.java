@@ -51,7 +51,7 @@ public class XtextParserTest {
         Handler.add();
         
         final DefaultContext context = new DefaultContext();
-        final File dir = new File("src/test/resources");
+        final File dir = new File("src/test/resources/domain");
         final File file = new File(dir, "xtext-test-config.xml");
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
         final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
