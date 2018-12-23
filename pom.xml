@@ -54,12 +54,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>objects4j</artifactId>
-			<version>0.6.8</version>
-		</dependency>
-
-		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.6</version>
