@@ -54,7 +54,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
 
     private ResourceSet resourceSet = new ResourceSetImpl();
 
-    private List<ParseError> errors = new ArrayList<>();
+    private boolean error = false;
 
     private List<File> modelDirs;
 
@@ -113,7 +113,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
 
         // Drop previous resource set
         resourceSet = new ResourceSetImpl();
-        errors = new ArrayList<>();
+        error = false;
 
         parseDirs();
         parseResources();
@@ -137,10 +137,12 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
             for (final URI modelResource : modelResources) {
                 final Resource resource = resourceSet.getResource(modelResource, true);
                 final EList<Diagnostic> diagnostics = resource.getErrors();
-                if (diagnostics.size() > 0) {
-                    errors.add(new ParseError(modelResource.toString(), diagnostics));
+                if (diagnostics.size() == 0) {
+                    LOG.debug("Parsed {}", modelResource);
+                } else {
+                    error = true;
+                    LOG.error("Parsed {} with errors: {}", modelResource, diagnostics);
                 }
-                LOG.debug("Parsed: {}", resource.getURI());
             }
         }
     }
@@ -208,10 +210,12 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
                 if (file.isFile()) {
                     final Resource resource = resourceSet.getResource(URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
                     final EList<Diagnostic> diagnostics = resource.getErrors();
-                    if (diagnostics.size() > 0) {
-                        errors.add(new ParseError(file.toString(), diagnostics));
+                    if (diagnostics.size() == 0) {
+                        LOG.debug("Parsed {}", file);
+                    } else {
+                        error = true;
+                        LOG.error("Parsed {} with errors: {}", file, diagnostics);
                     }
-                    LOG.debug("Parsed: {}", resource.getURI());
                 } else {
                     parseDir(file);
                 }
@@ -402,12 +406,12 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     }
 
     /**
-     * Returns a list of errors from last parse process.
+     * Returns the information if an error happened in the last parse process.
      * 
-     * @return Errors.
+     * @return {@code true} if there was an error.
      */
-    public final List<ParseError> getErrors() {
-        return errors;
+    public final boolean isError() {
+        return error;
     }
-    
+
 }

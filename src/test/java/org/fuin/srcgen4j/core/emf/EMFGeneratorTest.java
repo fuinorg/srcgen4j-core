@@ -18,6 +18,7 @@
 package org.fuin.srcgen4j.core.emf;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 
@@ -27,6 +28,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.fuin.srcgen4j.commons.DefaultContext;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.JaxbHelper;
+import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.core.xtext.XtextParser;
@@ -45,9 +47,9 @@ public class EMFGeneratorTest {
     public void testParse() throws Exception {
 
         Handler.add();
-        
+
         final DefaultContext context = new DefaultContext();
-        final File dir = new File("src/test/resources");
+        final File dir = new File("src/test/resources/domain");
         final File file = new File(dir, "xtext-test-config.xml");
 
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
@@ -67,7 +69,7 @@ public class EMFGeneratorTest {
         testee.generate(resourceSet, false);
 
         // VERIFY
-        
+
         assertThat(new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))
                 .hasSameContentAs(new File("src/test/resources/AbstractHelloUniverse.java"));
         assertThat(new File("target/xtest-test/a/b/c/HelloUniverse.java"))
@@ -83,6 +85,32 @@ public class EMFGeneratorTest {
                 .hasSameContentAs(new File("src/test/resources/HelloResource.java"));
 
     }
+
+    @Test
+    public void testParseError() throws Exception {
+
+        Handler.add();
+
+        final DefaultContext context = new DefaultContext();
+        final File dir = new File("src/test/resources");
+        final File file = new File(dir, "xtext-error-config.xml");
+
+        final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
+        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
+        srcGen4JConfig.init(context, new File("."));
+        final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
+
+        final XtextParser parser = new XtextParser();
+        parser.initialize(context, parserConfig);
+        try {
+            parser.parse();
+            fail();
+        } catch (final ParseException ex) {
+            // OK
+        }
+
+    }
+
     // CHECKSTYLE:ON
 
 }
