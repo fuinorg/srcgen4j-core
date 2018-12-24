@@ -98,12 +98,14 @@
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
 			<version>${xtext.version}</version>
+            <optional>true</optional>
 		</dependency>
 
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.core</artifactId>
 			<version>${xtext.version}</version>
+            <optional>true</optional>
 		</dependency>
 
 		<!-- Test -->
