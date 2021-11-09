@@ -1,17 +1,17 @@
-srcgen4j-core
-=============
-
+# srcgen4j-core
 Source code generation for Java (Core)
 
 [![Build Status](https://jenkins.fuin.org/job/srcgen4j-core/badge/icon)](https://jenkins.fuin.org/job/srcgen4j-core/)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+[![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
 
-What is this?
--------------
+## Versions
+- 0.4.3 (or later) = **Java 11** before namespace change from 'javax' to 'jakarta'
+- 0.4.2 (or previous) = **Java 8**
 
+# What is this?
 The project provides some parsers and generators based on the ([srcgen4j-common](https://github.com/fuinorg/srcgen4j-common/)) project. 
 
 * *XtextParser* Parses [Xtext](https://eclipse.org/Xtext/) models.
@@ -19,8 +19,7 @@ The project provides some parsers and generators based on the ([srcgen4j-common]
 * *ParameterizedTemplateParser* Parses a given directory for XML files of type [ParameterizedTemplateModel](https://github.com/fuinorg/srcgen4j-core/blob/master/src/main/java/org/fuin/srcgen4j/core/velocity/ParameterizedTemplateModel.java) or [ParameterizedTemplateModels](https://github.com/fuinorg/srcgen4j-core/blob/master/src/main/java/org/fuin/srcgen4j/core/velocity/ParameterizedTemplateModels.java) and combines all files into one model.
 * *ParameterizedTemplateGenerator* Generates files for a model from the *ParameterizedTemplateParser* using the [Velocity template engine](http://velocity.apache.org/).
 
-XtextParser
------------
+# XtextParser
 The parser is configured with the path where the model files with a dedicated extension can be found. 
 The setup class attribute is used to instantiate the [Xtext](https://eclipse.org/Xtext/)) parser itself.
 ```xml
@@ -35,8 +34,7 @@ The setup class attribute is used to instantiate the [Xtext](https://eclipse.org
 A full blown example for the Xtext based [DDD DSL](https://github.com/fuinorg/org.fuin.dsl.ddd/) can be found [here](https://github.com/fuinorg/org.fuin.dsl.ddd/tree/master/ddd-dsl-test). 
 
 
-EMFGenerator
-------------
+# EMFGenerator
 The EMF generator requires setting up the different [artifact factories](https://github.com/fuinorg/srcgen4j-commons/blob/master/src/main/java/org/fuin/srcgen4j/commons/ArtifactFactory.java) that generate code for different EMF model elements.
 ```xml
 <generator name="gen1" class="org.fuin.srcgen4j.core.emf.EMFGenerator" parser="ptp" project="current">
@@ -52,8 +50,7 @@ The EMF generator requires setting up the different [artifact factories](https:/
 ```
 You can also define local variables that will be provided to the artifact factory. 
 
-ParameterizedTemplateParser
----------------------------
+# ParameterizedTemplateParser
 The parser is configured with the path where the model files can be found.  
 ```xml
 <parser name="ptp" class="org.fuin.srcgen4j.core.velocity.ParameterizedTemplateParser">
@@ -132,9 +129,7 @@ xxx
 
 - - - - - - - - -
 
-Snapshots
-=========
-
+# Snapshots
 Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
 
 Add the following to your .m2/settings.xml to enable snapshots in your Maven build:

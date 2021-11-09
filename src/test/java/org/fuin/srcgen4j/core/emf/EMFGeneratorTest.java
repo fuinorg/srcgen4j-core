@@ -71,18 +71,19 @@ public class EMFGeneratorTest {
         // VERIFY
 
         assertThat(new File("target/xtest-test/a/b/c/AbstractHelloUniverse.java"))
-                .hasSameContentAs(new File("src/test/resources/AbstractHelloUniverse.java"));
+                .hasSameTextualContentAs(new File("src/test/resources/AbstractHelloUniverse.java"));
         assertThat(new File("target/xtest-test/a/b/c/HelloUniverse.java"))
-                .hasSameContentAs(new File("src/test/resources/HelloUniverse.java"));
+                .hasSameTextualContentAs(new File("src/test/resources/HelloUniverse.java"));
 
         assertThat(new File("target/xtest-test/a/b/c/AbstractHelloWorld.java"))
-                .hasSameContentAs(new File("src/test/resources/AbstractHelloWorld.java"));
-        assertThat(new File("target/xtest-test/a/b/c/HelloWorld.java")).hasSameContentAs(new File("src/test/resources/HelloWorld.java"));
+                .hasSameTextualContentAs(new File("src/test/resources/AbstractHelloWorld.java"));
+        assertThat(new File("target/xtest-test/a/b/c/HelloWorld.java"))
+                .hasSameTextualContentAs(new File("src/test/resources/HelloWorld.java"));
 
         assertThat(new File("target/xtest-test/a/b/c/AbstractHelloResource.java"))
-                .hasSameContentAs(new File("src/test/resources/AbstractHelloResource.java"));
+                .hasSameTextualContentAs(new File("src/test/resources/AbstractHelloResource.java"));
         assertThat(new File("target/xtest-test/a/b/c/HelloResource.java"))
-                .hasSameContentAs(new File("src/test/resources/HelloResource.java"));
+                .hasSameTextualContentAs(new File("src/test/resources/HelloResource.java"));
 
     }
 
