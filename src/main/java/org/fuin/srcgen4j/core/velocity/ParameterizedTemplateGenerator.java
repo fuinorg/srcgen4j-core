@@ -38,7 +38,7 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
     protected final void generateIntern() throws GenerateException {
 
         final List<ParameterizedTemplateModel> modelList = getModel().getModelList();
-        if (modelList == null || modelList.size() == 0) {
+        if (modelList == null || modelList.isEmpty()) {
             // Invalid model
             LOG.warn("No template models found");
             return;
@@ -52,36 +52,38 @@ public final class ParameterizedTemplateGenerator extends VelocityGenerator<Para
 
     private void generate(final ParameterizedTemplateModel model) throws GenerateException {
         final List<TargetFile> targetFiles = model.createTargetFileList();
-        if (targetFiles == null || targetFiles.size() == 0) {
+        if (targetFiles == null || targetFiles.isEmpty()) {
             LOG.warn("No target files found: {} [templates={}]", model.getTemplate(), model.getFile());
         } else {
             for (final TargetFile targetFile : targetFiles) {
-
-                // Populate default values
-                final VelocityContext context = new VelocityContext();
-                if (model.getArguments() == null) {
-                    LOG.debug("No default arguments");
-                } else {
-                    for (final Argument arg : model.getArguments()) {
-                        context.put(arg.getKey(), arg.getValue());
-                        LOG.debug("Default argument: {}", arg);
-                    }
-                }
-
-                // Set specific values for the target file
-                if (targetFile.getArguments() == null) {
-                    LOG.debug("No specific arguments");
-                } else {
-                    for (final Argument arg : targetFile.getArguments()) {
-                        context.put(arg.getKey(), arg.getValue());
-                        LOG.debug("Specific argument: {}", arg);
-                    }
-                }
-
-                merge(context, ARTIFACT_NAME, model.getTemplate(), targetFile.getPathAndName());
-
+                generate(model, targetFile);
             }
         }
+    }
+
+    private void generate(final ParameterizedTemplateModel model, final TargetFile targetFile) throws GenerateException {
+        // Populate default values
+        final VelocityContext context = new VelocityContext();
+        if (model.getArguments() == null) {
+            LOG.debug("No default arguments");
+        } else {
+            for (final Argument arg : model.getArguments()) {
+                context.put(arg.getKey(), arg.getValue());
+                LOG.debug("Default argument: {}", arg);
+            }
+        }
+
+        // Set specific values for the target file
+        if (targetFile.getArguments() == null) {
+            LOG.debug("No specific arguments");
+        } else {
+            for (final Argument arg : targetFile.getArguments()) {
+                context.put(arg.getKey(), arg.getValue());
+                LOG.debug("Specific argument: {}", arg);
+            }
+        }
+
+        merge(context, ARTIFACT_NAME, model.getTemplate(), targetFile.getPathAndName());
     }
 
 }

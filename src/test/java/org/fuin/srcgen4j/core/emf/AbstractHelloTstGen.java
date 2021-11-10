@@ -3,7 +3,10 @@ package org.fuin.srcgen4j.core.emf;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
@@ -42,17 +45,17 @@ public final class AbstractHelloTstGen implements ArtifactFactory<Greeting> {
     }
 
     @Override
-    public final GeneratedArtifact create(@NotNull final Greeting greeting, @NotNull final Map<String, Object> context,
+    public final List<GeneratedArtifact> create(@NotNull final Greeting greeting, @NotNull final Map<String, Object> context,
             final boolean preparationRun) throws GenerateException {
         try {
-            final String src = FileUtils.readFileToString(new File("src/test/resources/AbstractHello.template"));
+            final String src = FileUtils.readFileToString(new File("src/test/resources/AbstractHello.template"), StandardCharsets.UTF_8);
             final Map<String, String> vars = new HashMap<>();
             vars.put("name", greeting.getName());
             final String pkg = varMap.get("package");
             final String path = pkg.replace('.', '/');
             vars.put("package", pkg);
-            return new GeneratedArtifact(artifact, path + "/AbstractHello" + greeting.getName() + ".java",
-                    Utils4J.replaceVars(src, vars).getBytes());
+            return Collections.singletonList(new GeneratedArtifact(artifact, path + "/AbstractHello" + greeting.getName() + ".java",
+                    Utils4J.replaceVars(src, vars).getBytes()));
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }

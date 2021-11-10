@@ -69,7 +69,7 @@ public abstract class VelocityGenerator<MODEL> extends AbstractGenerator<MODEL, 
         return templateDir;
     }
 
-    private VelocityEngine createVelocityEngine(final File templateDir) {
+    private static VelocityEngine createVelocityEngine(final File templateDir) {
         final VelocityEngine ve = new VelocityEngine();
         if (templateDir == null) {
             ve.addProperty("resource.loader", "class");

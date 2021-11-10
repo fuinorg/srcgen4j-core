@@ -1,7 +1,9 @@
 // CHECKSTYLE:OFF Test class
 package org.fuin.srcgen4j.core.emf;
 
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.constraints.NotNull;
@@ -37,7 +39,7 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
     }
 
     @Override
-    public final GeneratedArtifact create(@NotNull final ResourceSet resourceSet, @NotNull final Map<String, Object> context,
+    public final List<GeneratedArtifact> create(@NotNull final ResourceSet resourceSet, @NotNull final Map<String, Object> context,
             final boolean preparationRun) throws GenerateException {
 
         final StringBuffer sb = new StringBuffer();
@@ -51,7 +53,7 @@ public class HelloPropertiesTstGen implements ArtifactFactory<ResourceSet> {
             }
         }
 
-        return new GeneratedArtifact(artifact, "hello.properties", sb.toString().getBytes());
+        return Collections.singletonList(new GeneratedArtifact(artifact, "hello.properties", sb.toString().getBytes()));
 
     }
 

@@ -105,7 +105,7 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         LOG.debug("Generate from {}", Notifier.class.getSimpleName());
 
         final Set<ArtifactFactory<Notifier>> factories = findFactories(notifier);
-        if (factories.size() == 0) {
+        if (factories.isEmpty()) {
             LOG.warn("Was asked to generate an artifact type I didn't request: {}", notifier.getClass());
             return;
         }
@@ -113,9 +113,11 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         for (final ArtifactFactory<Notifier> factory : factories) {
             if (!incremental || factory.isIncremental()) {
                 LOG.debug("Generate with factory {}", factory.getClass().getSimpleName());
-                final GeneratedArtifact generatedArtifact = factory.create(notifier, context, preparationRun);
-                if ((generatedArtifact != null) && !preparationRun) {
-                    write(generatedArtifact);
+                final List<GeneratedArtifact> generatedArtifacts = factory.create(notifier, context, preparationRun);
+                if (!preparationRun) {
+                    for (final GeneratedArtifact generatedArtifact : generatedArtifacts) {
+                        write(generatedArtifact);
+                    }
                 }
             }
         }
@@ -129,9 +131,11 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
         LOG.debug("Generate from {}", ResourceSet.class.getSimpleName());
 
         for (final ArtifactFactory<ResourceSet> factory : resourceSetFactories) {
-            final GeneratedArtifact generatedArtifact = factory.create(getModel(), context, preparationRun);
-            if ((generatedArtifact != null) && !preparationRun) {
-                write(generatedArtifact);
+            final List<GeneratedArtifact> generatedArtifacts = factory.create(getModel(), context, preparationRun);
+            if (!preparationRun) {
+                for (final GeneratedArtifact generatedArtifact : generatedArtifacts) {
+                    write(generatedArtifact);
+                }
             }
         }
 
