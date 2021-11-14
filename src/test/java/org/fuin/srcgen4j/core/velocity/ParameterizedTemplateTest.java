@@ -25,6 +25,8 @@ import java.util.List;
 import javax.xml.bind.JAXBContext;
 
 import org.fuin.srcgen4j.commons.JaxbHelper;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -66,7 +68,7 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
+        final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), xml);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);
@@ -93,7 +95,7 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        final ParameterizedTemplateModel copy = helper.create(xml, jaxbContext);
+        final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), xml);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);

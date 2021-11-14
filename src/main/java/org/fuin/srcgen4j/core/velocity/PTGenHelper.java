@@ -22,11 +22,12 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.srcgen4j.commons.UnmarshalObjectException;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 
 /**
  * Utility class for the {@link ParameterizedTemplateGenerator}.
@@ -53,9 +54,13 @@ public final class PTGenHelper {
      */
     public static SrcGen4JConfig createAndInit(final SrcGen4JContext context, final File configFile) throws UnmarshalObjectException {
         try {
-            final JaxbHelper helper = new JaxbHelper();
-            final SrcGen4JConfig config = helper.create(configFile, JAXBContext.newInstance(SrcGen4JConfig.class,
-                    VelocityGeneratorConfig.class, ParameterizedTemplateParserConfig.class, ParameterizedTemplateGeneratorConfig.class));
+            final SrcGen4JConfig config = JaxbUtils
+                    .unmarshal(
+                            new UnmarshallerBuilder()
+                                    .withContext(JAXBContext.newInstance(SrcGen4JConfig.class, VelocityGeneratorConfig.class,
+                                            ParameterizedTemplateParserConfig.class, ParameterizedTemplateGeneratorConfig.class))
+                                    .build(),
+                            configFile);
             config.init(context, Utils4J.getCanonicalFile(configFile.getParentFile()));
             return config;
         } catch (final JAXBException ex) {

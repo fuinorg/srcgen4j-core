@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<parameterized-template template="parameterized-template-1.ptg.java" xmlns="http://www.fuin.org/srcgen4j/core/velocity">
+<parameterized-template template="parameterized-template-1.ptg.java" xmlns="http://www.fuin.org/srcgen4j/core/velocity/0.4.3">
 	
 	<arguments>
 		<argument key="name" value="-" />

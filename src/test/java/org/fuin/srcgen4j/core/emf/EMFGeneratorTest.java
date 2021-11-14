@@ -27,13 +27,14 @@ import javax.xml.bind.JAXBContext;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.fuin.srcgen4j.commons.DefaultContext;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
-import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParseException;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.core.xtext.XtextParser;
 import org.fuin.srcgen4j.core.xtext.XtextParserConfig;
 import org.fuin.utils4j.classpath.Handler;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 
 /**
@@ -53,7 +54,7 @@ public class EMFGeneratorTest {
         final File file = new File(dir, "xtext-test-config.xml");
 
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
         srcGen4JConfig.init(context, new File("."));
         final GeneratorConfig generatorConfig = srcGen4JConfig.getGenerators().findByName("gen1");
         final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
@@ -97,7 +98,7 @@ public class EMFGeneratorTest {
         final File file = new File(dir, "xtext-error-config.xml");
 
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
         srcGen4JConfig.init(context, new File("."));
         final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
 

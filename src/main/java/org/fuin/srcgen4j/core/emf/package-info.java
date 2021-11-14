@@ -2,9 +2,12 @@
 /**
  * EMF related source code generation.
  */
-@XmlSchema(namespace = "http://www.fuin.org/srcgen4j/core/emf", xmlns = {
-        @XmlNs(prefix = "sg4jemf", namespaceURI = "http://www.fuin.org/srcgen4j/core/emf") }, elementFormDefault = XmlNsForm.QUALIFIED)
+@XmlSchema(namespace = NAMESPACE, xmlns = {
+        @XmlNs(prefix = NS_PREFIX, namespaceURI = NAMESPACE) }, elementFormDefault = XmlNsForm.QUALIFIED)
 package org.fuin.srcgen4j.core.emf;
+
+import static org.fuin.srcgen4j.core.emf.SrcGen4JCoreEmfNamespace.NAMESPACE;
+import static org.fuin.srcgen4j.core.emf.SrcGen4JCoreEmfNamespace.NS_PREFIX;
 
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;

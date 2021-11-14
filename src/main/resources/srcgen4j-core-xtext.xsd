@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
-   targetNamespace="http://www.fuin.org/srcgen4j/core/xtext">
+   targetNamespace="http://www.fuin.org/srcgen4j/core/xtext/0.4.3">
 	
 	<!-- Configuration for the parser -->
 	
 	<xs:element name="xtext-parser-config" type="velo:xtext-parserConfigType"
-		xmlns:velo="http://www.fuin.org/srcgen4j/core/xtext" />
+		xmlns:velo="http://www.fuin.org/srcgen4j/core/xtext/0.4.3" />
 	
 	<xs:complexType name="xtext-parserConfigType">
 		<xs:attribute type="xs:string" name="modelPath" use="required" />

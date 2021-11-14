@@ -42,9 +42,10 @@ import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.MarshalObjectException;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
-import org.fuin.srcgen4j.commons.UnmarshalObjectException;
 import org.fuin.srcgen4j.core.base.Producer;
 import org.fuin.utils4j.Utils4J;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -385,14 +386,10 @@ public class ParameterizedTemplateModel implements Serializable, Comparable<Para
      * @return New instance.
      */
     public static ParameterizedTemplateModel create(final Reader reader) {
-        try {
-            final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplateModel pc = helper.create(reader, createJaxbContext());
-            Contract.requireValid(pc);
-            return pc;
-        } catch (final UnmarshalObjectException ex) {
-            throw new RuntimeException(ex);
-        }
+        final ParameterizedTemplateModel pc = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(createJaxbContext()).build(),
+                reader);
+        Contract.requireValid(pc);
+        return pc;
     }
 
     /**
@@ -404,15 +401,10 @@ public class ParameterizedTemplateModel implements Serializable, Comparable<Para
      * @return New instance.
      */
     public static ParameterizedTemplateModel create(final File file) {
-        try {
-            final JaxbHelper helper = new JaxbHelper();
-            final ParameterizedTemplateModel pc = helper.create(file, createJaxbContext());
-            pc.setFile(file);
-            Contract.requireValid(pc);
-            return pc;
-        } catch (final UnmarshalObjectException ex) {
-            throw new RuntimeException(ex);
-        }
+        final ParameterizedTemplateModel pc = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(createJaxbContext()).build(), file);
+        pc.setFile(file);
+        Contract.requireValid(pc);
+        return pc;
     }
 
 }

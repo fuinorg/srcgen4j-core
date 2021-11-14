@@ -22,6 +22,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import javax.xml.bind.JAXBContext;
 
 import org.fuin.srcgen4j.commons.JaxbHelper;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 
 // CHECKSTYLE:OFF
@@ -37,7 +39,7 @@ public class ArgumentTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        final Argument copy = helper.create(xml, jaxbContext);
+        final Argument copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), xml);
 
         // VERIFY
         assertThat(copy.getKey()).isEqualTo(testee.getKey());

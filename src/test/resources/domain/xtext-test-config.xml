@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons"
-   				 xmlns:cfg="http://www.fuin.org/xmlcfg4j"
-                 xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext"
-                 xmlns:emf="http://www.fuin.org/srcgen4j/core/emf">
+<srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.4.3"
+   				 xmlns:cfg="http://www.fuin.org/xmlcfg4j/0.2.1"
+                 xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext/0.4.3"
+                 xmlns:emf="http://www.fuin.org/srcgen4j/core/emf/0.4.3">
 	
 	<cfg:variables>
 		<cfg:variable name="testRes" value="src/test/resources/domain;classpath:/xtext-test-resource.xsdsl" />

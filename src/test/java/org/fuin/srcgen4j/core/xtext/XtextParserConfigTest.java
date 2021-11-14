@@ -21,24 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
-import javax.xml.bind.JAXBContext;
-
-import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
-import org.fuin.srcgen4j.commons.DefaultContext;
-import org.fuin.srcgen4j.commons.JaxbHelper;
-import org.fuin.srcgen4j.commons.ParserConfig;
-import org.fuin.srcgen4j.commons.SrcGen4JConfig;
-import org.fuin.srcgen4j.core.emf.EMFGeneratorConfig;
-import org.fuin.utils4j.Utils4J;
-import org.fuin.xsample.xSampleDsl.Greeting;
-import org.fuin.xsample.xSampleDsl.impl.GreetingImpl;
-import org.fuin.xsample.xSampleDsl.impl.ModelImpl;
 import org.junit.Test;
 
 /**

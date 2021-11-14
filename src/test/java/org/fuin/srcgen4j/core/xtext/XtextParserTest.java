@@ -28,11 +28,12 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.fuin.srcgen4j.commons.DefaultContext;
-import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.core.emf.EMFGeneratorConfig;
 import org.fuin.utils4j.classpath.Handler;
+import org.fuin.utils4j.jaxb.JaxbUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.fuin.xsample.xSampleDsl.Greeting;
 import org.fuin.xsample.xSampleDsl.impl.GreetingImpl;
 import org.fuin.xsample.xSampleDsl.impl.ModelImpl;
@@ -49,12 +50,12 @@ public class XtextParserTest {
     public void testParse() throws Exception {
 
         Handler.add();
-        
+
         final DefaultContext context = new DefaultContext();
         final File dir = new File("src/test/resources/domain");
         final File file = new File(dir, "xtext-test-config.xml");
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = new JaxbHelper().create(file, jaxbContext);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
         srcGen4JConfig.init(context, new File("."));
         final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
 
