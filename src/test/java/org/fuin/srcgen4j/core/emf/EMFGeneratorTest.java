@@ -54,7 +54,13 @@ public class EMFGeneratorTest {
         final File file = new File(dir, "xtext-test-config.xml");
 
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils
+                .unmarshal(
+                        new UnmarshallerBuilder()
+                                .withContext(jaxbContext).addClasspathSchemas("/xmlcfg4j-0_2_1.xsd", "/srcgen4j-commons-0_4_3.xsd",
+                                        "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
+                                .build(),
+                        file);
         srcGen4JConfig.init(context, new File("."));
         final GeneratorConfig generatorConfig = srcGen4JConfig.getGenerators().findByName("gen1");
         final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
@@ -98,7 +104,13 @@ public class EMFGeneratorTest {
         final File file = new File(dir, "xtext-error-config.xml");
 
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils
+                .unmarshal(
+                        new UnmarshallerBuilder()
+                                .withContext(jaxbContext).addClasspathSchemas("/xmlcfg4j-0_2_1.xsd", "/srcgen4j-commons-0_4_3.xsd",
+                                        "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
+                                .build(),
+                        file);
         srcGen4JConfig.init(context, new File("."));
         final ParserConfig parserConfig = srcGen4JConfig.getParsers().getList().get(0);
 

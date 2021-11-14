@@ -55,7 +55,13 @@ public class XtextParserTest {
         final File dir = new File("src/test/resources/domain");
         final File file = new File(dir, "xtext-test-config.xml");
         final JAXBContext jaxbContext = JAXBContext.newInstance(SrcGen4JConfig.class, XtextParserConfig.class, EMFGeneratorConfig.class);
-        final SrcGen4JConfig srcGen4JConfig = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).build(), file);
+        final SrcGen4JConfig srcGen4JConfig = JaxbUtils
+                .unmarshal(
+                        new UnmarshallerBuilder()
+                                .withContext(jaxbContext).addClasspathSchemas("/xmlcfg4j-0_2_1.xsd", "/srcgen4j-commons-0_4_3.xsd",
+                                        "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
+                                .build(),
+                        file);
         srcGen4JConfig.init(context, new File("."));
         final ParserConfig config = srcGen4JConfig.getParsers().getList().get(0);
 

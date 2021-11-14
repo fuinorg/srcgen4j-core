@@ -48,7 +48,8 @@ public final class ManualHelloTstGen implements ArtifactFactory<Greeting> {
             final String src = FileUtils.readFileToString(new File("src/test/resources/Hello.template"), Charset.forName("utf-8"));
             final Map<String, String> vars = new HashMap<>();
             vars.put("name", greeting.getName());
-            return Collections.singletonList(new GeneratedArtifact(artifact, "a/b/c/Hello" + greeting.getName() + ".java", Utils4J.replaceVars(src, vars).getBytes()));
+            return Collections.singletonList(new GeneratedArtifact(artifact, "a/b/c/Hello" + greeting.getName() + ".java",
+                    Utils4J.replaceVars(src, vars).getBytes()));
         } catch (final IOException ex) {
             throw new RuntimeException(ex);
         }

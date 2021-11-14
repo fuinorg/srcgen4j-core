@@ -246,7 +246,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
             }
         }
         return resolved;
-        
+
     }
 
     private boolean resolvedAllProxies(final List<String> unresolved, final int resourcesProcessedBefore) {

@@ -6,7 +6,9 @@
         @XmlNs(prefix = NS_PREFIX, namespaceURI = NAMESPACE) }, elementFormDefault = XmlNsForm.QUALIFIED)
 package org.fuin.srcgen4j.core.base;
 
-import static org.fuin.srcgen4j.core.base.SrcGen4JCoreBaseNamespace.*;
+import static org.fuin.srcgen4j.core.base.SrcGen4JCoreBaseNamespace.NAMESPACE;
+import static org.fuin.srcgen4j.core.base.SrcGen4JCoreBaseNamespace.NS_PREFIX;
+
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;

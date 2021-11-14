@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<ResourceSet, CONFIG> implements Generator<ResourceSet> {
 
     private static final Logger LOG = LoggerFactory.getLogger(AbstractEMFGenerator.class);
-    
+
     /**
      * default constructor.
      */
@@ -70,7 +70,7 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
                     generate(context, notifier, incremental, preparationRun);
                 }
             }
-            
+
             if (total == 0) {
                 LOG.error("EMF model contains no content (incremental={})", incremental);
             } else {

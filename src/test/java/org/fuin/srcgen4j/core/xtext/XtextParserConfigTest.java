@@ -54,7 +54,7 @@ public class XtextParserConfigTest {
         final URI uri = XtextParserConfig.asResource(str);
         assertThat(uri).isEqualTo(URI.createURI(str));
     }
-    
+
     // CHECKSTYLE:ON
 
 }
