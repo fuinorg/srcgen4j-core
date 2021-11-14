@@ -1,233 +1,241 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.fuin</groupId>
-		<artifactId>pom</artifactId>
-		<version>1.7.0</version>
-	</parent>
+    <parent>
+        <groupId>org.fuin</groupId>
+        <artifactId>pom</artifactId>
+        <version>1.7.0</version>
+    </parent>
 
-	<groupId>org.fuin.srcgen4j</groupId>
-	<artifactId>srcgen4j-core</artifactId>
-	<packaging>bundle</packaging>
-	<version>0.4.3-SNAPSHOT</version>
+    <groupId>org.fuin.srcgen4j</groupId>
+    <artifactId>srcgen4j-core</artifactId>
+    <packaging>bundle</packaging>
+    <version>0.4.3-SNAPSHOT</version>
 
-	<description>Source code generation for Java (Core)</description>
-	<url>http://www.fuin.org/srcgen4j/core/</url>
+    <description>Source code generation for Java (Core)</description>
+    <url>http://www.fuin.org/srcgen4j/core/</url>
 
-	<scm>
-		<url>https://github.com/fuinorg/srcgen4j-core/</url>
-		<connection>scm:git:git://github.com/fuinorg/srcgen4j-core.git</connection>
-		<developerConnection>scm:git:git@github.com:fuinorg/srcgen4j-core.git</developerConnection>
-	</scm>
+    <scm>
+        <url>https://github.com/fuinorg/srcgen4j-core/</url>
+        <connection>scm:git:git://github.com/fuinorg/srcgen4j-core.git</connection>
+        <developerConnection>scm:git:git@github.com:fuinorg/srcgen4j-core.git</developerConnection>
+    </scm>
 
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/fuinorg/srcgen4j-core/issues</url>
-	</issueManagement>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/fuinorg/srcgen4j-core/issues</url>
+    </issueManagement>
 
-	<properties>
-		<xtext.version>2.25.0</xtext.version>
-	</properties>
+    <properties>
+        <xtext.version>2.25.0</xtext.version>
+    </properties>
 
-	<dependencies>
+    <dependencies>
 
-		<!-- Compile -->
+        <!-- Compile -->
 
-		<dependency>
-			<groupId>org.checkerframework</groupId>
-			<artifactId>checker-qual</artifactId>
-			<version>3.19.0</version>
-		</dependency>
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>3.19.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>com.google.errorprone</groupId>
-			<artifactId>error_prone_annotations</artifactId>
-			<version>2.5.1</version>
-		</dependency>
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <version>2.5.1</version>
+        </dependency>
 
-		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
-			<version>2.0.2</version>
-		</dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.fuin.srcgen4j</groupId>
-			<artifactId>srcgen4j-commons</artifactId>
-			<version>0.4.3-SNAPSHOT</version>
-		</dependency>
+        <dependency>
+            <groupId>org.fuin.srcgen4j</groupId>
+            <artifactId>srcgen4j-commons</artifactId>
+            <version>0.4.3-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.32</version>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.32</version>
+        </dependency>
 
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
-		</dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
 
-		<!-- Technology JARs - Add this dependencies to your POM if you need it -->
+        <!-- Technology JARs - Add this dependencies to your POM if you need 
+            it -->
 
-		<!-- Velocity -->
+        <!-- Velocity -->
 
-		<dependency>
-			<groupId>org.apache.velocity</groupId>
-			<artifactId>velocity-engine-core</artifactId>
-			<version>2.3</version>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>2.3</version>
+            <optional>true</optional>
+        </dependency>
 
-		<!-- EMF Ecore -->
+        <!-- EMF Ecore -->
 
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore</artifactId>
-			<version>2.25.0</version>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore</artifactId>
+            <version>2.25.0</version>
+            <optional>true</optional>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.emf</groupId>
-			<artifactId>org.eclipse.emf.ecore.change</artifactId>
-			<version>2.14.0</version>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.emf</groupId>
+            <artifactId>org.eclipse.emf.ecore.change</artifactId>
+            <version>2.14.0</version>
+            <optional>true</optional>
+        </dependency>
 
-		<!-- XTEXT -->
+        <!-- XTEXT -->
 
-		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.lib</artifactId>
-			<version>${xtext.version}</version>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.xtend</groupId>
+            <artifactId>org.eclipse.xtend.lib</artifactId>
+            <version>${xtext.version}</version>
+            <optional>true</optional>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.platform</groupId>
-			<artifactId>org.eclipse.core.runtime</artifactId>
-			<version>3.23.0</version>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.core.runtime</artifactId>
+            <version>3.23.0</version>
+        </dependency>
 
-		<dependency>
-			<groupId>org.eclipse.xtend</groupId>
-			<artifactId>org.eclipse.xtend.core</artifactId>
-			<version>${xtext.version}</version>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.eclipse.xtend</groupId>
+            <artifactId>org.eclipse.xtend.core</artifactId>
+            <version>${xtext.version}</version>
+            <optional>true</optional>
+        </dependency>
 
-		<!-- Test -->
+        <!-- Test -->
 
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.13.2</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.21.0</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.8.1</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.3.5</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.21.0</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.fuin</groupId>
-			<artifactId>units4j</artifactId>
-			<version>0.9.1</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.5</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>com.openpojo</groupId>
-			<artifactId>openpojo</artifactId>
-			<version>0.9.1</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.fuin</groupId>
+            <artifactId>units4j</artifactId>
+            <version>0.9.1</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.32</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.openpojo</groupId>
+            <artifactId>openpojo</artifactId>
+            <version>0.9.1</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.32</version>
+            <scope>test</scope>
+        </dependency>
 
-		<dependency>
-			<groupId>org.fuin.xsample</groupId>
-			<artifactId>org.fuin.xsample.dsl</artifactId>
-			<version>0.0.2</version>
-			<scope>test</scope>
-		</dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+            <scope>test</scope>
+        </dependency>
 
-	</dependencies>
+        <dependency>
+            <groupId>org.fuin.xsample</groupId>
+            <artifactId>org.fuin.xsample.dsl</artifactId>
+            <version>0.0.2</version>
+            <scope>test</scope>
+        </dependency>
 
-	<build>
+    </dependencies>
 
-		<plugins>
+    <build>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-			</plugin>
+        <plugins>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<configuration>
-					<manifestLocation>${manifest-location}</manifestLocation>
-					<instructions>
-						<Automatic-Module-Name>org.fuin.srcgen4j-commons</Automatic-Module-Name>
-						<_removeheaders>
-							Built-By,Tool,Build-Jdk,Created-By,
-							Bnd-LastModified, Private-Package
-						</_removeheaders>
-					</instructions>
-				</configuration>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jdeps-plugin</artifactId>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <manifestLocation>${manifest-location}</manifestLocation>
+                    <instructions>
+                        <Automatic-Module-Name>org.fuin.srcgen4j-commons</Automatic-Module-Name>
+                        <_removeheaders>
+                            Built-By,Tool,Build-Jdk,Created-By,
+                            Bnd-LastModified, Private-Package
+                        </_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
 
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jdeps-plugin</artifactId>
+            </plugin>
 
-		</plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
 
-	</build>
+        </plugins>
+
+    </build>
 
 </project>
