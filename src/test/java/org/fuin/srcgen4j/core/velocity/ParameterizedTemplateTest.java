@@ -68,9 +68,9 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        final ParameterizedTemplateModel copy = JaxbUtils
-                .unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).addClasspathSchemas(
-                        "/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd").build(), xml);
+        final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext)
+                .addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd")
+                .build(), xml);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);
@@ -97,9 +97,9 @@ public class ParameterizedTemplateTest {
 
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
-        final ParameterizedTemplateModel copy = JaxbUtils
-                .unmarshal(new UnmarshallerBuilder().withContext(jaxbContext).addClasspathSchemas(
-                        "/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd").build(), xml);
+        final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext)
+                .addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd")
+                .build(), xml);
 
         // VERIFY
         assertThat(copy.getTemplate()).isEqualTo(template);

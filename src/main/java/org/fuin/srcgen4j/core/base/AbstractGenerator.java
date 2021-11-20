@@ -70,7 +70,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
 
         LOG.debug("Initialize generator: {}", name);
 
-        final Object obj = config.getConfig().getConfig();
+        final Object obj = config.getConfig().getCfg();
         if (getSpecificConfigClass() == null) {
             if (obj != null) {
                 throw new IllegalStateException("No configuration is expected, but was: " + obj.getClass());
@@ -149,7 +149,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
      */
     @SuppressWarnings("unchecked")
     public final CONFIG getSpecificConfig() {
-        return (CONFIG) config.getConfig().getConfig();
+        return (CONFIG) config.getConfig().getCfg();
     }
 
     /**
