@@ -2,12 +2,11 @@
 <srcgen4j-config
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns="http://www.fuin.org/srcgen4j/commons/0.4.3"
-   xmlns:cfg="http://www.fuin.org/xmlcfg4j/0.2.1"
    xmlns:velo="http://www.fuin.org/srcgen4j/core/velocity/0.4.3">
 	
-	<cfg:variables>
-		<cfg:variable name="testRes" value="src/test/resources" />
-	</cfg:variables>
+	<variables>
+		<variable name="testRes" value="src/test/resources" />
+	</variables>
 	
 	<projects>
 		<project name="current" path="." maven="false">

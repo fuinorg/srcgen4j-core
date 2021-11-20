@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.4.3"
-   				 xmlns:cfg="http://www.fuin.org/xmlcfg4j/0.2.1"
                  xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext/0.4.3"
                  xmlns:emf="http://www.fuin.org/srcgen4j/core/emf/0.4.3">
 	
-	<cfg:variables>
-		<cfg:variable name="testRes" value="src/test/resources/domain;classpath:/xtext-test-resource.xsdsl" />
-	</cfg:variables>
+	<variables>
+		<variable name="testRes" value="src/test/resources/domain;classpath:/xtext-test-resource.xsdsl" />
+	</variables>
 	
 	<projects>
 		<project name="current" path="." maven="false">
@@ -30,7 +29,7 @@
 		    <config>
 				<emf:emf-generator-config>
 					<emf:artifact-factory artifact="abstractHello" class="org.fuin.srcgen4j.core.emf.AbstractHelloTstGen">
-						<cfg:variable name="package" value="a.b.c" />
+						<variable name="package" value="a.b.c" />
 					</emf:artifact-factory>
 					<emf:artifact-factory artifact="manualHello" class="org.fuin.srcgen4j.core.emf.ManualHelloTstGen" />
 					<emf:artifact-factory artifact="helloProps" incremental="false" class="org.fuin.srcgen4j.core.emf.HelloPropertiesTstGen" />

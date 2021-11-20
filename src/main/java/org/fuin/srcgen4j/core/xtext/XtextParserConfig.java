@@ -37,7 +37,7 @@ import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.ParserConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.utils4j.Utils4J;
-import org.fuin.xmlcfg4j.AbstractElement;
+import org.fuin.srcgen4j.commons.AbstractElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -2,11 +2,9 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
    xmlns:xs="http://www.w3.org/2001/XMLSchema"
    xmlns="http://www.fuin.org/srcgen4j/core/emf/0.4.3"
-   xmlns:cfg="http://www.fuin.org/xmlcfg4j/0.2.1"
    xmlns:sg4jc="http://www.fuin.org/srcgen4j/commons/0.4.3"
    targetNamespace="http://www.fuin.org/srcgen4j/core/emf/0.4.3">
 
-    <xs:import namespace="http://www.fuin.org/xmlcfg4j/0.2.1" schemaLocation="http://www.fuin.org/xsd/xmlcfg4j-0_2_1.xsd" />
     <xs:import namespace="http://www.fuin.org/srcgen4j/commons/0.4.3" schemaLocation="http://www.fuin.org/xsd/srcgen4j-commons-0_4_3.xsd" />
 
     <!-- Configuration for the generator -->
@@ -15,7 +13,7 @@
 
     <xs:complexType name="emf-generatorConfigType">
         <xs:sequence>
-           <xs:element type="cfg:variableType" name="variable" minOccurs="0" maxOccurs="unbounded" />
+           <xs:element type="sg4jc:variableType" name="variable" minOccurs="0" maxOccurs="unbounded" />
           <xs:element type="sg4jc:artifactFactoryConfigType" name="artifact-factory" minOccurs="1" maxOccurs="unbounded" />
         </xs:sequence>
     </xs:complexType>

@@ -57,7 +57,7 @@ public class EMFGeneratorTest {
         final SrcGen4JConfig srcGen4JConfig = JaxbUtils
                 .unmarshal(
                         new UnmarshallerBuilder()
-                                .withContext(jaxbContext).addClasspathSchemas("/xmlcfg4j-0_2_1.xsd", "/srcgen4j-commons-0_4_3.xsd",
+                                .withContext(jaxbContext).addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd",
                                         "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
                                 .build(),
                         file);
@@ -107,7 +107,7 @@ public class EMFGeneratorTest {
         final SrcGen4JConfig srcGen4JConfig = JaxbUtils
                 .unmarshal(
                         new UnmarshallerBuilder()
-                                .withContext(jaxbContext).addClasspathSchemas("/xmlcfg4j-0_2_1.xsd", "/srcgen4j-commons-0_4_3.xsd",
+                                .withContext(jaxbContext).addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd",
                                         "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
                                 .build(),
                         file);

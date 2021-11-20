@@ -33,7 +33,7 @@ import org.fuin.objects4j.vo.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
 import org.fuin.utils4j.Utils4J;
-import org.fuin.xmlcfg4j.AbstractElement;
+import org.fuin.srcgen4j.commons.AbstractElement;
 
 /**
  * Configuration for a {@link TargetFileListProducer}.

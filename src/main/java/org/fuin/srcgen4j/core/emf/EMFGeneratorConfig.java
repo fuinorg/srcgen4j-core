@@ -35,7 +35,7 @@ import org.fuin.srcgen4j.commons.Config;
 import org.fuin.srcgen4j.commons.GeneratorConfig;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;
-import org.fuin.xmlcfg4j.AbstractElement;
+import org.fuin.srcgen4j.commons.AbstractElement;
 
 /**
  * Configuration for a {@link EMFGenerator}.
