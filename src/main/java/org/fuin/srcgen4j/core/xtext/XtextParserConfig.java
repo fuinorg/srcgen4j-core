@@ -194,7 +194,7 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
      * @return {@code true} if it references a file.
      */
     public static boolean isFile(final String str) {
-        return str.contains(":");
+        return !str.contains(":");
     }
 
     /**
