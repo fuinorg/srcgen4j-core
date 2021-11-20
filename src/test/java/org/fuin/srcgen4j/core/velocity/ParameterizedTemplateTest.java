@@ -27,9 +27,9 @@ import javax.xml.bind.JAXBContext;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 public class ParameterizedTemplateTest {
 
@@ -39,7 +39,7 @@ public class ParameterizedTemplateTest {
 
     private static Argument arg2;
 
-    @BeforeClass
+    @BeforeAll
     public static void setUp() {
         final String path = "path";
         final String name = "name";
@@ -48,7 +48,7 @@ public class ParameterizedTemplateTest {
         targetFile1 = new TargetFile(path, name, arg1, arg2);
     }
 
-    @AfterClass
+    @AfterAll
     public static void tearDown() {
         arg1 = null;
         arg2 = null;

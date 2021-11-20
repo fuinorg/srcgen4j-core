@@ -25,7 +25,7 @@ import org.apache.commons.io.FileUtils;
 import org.fuin.srcgen4j.commons.DefaultContext;
 import org.fuin.srcgen4j.commons.SrcGen4J;
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE:OFF
 public class ParameterizedTemplateGeneratorTest {

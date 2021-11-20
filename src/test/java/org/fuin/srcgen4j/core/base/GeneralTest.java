@@ -20,10 +20,9 @@ package org.fuin.srcgen4j.core.base;
 import static org.fuin.units4j.AssertCoverage.assertEveryClassHasATest;
 
 import java.io.File;
-
-import org.fuin.units4j.AssertCoverage.ClassFilter;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.fuin.units4j.AssertCoverage;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  * General tests for the project.
@@ -34,9 +33,9 @@ public class GeneralTest {
      * Verifies the test coverage of the project.
      */
     @Test
-    @Ignore("Ignored for first snapshot")
+    @Disabled("Need to move units4j dependency from junit4 to junit5")
     public final void testEveryClassHasATest() {
-        assertEveryClassHasATest(new File("src/main/java"), new ClassFilter() {
+        assertEveryClassHasATest(new File("src/main/java"), new AssertCoverage.ClassFilter() {
             @Override
             public boolean isIncludeClass(final Class<?> clasz) {
                 return !clasz.getName().endsWith("Exception");

@@ -24,7 +24,7 @@ import javax.xml.bind.JAXBContext;
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE:OFF
 public class TargetFileTest {

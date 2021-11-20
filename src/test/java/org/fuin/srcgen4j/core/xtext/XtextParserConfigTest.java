@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.File;
 
 import org.eclipse.emf.common.util.URI;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link XtextParserConfig}.

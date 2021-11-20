@@ -37,7 +37,7 @@ import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.fuin.xsample.xSampleDsl.Greeting;
 import org.fuin.xsample.xSampleDsl.impl.GreetingImpl;
 import org.fuin.xsample.xSampleDsl.impl.ModelImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link XtextParser}.

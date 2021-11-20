@@ -18,7 +18,7 @@
 package org.fuin.srcgen4j.core.emf;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 
@@ -35,7 +35,7 @@ import org.fuin.srcgen4j.core.xtext.XtextParserConfig;
 import org.fuin.utils4j.classpath.Handler;
 import org.fuin.utils4j.jaxb.JaxbUtils;
 import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for {@link XtextParser}.
