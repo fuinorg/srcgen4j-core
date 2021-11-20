@@ -34,6 +34,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class IncrementalFileHandler implements FileHandler {
 
+    private static final String MSG_ADDING_MODEL_FILE = "Adding model file: {}";
+
     private static final Logger LOG = LoggerFactory.getLogger(IncrementalFileHandler.class);
 
     private final Map<File, List<ParameterizedTemplateModel>> templatesToModelMap;
@@ -64,7 +66,7 @@ public final class IncrementalFileHandler implements FileHandler {
             templates.addParamTemplates(list);
         } else if (parser.getModelFilter().accept(file)) {
             // Changed model file
-            LOG.info("Adding model file: {}", file.getName());
+            LOG.info(MSG_ADDING_MODEL_FILE, file.getName());
             final ParameterizedTemplateModel pt = ParameterizedTemplateModel.create(file);
             pt.init(parser.getContext(), parser.getVarMap());
             templates.addParamTemplate(pt);
@@ -73,7 +75,7 @@ public final class IncrementalFileHandler implements FileHandler {
     }
 
     private void logList(final File file, final List<ParameterizedTemplateModel> list) {
-        if (list == null || list.size() == 0) {
+        if (list == null || list.isEmpty()) {
             LOG.info("No references found to template: {}", file.getName());
         } else {
             if (LOG.isInfoEnabled()) {
@@ -81,9 +83,9 @@ public final class IncrementalFileHandler implements FileHandler {
                 for (final ParameterizedTemplateModel model : list) {
                     if (model.getFile() == null) {
                         // Should never happen...
-                        LOG.info("Adding model file: {}", model.getFile());
+                        LOG.info(MSG_ADDING_MODEL_FILE, model.getFile());
                     } else {
-                        LOG.info("Adding model file: {}", model.getFile().getName());
+                        LOG.info(MSG_ADDING_MODEL_FILE, model.getFile().getName());
                     }
                 }
             }

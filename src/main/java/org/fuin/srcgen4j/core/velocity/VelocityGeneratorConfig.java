@@ -37,7 +37,7 @@ import org.fuin.srcgen4j.commons.SrcGen4JContext;
  * Minimal configuration for the velocity based generators.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public abstract class VelocityGeneratorConfig extends AbstractElement
+ abstract class VelocityGeneratorConfig extends AbstractElement
         implements InitializableElement<VelocityGeneratorConfig, Config<GeneratorConfig>> {
 
     @TrimmedNotEmpty

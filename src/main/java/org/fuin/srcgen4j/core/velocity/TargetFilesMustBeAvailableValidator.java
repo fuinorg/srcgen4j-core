@@ -41,7 +41,7 @@ public final class TargetFilesMustBeAvailableValidator
     public final boolean isValid(final ParameterizedTemplateModel value, final ConstraintValidatorContext context) {
 
         if (value.getTargetFileListProducerConfig() == null) {
-            if ((value.getTargetFiles() == null || value.getTargetFiles().size() == 0)) {
+            if ((value.getTargetFiles() == null || value.getTargetFiles().isEmpty())) {
                 LOG.debug("Element 'target-files' is mandatory if no element 'target-file-list-producer' is defined");
                 return false;
             }

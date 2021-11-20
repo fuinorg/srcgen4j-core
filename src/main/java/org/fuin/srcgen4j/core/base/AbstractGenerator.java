@@ -55,7 +55,7 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
     /**
      * Default constructor.
      */
-    public AbstractGenerator() {
+    protected AbstractGenerator() {
         super();
     }
 
@@ -213,11 +213,8 @@ public abstract class AbstractGenerator<MODEL, CONFIG> implements Generator<MODE
         } else {
             LOG.debug("Writing file:  {} [{}]", genFile, artifact);
             try {
-                final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getTmpFile()));
-                try {
+                try (final OutputStream out = new BufferedOutputStream(new FileOutputStream(genFile.getTmpFile()))) {
                     out.write(artifact.getData());
-                } finally {
-                    out.close();
                 }
                 genFile.persist();
             } catch (final IOException ex) {

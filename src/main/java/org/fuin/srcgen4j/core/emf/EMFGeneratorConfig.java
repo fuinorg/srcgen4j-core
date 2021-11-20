@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.ArtifactFactory;
@@ -49,7 +50,8 @@ public class EMFGeneratorConfig extends AbstractElement implements Initializable
     @XmlElement(name = "artifact-factory")
     private List<ArtifactFactoryConfig> factoryConfigs;
 
-    private transient List<ArtifactFactory<?>> factories;
+    @XmlTransient
+    private List<ArtifactFactory<?>> factories;
 
     /**
      * Default constructor.

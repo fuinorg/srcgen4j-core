@@ -31,7 +31,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-public class ParameterizedTemplateTest {
+class ParameterizedTemplateTest {
 
     private static TargetFile targetFile1;
 
@@ -56,7 +56,7 @@ public class ParameterizedTemplateTest {
     }
 
     @Test
-    public void testMarshalUnmarshalList() throws Exception {
+    void testMarshalUnmarshalList() throws Exception {
 
         // PREPARE
         final String template = "my-template";
@@ -84,7 +84,7 @@ public class ParameterizedTemplateTest {
     }
 
     @Test
-    public void testMarshalUnmarshalProducer() throws Exception {
+    void testMarshalUnmarshalProducer() throws Exception {
 
         // PREPARE
 

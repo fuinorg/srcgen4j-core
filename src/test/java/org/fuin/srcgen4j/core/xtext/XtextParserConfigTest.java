@@ -27,29 +27,29 @@ import org.junit.jupiter.api.Test;
 /**
  * Test for {@link XtextParserConfig}.
  */
-public class XtextParserConfigTest {
+class XtextParserConfigTest {
 
     // CHECKSTYLE:OFF
 
     @Test
-    public void testIsFile() throws Exception {
+    void testIsFile() throws Exception {
         assertThat(XtextParserConfig.isFile("src/main/resources")).isTrue();
         assertThat(XtextParserConfig.isFile("classpath:/src/main/resources")).isFalse();
     }
 
     @Test
-    public void testAsFile() throws Exception {
+    void testAsFile() throws Exception {
         assertThat(XtextParserConfig.asFile("src/main/resources")).isEqualTo(new File("src/main/resources").getAbsoluteFile());
     }
 
     @Test
-    public void testIsResource() throws Exception {
+    void testIsResource() throws Exception {
         assertThat(XtextParserConfig.isResource("src/main/resources")).isFalse();
         assertThat(XtextParserConfig.isResource("classpath:/src/main/resources")).isTrue();
     }
 
     @Test
-    public void testAsResource() throws Exception {
+    void testAsResource() throws Exception {
         final String str = "classpath:/src/main/resources";
         final URI uri = XtextParserConfig.asResource(str);
         assertThat(uri).isEqualTo(URI.createURI(str));

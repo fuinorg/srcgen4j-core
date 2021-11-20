@@ -27,10 +27,10 @@ import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE:OFF
-public class ArgumentTest {
+class ArgumentTest {
 
     @Test
-    public void testMarshalUnmarshal() throws Exception {
+    void testMarshalUnmarshal() throws Exception {
 
         // PREPARE
         final Argument testee = new Argument("key", "value");

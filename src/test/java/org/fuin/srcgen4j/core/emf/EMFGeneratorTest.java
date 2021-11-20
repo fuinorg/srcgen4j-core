@@ -40,12 +40,12 @@ import org.junit.jupiter.api.Test;
 /**
  * Test for {@link XtextParser}.
  */
-public class EMFGeneratorTest {
+class EMFGeneratorTest {
 
     // CHECKSTYLE:OFF
 
     @Test
-    public void testParse() throws Exception {
+    void testParse() throws Exception {
 
         Handler.add();
 
@@ -95,7 +95,7 @@ public class EMFGeneratorTest {
     }
 
     @Test
-    public void testParseError() throws Exception {
+    void testParseError() throws Exception {
 
         Handler.add();
 

@@ -109,12 +109,9 @@ public abstract class VelocityGenerator<MODEL> extends AbstractGenerator<MODEL, 
             LOG.debug("Start merging velocity template: {} [{}]", genFile, templateName);
             // Merge content
             try {
-                final Writer writer = new FileWriter(genFile.getTmpFile());
-                try {
+                try (final Writer writer = new FileWriter(genFile.getTmpFile())) {
                     final Template template = ve.getTemplate(templateName);
                     template.merge(context, writer);
-                } finally {
-                    writer.close();
                 }
                 genFile.persist();
 

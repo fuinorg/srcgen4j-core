@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.eclipse.emf.common.util.URI;
 import org.fuin.srcgen4j.commons.AbstractElement;
@@ -59,13 +60,17 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
     @XmlAttribute(name = "setupClass")
     private String setupClassName;
 
-    private transient SrcGen4JContext context;
+    @XmlTransient
+    private SrcGen4JContext context;
 
-    private transient List<File> modelDirs;
+    @XmlTransient
+    private List<File> modelDirs;
 
-    private transient List<URI> modelResources;
+    @XmlTransient
+    private List<URI> modelResources;
 
-    private transient Class<?> setupClass;
+    @XmlTransient
+    private Class<?> setupClass;
 
     /**
      * Default constructor.
@@ -189,10 +194,7 @@ public class XtextParserConfig extends AbstractElement implements InitializableE
      * @return {@code true} if it references a file.
      */
     public static boolean isFile(final String str) {
-        if (str.contains(":")) {
-            return false;
-        }
-        return true;
+        return str.contains(":");
     }
 
     /**

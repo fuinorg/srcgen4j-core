@@ -28,14 +28,14 @@ import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE:OFF
-public class ParameterizedTemplateGeneratorTest {
+class ParameterizedTemplateGeneratorTest {
 
     private static final String TEST_RES_DIR = "src/test/resources";
 
     private static final String TARGET_DIR = "target/test-data";
 
     @Test
-    public void testIntegration() throws Exception {
+    void testIntegration() throws Exception {
 
         // PREPARE
         final File expectedA = new File(TEST_RES_DIR + "/A.java");

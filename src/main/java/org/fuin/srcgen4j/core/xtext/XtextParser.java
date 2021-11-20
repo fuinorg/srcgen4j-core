@@ -62,15 +62,8 @@ public final class XtextParser extends AbstractEMFParser<XtextParserConfig> impl
         try {
             final Method method = parserConfig.getSetupClass().getDeclaredMethod("doSetup");
             method.invoke(parserConfig.getSetupClass(), new Object[] {});
-        } catch (final SecurityException ex) {
-            throw new RuntimeException(errorMessage, ex);
-        } catch (final NoSuchMethodException ex) {
-            throw new RuntimeException(errorMessage, ex);
-        } catch (final IllegalArgumentException ex) {
-            throw new RuntimeException(errorMessage, ex);
-        } catch (final IllegalAccessException ex) {
-            throw new RuntimeException(errorMessage, ex);
-        } catch (final InvocationTargetException ex) {
+        } catch (final SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException
+                | InvocationTargetException ex) {
             throw new RuntimeException(errorMessage, ex);
         }
     }

@@ -44,14 +44,14 @@ public abstract class AbstractEMFGenerator<CONFIG> extends AbstractGenerator<Res
     /**
      * default constructor.
      */
-    public AbstractEMFGenerator() {
+    protected AbstractEMFGenerator() {
         super();
     }
 
     @Override
     protected final void generate(final boolean incremental) throws GenerateException {
 
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
 
         for (int i = 0; i < 2; i++) {
 

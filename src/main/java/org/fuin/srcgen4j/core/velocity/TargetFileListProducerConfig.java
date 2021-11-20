@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import org.fuin.objects4j.vo.TrimmedNotEmpty;
@@ -52,9 +53,11 @@ public class TargetFileListProducerConfig extends AbstractElement
     @XmlAnyElement(lax = true)
     private Object config;
 
-    private transient TargetFileListProducer tflProducer;
+    @XmlTransient
+    private TargetFileListProducer tflProducer;
 
-    private transient ParameterizedTemplateModel parent;
+    @XmlTransient
+    private ParameterizedTemplateModel parent;
 
     /**
      * Default constructor.

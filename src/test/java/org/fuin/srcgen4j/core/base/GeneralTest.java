@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Test;
 /**
  * General tests for the project.
  */
-public class GeneralTest {
+class GeneralTest {
 
     /**
      * Verifies the test coverage of the project.
      */
     @Test
     @Disabled("Need to move units4j dependency from junit4 to junit5")
-    public final void testEveryClassHasATest() {
+    void testEveryClassHasATest() {
         assertEveryClassHasATest(new File("src/main/java"), new AssertCoverage.ClassFilter() {
             @Override
             public boolean isIncludeClass(final Class<?> clasz) {

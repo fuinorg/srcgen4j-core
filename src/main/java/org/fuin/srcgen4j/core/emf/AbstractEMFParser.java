@@ -18,7 +18,6 @@
 package org.fuin.srcgen4j.core.emf;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -68,7 +67,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param concreteConfigClass
      *            Type of the configuration.
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass) {
+    protected AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass) {
         super(concreteConfigClass);
     }
 
@@ -82,7 +81,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final String... fileExtensions) {
+    protected AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final String... fileExtensions) {
         this(concreteConfigClass, modelDirs, Arrays.asList(fileExtensions));
     }
 
@@ -96,7 +95,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @param fileExtensions
      *            List of extensions for files to find ("mymodel", "java", "class", ...)
      */
-    public AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final List<String> fileExtensions) {
+    protected AbstractEMFParser(final Class<CONFIG_TYPE> concreteConfigClass, final List<File> modelDirs, final List<String> fileExtensions) {
         super(concreteConfigClass);
         this.modelDirs = modelDirs;
         this.fileExtensions = fileExtensions;
@@ -107,7 +106,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      */
     protected final void parseModel() {
 
-        if ((fileExtensions == null) || (fileExtensions.size() == 0)) {
+        if ((fileExtensions == null) || (fileExtensions.isEmpty())) {
             throw new IllegalStateException("No file extensions for EMF model files set!");
         }
 
@@ -121,7 +120,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     }
 
     private void parseDirs() {
-        if ((modelDirs == null) || (modelDirs.size() == 0)) {
+        if ((modelDirs == null) || (modelDirs.isEmpty())) {
             LOG.debug("No model directories to parse");
         } else {
             for (final File modelDir : modelDirs) {
@@ -131,13 +130,13 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
     }
 
     private void parseResources() {
-        if ((modelResources == null) || (modelResources.size() == 0)) {
+        if ((modelResources == null) || (modelResources.isEmpty())) {
             LOG.debug("No model resources to parse");
         } else {
             for (final URI modelResource : modelResources) {
                 final Resource resource = resourceSet.getResource(modelResource, true);
                 final EList<Diagnostic> diagnostics = resource.getErrors();
-                if (diagnostics.size() == 0) {
+                if (diagnostics.isEmpty()) {
                     LOG.debug("Parsed {}", modelResource);
                 } else {
                     error = true;
@@ -151,7 +150,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * Tries to resolve all proxies.
      */
     protected final void resolveProxies() {
-        final List<String> unresolved = new ArrayList<String>();
+        final List<String> unresolved = new ArrayList<>();
         if (!resolvedAllProxies(unresolved, 0)) {
             LOG.warn("Could not resolve the following proxies ({}):", unresolved.size());
             for (final String ref : unresolved) {
@@ -183,15 +182,11 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @return List of files in the directory.
      */
     private File[] getFiles(final File dir) {
-        final File[] files = dir.listFiles(new FileFilter() {
-            @Override
-            public boolean accept(final File file) {
+        return dir.listFiles(file ->  {
                 final boolean pointFile = file.getName().startsWith(".");
                 final String extension = FilenameUtils.getExtension(file.getName());
                 return (!pointFile && fileExtensions.contains(extension)) || file.isDirectory();
-            }
         });
-        return files;
     }
 
     /**
@@ -210,7 +205,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
                 if (file.isFile()) {
                     final Resource resource = resourceSet.getResource(URI.createFileURI(Utils4J.getCanonicalPath(file)), true);
                     final EList<Diagnostic> diagnostics = resource.getErrors();
-                    if (diagnostics.size() == 0) {
+                    if (diagnostics.isEmpty()) {
                         LOG.debug("Parsed {}", file);
                     } else {
                         error = true;
@@ -310,7 +305,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
      * @return List.
      */
     private static Set<EObject> findAllEObjects(final ResourceSet resourceSet) {
-        final Set<EObject> list = new HashSet<EObject>();
+        final Set<EObject> list = new HashSet<>();
         for (final Iterator<Notifier> i = resourceSet.getAllContents(); i.hasNext();) {
             final Notifier next = i.next();
             if (next instanceof EObject) {
@@ -376,7 +371,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         if (modelDirs == null) {
             this.modelDirs = null;
         } else {
-            this.modelDirs = new ArrayList<File>();
+            this.modelDirs = new ArrayList<>();
             this.modelDirs.addAll(Arrays.asList(modelDirs));
         }
     }
@@ -401,7 +396,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         if (fileExtensions == null) {
             this.fileExtensions = null;
         } else {
-            this.fileExtensions = new ArrayList<String>();
+            this.fileExtensions = new ArrayList<>();
             this.fileExtensions.addAll(Arrays.asList(fileExtensions));
         }
     }
@@ -426,7 +421,7 @@ public abstract class AbstractEMFParser<CONFIG_TYPE> extends AbstractParser<CONF
         if (modelResources == null) {
             this.modelResources = null;
         } else {
-            this.modelResources = new ArrayList<URI>();
+            this.modelResources = new ArrayList<>();
             this.modelResources.addAll(Arrays.asList(modelResources));
         }
     }
