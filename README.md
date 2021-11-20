@@ -1,7 +1,7 @@
 # srcgen4j-core
 Source code generation for Java (Core)
 
-[![Build Status](https://jenkins.fuin.org/job/srcgen4j-core/badge/icon)](https://jenkins.fuin.org/job/srcgen4j-core/)
+[![Java Maven Build](https://github.com/fuinorg/srcgen4j-core/actions/workflows/maven.yml/badge.svg)](https://github.com/fuinorg/srcgen4j-core/actions/workflows/maven.yml)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
