@@ -2,11 +2,13 @@ name: Java Maven Build
 
 on:
   push:
-    branches: [ master ]
+    branches: 
+      - '**'
     paths-ignore:
       - '**/README.md'
   pull_request:
-    branches: [ master ]
+    branches:
+      - '**'
     paths-ignore:
       - '**/README.md'
 
@@ -58,4 +60,4 @@ jobs:
         OSS_SONATYPE_TOKEN: ${{ secrets.OSS_SONATYPE_TOKEN }}
         OSS_SONATYPE_GPG_PASSPHRASE: ${{ secrets.OSS_SONATYPE_GPG_PASSPHRASE }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: ./mvnw clean deploy jacoco:report sonar:sonar -U -B -P sonatype-oss-release --file pom.xml -s settings.xml -Dsonar.organization=fuinorg -Dsonar.host.url=https://sonarcloud.io
+      run: ./mvnw clean deploy jacoco:report sonar:sonar -U -B -P sonatype-oss-release --file pom.xml -s settings.xml
