@@ -5,11 +5,10 @@ Source code generation for Java (Core)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 11](https://img.shields.io/badge/JDK-11-green.svg)](https://openjdk.java.net/projects/jdk/11/)
+[![Java Development Kit 21](https://img.shields.io/badge/JDK-21-green.svg)](https://openjdk.java.net/projects/jdk/21/)
 
 ## Versions
-- 0.4.3 (or later) = **Java 11** before namespace change from 'javax' to 'jakarta'
-- 0.4.2 (or previous) = **Java 8**
+See [Change Log](CHANGELOG.md) for version history.
 
 # What is this?
 The project provides some parsers and generators based on the ([srcgen4j-common](https://github.com/fuinorg/srcgen4j-common/)) project. 

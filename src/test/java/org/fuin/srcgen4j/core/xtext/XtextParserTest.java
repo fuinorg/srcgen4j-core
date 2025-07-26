@@ -21,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -58,8 +58,15 @@ public class XtextParserTest {
         final SrcGen4JConfig srcGen4JConfig = JaxbUtils
                 .unmarshal(
                         new UnmarshallerBuilder()
-                                .withContext(jaxbContext).addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd",
-                                        "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-emf-0_4_3.xsd", "/srcgen4j-core-xtext-0_4_3.xsd")
+                                .withContext(jaxbContext)
+/* TODO FIX: "Cannot resolve the name 'sg4jc:variableType' to a(n) 'type definition' component"
+   See: https://github.com/fuinorg/srcgen4j-core/issues/2
+                                .addClasspathSchemas(
+                                        "/srcgen4j-commons-0_5_0.xsd",
+                                        "/srcgen4j-core-base-0_5_0.xsd",
+                                        "/srcgen4j-core-emf-0_5_0.xsd",
+                                        "/srcgen4j-core-xtext-0_5_0.xsd")
+ */
                                 .build(),
                         file);
         srcGen4JConfig.init(context, new File("."));

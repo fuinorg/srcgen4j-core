@@ -21,16 +21,16 @@ import static org.fuin.utils4j.Utils4J.replaceVars;
 
 import java.util.Map;
 
-import javax.validation.Valid;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAnyElement;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.validation.Valid;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyElement;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 
-import org.fuin.objects4j.vo.TrimmedNotEmpty;
+import org.fuin.objects4j.core.TrimmedNotEmpty;
 import org.fuin.srcgen4j.commons.AbstractElement;
 import org.fuin.srcgen4j.commons.InitializableElement;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;

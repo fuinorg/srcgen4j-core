@@ -19,7 +19,7 @@ package org.fuin.srcgen4j.core.velocity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.utils4j.jaxb.JaxbUtils;

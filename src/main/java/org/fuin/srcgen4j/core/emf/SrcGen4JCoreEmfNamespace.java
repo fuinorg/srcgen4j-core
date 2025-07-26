@@ -6,7 +6,7 @@ package org.fuin.srcgen4j.core.emf;
 public final class SrcGen4JCoreEmfNamespace {
 
     /** Namespace URL. */
-    public static final String NAMESPACE = "http://www.fuin.org/srcgen4j/core/emf/0.4.3";
+    public static final String NAMESPACE = "http://www.fuin.org/srcgen4j/core/emf/0.5.0";
 
     /** Namespace prefix. */
     public static final String NS_PREFIX = "sg4jemf";

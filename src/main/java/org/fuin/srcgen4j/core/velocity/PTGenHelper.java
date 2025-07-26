@@ -19,8 +19,8 @@ package org.fuin.srcgen4j.core.velocity;
 
 import java.io.File;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 import org.fuin.srcgen4j.commons.SrcGen4JConfig;
 import org.fuin.srcgen4j.commons.SrcGen4JContext;

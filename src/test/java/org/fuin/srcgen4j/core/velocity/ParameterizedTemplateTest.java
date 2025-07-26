@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBContext;
 
 import org.fuin.srcgen4j.commons.JaxbHelper;
 import org.fuin.utils4j.jaxb.JaxbUtils;
@@ -69,7 +69,7 @@ class ParameterizedTemplateTest {
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
         final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext)
-                .addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd")
+                .addClasspathSchemas("/srcgen4j-commons-0_5_0.xsd", "/srcgen4j-core-base-0_5_0.xsd", "/srcgen4j-core-velocity-0_5_0.xsd")
                 .build(), xml);
 
         // VERIFY
@@ -98,7 +98,7 @@ class ParameterizedTemplateTest {
         // EXECUTE
         final String xml = helper.write(testee, jaxbContext);
         final ParameterizedTemplateModel copy = JaxbUtils.unmarshal(new UnmarshallerBuilder().withContext(jaxbContext)
-                .addClasspathSchemas("/srcgen4j-commons-0_4_3.xsd", "/srcgen4j-core-base-0_4_3.xsd", "/srcgen4j-core-velocity-0_4_3.xsd")
+                .addClasspathSchemas("/srcgen4j-commons-0_5_0.xsd", "/srcgen4j-core-base-0_5_0.xsd", "/srcgen4j-core-velocity-0_5_0.xsd")
                 .build(), xml);
 
         // VERIFY

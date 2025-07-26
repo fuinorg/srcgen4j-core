@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.fuin.objects4j.common.Contract;
 import org.fuin.srcgen4j.commons.Folder;

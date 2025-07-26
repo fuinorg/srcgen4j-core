@@ -20,13 +20,13 @@ package org.fuin.srcgen4j.core.velocity;
 import java.io.Serializable;
 import java.util.Map;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
-import org.fuin.objects4j.vo.TrimmedNotEmpty;
+import org.fuin.objects4j.core.TrimmedNotEmpty;
 import org.fuin.utils4j.Utils4J;
 
 /**

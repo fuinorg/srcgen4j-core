@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.4.3"
-                 xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext/0.4.3"
-                 xmlns:emf="http://www.fuin.org/srcgen4j/core/emf/0.4.3">
+<srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.5.0"
+                 xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext/0.5.0"
+                 xmlns:emf="http://www.fuin.org/srcgen4j/core/emf/0.5.0">
 	
 	<variables>
 		<variable name="testRes" value="src/test/resources/domain;classpath:/xtext-test-resource.xsdsl" />

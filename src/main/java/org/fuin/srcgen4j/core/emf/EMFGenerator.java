@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -114,7 +114,7 @@ public final class EMFGenerator extends AbstractEMFGenerator<EMFGeneratorConfig>
             if (!incremental || factory.isIncremental()) {
                 LOG.debug("Generate with factory {}", factory.getClass().getSimpleName());
                 final List<GeneratedArtifact> generatedArtifacts = factory.create(notifier, context, preparationRun);
-                if (!preparationRun) {
+                if (!preparationRun && generatedArtifacts != null) {
                     for (final GeneratedArtifact generatedArtifact : generatedArtifacts) {
                         write(generatedArtifact);
                     }
