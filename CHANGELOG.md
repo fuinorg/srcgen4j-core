@@ -1,7 +1,9 @@
 # Change Log
 
 ## [0.5.0]
-Uses **Java 21** with `jakarta` namespace.
+- Use fuin.org BOM
+- Switched to `jakarta` namespace
+- Uses **Java 17**
 
 ## [0.4.2]
 Uses **Java 8**

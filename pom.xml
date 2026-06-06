@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.fuin</groupId>
         <artifactId>pom</artifactId>
-        <version>2.0.0</version>
+        <version>2.0.2</version>
     </parent>
 
     <groupId>org.fuin.srcgen4j</groupId>
@@ -29,59 +29,47 @@
     </issueManagement>
 
     <properties>
-        <java.version>21</java.version>
-        <maven.compiler.release>${java.version}</maven.compiler.release>
-        <maven.compiler.source>${java.version}</maven.compiler.source>
-        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <srcgen4j-commons.version>0.4.3-SNAPSHOT</srcgen4j-commons.version>
+        <org-fuin-bom.version>1.0.2-SNAPSHOT</org-fuin-bom.version>
+        <objects4j-bom.version>0.11.1-SNAPSHOT</objects4j-bom.version>
 
-        <assertj-core.version>3.26.3</assertj-core.version>
-        <checker-qual.version>3.49.5</checker-qual.version>
-        <commons-io.version>2.20.0</commons-io.version>
-        <error_prone_annotations.version>2.40.0</error_prone_annotations.version>
-        <jakarta.validation-api.version>3.0.2</jakarta.validation-api.version>
-        <jaxb-runtime.version>4.0.5</jaxb-runtime.version>
-        <junit.version>5.9.1</junit.version>
-        <logback-classic.version>1.5.18</logback-classic.version>
-        <objects4j-core.version>0.11.1-SNAPSHOT</objects4j-core.version>
-        <openpojo.version>0.9.1</openpojo.version>
+        <!-- Not managed by the fuin.org BOM -->
+        <checker-qual.version>4.2.0</checker-qual.version>
+        <error_prone_annotations.version>2.5.1</error_prone_annotations.version>
         <org.eclipse.core.runtime.version>3.31.0</org.eclipse.core.runtime.version>
         <org.eclipse.emf.ecore.change.version>2.16.0</org.eclipse.emf.ecore.change.version>
         <org.eclipse.emf.ecore.version>2.36.0</org.eclipse.emf.ecore.version>
         <org.fuin.xsample.dsl.version>0.0.2</org.fuin.xsample.dsl.version>
-        <slf4j-api.version>2.0.6</slf4j-api.version>
-        <srcgen4j-commons.version>0.5.0-SNAPSHOT</srcgen4j-commons.version>
-        <units4j.version>0.12.0</units4j.version>
-        <velocity-engine-core.version>2.4.1</velocity-engine-core.version>
         <xtext.version>2.39.0</xtext.version>
     </properties>
+
+    <dependencyManagement>
+
+        <dependencies>
+
+            <dependency>
+                <groupId>org.fuin</groupId>
+                <artifactId>bom</artifactId>
+                <version>${org-fuin-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.fuin.objects4j</groupId>
+                <artifactId>objects4j-bom</artifactId>
+                <version>${objects4j-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
 
     <dependencies>
 
         <!-- Compile -->
-
-        <dependency>
-            <groupId>org.checkerframework</groupId>
-            <artifactId>checker-qual</artifactId>
-            <version>${checker-qual.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.errorprone</groupId>
-            <artifactId>error_prone_annotations</artifactId>
-            <version>${error_prone_annotations.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-            <version>${jakarta.validation-api.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.fuin.objects4j</groupId>
-            <artifactId>objects4j-core</artifactId>
-            <version>${objects4j-core.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.fuin.srcgen4j</groupId>
@@ -90,15 +78,39 @@
         </dependency>
 
         <dependency>
+            <groupId>org.fuin.objects4j</groupId>
+            <artifactId>objects4j-core</artifactId>
+        </dependency>
+
+        <!-- 3rd party -->
+
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${commons-io.version}</version>
+        </dependency>
+
+        <!-- to be removed -->
+
+        <dependency>
+            <groupId>com.google.errorprone</groupId>
+            <artifactId>error_prone_annotations</artifactId>
+            <version>${error_prone_annotations.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.checkerframework</groupId>
+            <artifactId>checker-qual</artifactId>
+            <version>${checker-qual.version}</version>
         </dependency>
 
         <!-- Technology JARs - Add this dependencies to your POM if you need it -->
@@ -108,7 +120,6 @@
         <dependency>
             <groupId>org.apache.velocity</groupId>
             <artifactId>velocity-engine-core</artifactId>
-            <version>${velocity-engine-core.version}</version>
             <optional>true</optional>
         </dependency>
 
@@ -154,50 +165,37 @@
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
-            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>${jaxb-runtime.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>org.fuin</groupId>
             <artifactId>units4j</artifactId>
-            <version>${units4j.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>com.openpojo</groupId>
             <artifactId>openpojo</artifactId>
-            <version>${openpojo.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback-classic.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -235,11 +233,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jdeps-plugin</artifactId>
             </plugin>
 
             <plugin>

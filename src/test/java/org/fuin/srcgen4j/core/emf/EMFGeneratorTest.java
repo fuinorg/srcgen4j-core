@@ -103,7 +103,7 @@ class EMFGeneratorTest {
 
         final String xml = """
                 <?xml version="1.0" encoding="UTF-8"?>
-                <srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.5.0"
+                <srcgen4j-config xmlns="http://www.fuin.org/srcgen4j/commons/0.4.3"
                                  xmlns:xtext="http://www.fuin.org/srcgen4j/core/xtext/0.5.0"
                                  xmlns:emf="http://www.fuin.org/srcgen4j/core/emf/0.5.0">
                 
@@ -166,7 +166,7 @@ class EMFGeneratorTest {
 /* TODO FIX: "Cannot resolve the name 'sg4jc:variableType' to a(n) 'type definition' component"
    See: https://github.com/fuinorg/srcgen4j-core/issues/2
                 .addClasspathSchemas(
-                        "/srcgen4j-commons-0_5_0.xsd",
+                        "/srcgen4j-commons-0_4_3.xsd",
                         "/srcgen4j-core-base-0_5_0.xsd",
                         "/srcgen4j-core-emf-0_5_0.xsd",
                         "/srcgen4j-core-xtext-0_5_0.xsd")

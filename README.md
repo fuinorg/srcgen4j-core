@@ -3,9 +3,9 @@ Source code generation for Java (Core)
 
 [![Java Maven Build](https://github.com/fuinorg/srcgen4j-core/actions/workflows/maven.yml/badge.svg)](https://github.com/fuinorg/srcgen4j-core/actions/workflows/maven.yml)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin.srcgen4j%3Asrcgen4j-core&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin.srcgen4j%3Asrcgen4j-core)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin.srcgen4j/srcgen4j-core/)
+[![Maven Central](https://img.shields.io/maven-central/v/org.fuin.srcgen4j/srcgen4j-core.svg)](https://central.sonatype.com/artifact/org.fuin.srcgen4j/srcgen4j-core)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
-[![Java Development Kit 21](https://img.shields.io/badge/JDK-21-green.svg)](https://openjdk.java.net/projects/jdk/21/)
+[![Java Development Kit 17](https://img.shields.io/badge/JDK-17-green.svg)](https://openjdk.java.net/projects/jdk/17/)
 
 ## Versions
 See [Change Log](CHANGELOG.md) for version history.
@@ -129,15 +129,15 @@ xxx
 - - - - - - - - -
 
 # Snapshots
-Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
+Snapshots can be found on the [Central Sonatype Snapshot Repository](https://central.sonatype.com/repository/maven-snapshots/ "Snapshot Repository"). 
 
 Add the following to your .m2/settings.xml to enable snapshots in your Maven build:
 
 ```xml
 <repository>
-    <id>sonatype.oss.snapshots</id>
-    <name>Sonatype OSS Snapshot Repository</name>
-    <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+    <id>central.sonatype.snapshots</id>
+    <name>Central Sonatype Snapshot Repository</name>
+    <url>https://central.sonatype.com/repository/maven-snapshots/</url>
     <releases>
         <enabled>false</enabled>
     </releases>
