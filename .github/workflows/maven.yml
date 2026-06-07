@@ -32,7 +32,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v5
       with:
-        java-version: '25'
+        java-version: '21'
         distribution: 'zulu'
         cache: maven
 
@@ -54,21 +54,21 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
 
     - name: Import GPG key
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
       uses: crazy-max/ghaction-import-gpg@v7
       with:
         gpg_private_key: ${{ secrets.OSS_SONATYPE_GPG_PRIVATE_KEY }}
         passphrase: ${{ secrets.OSS_SONATYPE_GPG_PASSPHRASE }}
 
     - name: Build and verify with Maven
-      if: github.event_name != 'push' || (github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop')
+      if: github.event_name != 'push' || (github.ref != 'refs/heads/main' && github.ref != 'refs/heads/develop')
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       run: ./mvnw clean verify -U -B --file pom.xml -s settings.xml
 
     - name: Build and deploy with Maven
-      if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop')
+      if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         OSS_SONATYPE_USERNAME: ${{ secrets.OSS_SONATYPE_USERNAME }}
