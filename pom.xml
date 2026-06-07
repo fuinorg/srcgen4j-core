@@ -43,7 +43,7 @@
         <org.eclipse.emf.ecore.change.version>2.16.0</org.eclipse.emf.ecore.change.version>
         <org.eclipse.emf.ecore.version>2.36.0</org.eclipse.emf.ecore.version>
         <org.fuin.xsample.dsl.version>0.0.2</org.fuin.xsample.dsl.version>
-        <xtext.version>2.39.0</xtext.version>
+        <xtext.version>2.42.0</xtext.version>
     </properties>
 
     <dependencyManagement>
